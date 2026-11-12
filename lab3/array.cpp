@@ -1,0 +1,73 @@
+#include "array.h"
+
+Arr::Arr(int cap = 2) {
+    capacity = cap > 0 ? cap : 2;
+    data = new string[capacity];
+    size = 0;
+}
+
+int Arr::arr_getsz(){
+    return size;
+}
+
+void Arr::arr_resize (int newcap) {
+    string* newdata = new string[newcap];
+    for (int i = 0; i < size; i++) newdata[i] = data[i];
+    delete[] data;
+    data = newdata;
+    capacity = newcap;
+}
+
+string Arr::arr_search (int idx) {
+    if (idx >= size || idx < 0) {
+        cout << "Ошибка: Такого индекса нет\n";
+        return "";
+    }
+    return data[idx];
+}
+
+void Arr::arr_insert_tail (string val){
+    if (size >= capacity) arr_resize(capacity*2);
+    data[size] = val;
+    size++;
+}
+
+void Arr::arr_insert_idx (string val, int idx){
+    if (idx > size || idx < 0) {
+        cout << "Ошибка: Такого индекса нет\n";
+        return;
+    }
+    if (size >= capacity) arr_resize(capacity*2);
+    for (int i = size; i > idx; --i) {
+        data[i] = data[i-1];
+    }
+    data[idx] = val;
+    size++;
+}
+
+void Arr::arr_delete_idx (int idx){
+    if (idx >= size || idx < 0) {
+        cout << "Ошибка: Такого индекса нет\n";
+        return;
+    }
+    for (int i = idx; i < size - 1; ++i) {
+        data[i] = data[i+1];
+    }
+    size--;
+}
+
+void Arr::arr_change_idx (string val, int idx){
+    if (idx >= size || idx < 0) {
+        cout << "Ошибка: Такого индекса нет\n";
+        return;
+    }
+    data[idx] = val;
+}
+
+void Arr::arr_print(){
+    cout << "Массив: ";
+    for (int i = 0; i < size; ++i) cout << data[i] << " ";
+    cout << endl;
+}
+
+Arr::~Arr() { delete[] data; }
