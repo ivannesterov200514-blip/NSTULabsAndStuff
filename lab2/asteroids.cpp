@@ -1,4 +1,4 @@
-#include "t1.h"
+#include "asteroids.h"
 #include <vector>
 
 void ast_push (AStack* s, uint64_t mass, char dir) {
