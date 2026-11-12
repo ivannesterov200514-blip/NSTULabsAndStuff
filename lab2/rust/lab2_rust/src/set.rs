@@ -86,7 +86,6 @@ fn parse_nonnegative_u64(value: &str) -> Option<u64> {
     value.parse::<u64>().ok()
 }
 
-/// Решение задачи о черепахах. Формат аргументов: TURTLES N a1 b1 ... aN bN.
 pub fn turtles(tokens: &[String]) -> bool {
     let n = match tokens.get(1).and_then(|s| parse_nonnegative_u64(s)) {
         Some(value) => value,

@@ -4,7 +4,6 @@ pub struct Asteroid {
     pub direction: char,
 }
 
-/// Разбирает строку: числа задают массы, R/L — направления астероидов.
 pub fn parse(text: &str) -> Result<Vec<Asteroid>, String> {
     let bytes = text.as_bytes();
     let mut masses = Vec::<u64>::new();
@@ -47,7 +46,6 @@ pub fn parse(text: &str) -> Result<Vec<Asteroid>, String> {
         .collect())
 }
 
-/// Возвращает стек выживших астероидов (верх стека находится в конце Vec).
 pub fn resolve(input: &[Asteroid]) -> Vec<Asteroid> {
     let mut output = Vec::<Asteroid>::new();
     for asteroid in input.iter().copied() {
