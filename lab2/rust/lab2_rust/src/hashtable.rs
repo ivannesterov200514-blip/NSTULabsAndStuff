@@ -294,7 +294,6 @@ impl CuckooTable {
     }
 }
 
-/// Проверяет описание генеалогического дерева и печатает число потомков и дерево.
 pub fn genealogy(tokens: &[String]) -> bool {
     let n = tokens
         .get(1)

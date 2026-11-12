@@ -36,7 +36,6 @@ impl Arr {
         }
     }
 
-    /// Строит гистограмму по первому байту каждой строки, как в C++-версии.
     pub fn histogram(&self) {
         let mut counts = [0usize; 128];
         for item in &self.data {
