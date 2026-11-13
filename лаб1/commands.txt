@@ -1,0 +1,142 @@
+ШПАРГАЛКА ПО КОМАНДАМ dbms
+==========================
+
+СБОРКА И ЗАПУСК
+---------------
+Сборка:
+    make clean && make
+
+Формат запуска:
+    ./dbms --file file.data --query 'КОМАНДА имя [аргументы]'
+
+Обозначения:
+    name - имя контейнера (mystack, myarr, mytree ...)
+    val  - значение, которое кладем
+    key  - значение уже существующего элемента (ориентир)
+    idx  - индекс элемента, нумерация с нуля
+
+
+ПРАВИЛА
+-------
+ * Запрос всегда в одинарных кавычках.
+ * Команды не зависят от регистра (spush = SPUSH).
+ * Имена и значения зависят от регистра (MyStack и mystack - разные).
+ * Значения не могут содержать пробелы.
+ * Одна команда за один запуск. Данные сохраняются в файл и
+   подхватываются при следующем запуске.
+ * Команды вставки (MPUSH, FPUSHHEAD, FPUSHTAIL, LPUSHHEAD, LPUSHTAIL,
+   SPUSH, QPUSH, TINSERT) сами создают контейнер, если его нет.
+   Остальные команды на несуществующий контейнер выдают ошибку.
+ * Одно имя нельзя занять двумя разными структурами.
+ * Если файла нет, он создается при первом изменении данных.
+
+
+ОБЩАЯ КОМАНДА
+-------------
+PRINT name                  вывести любую структуру на экран
+
+
+МАССИВ (M)
+----------
+MCREATE name                создать пустой массив
+MPUSH name val              добавить в конец
+MINSERT name idx val        вставить по индексу
+MGET name idx               получить элемент по индексу
+MDEL name idx               удалить элемент по индексу
+MSET name idx val           заменить элемент по индексу
+MLEN name                   длина массива
+
+
+ОДНОСВЯЗНЫЙ СПИСОК (F)
+----------------------
+FCREATE name                создать пустой список
+FPUSHHEAD name val          добавить в голову
+FPUSHTAIL name val          добавить в хвост
+FPUSHBEFORE name key val    добавить перед элементом key
+FPUSHAFTER name key val     добавить после элемента key
+FDELHEAD name               удалить голову
+FDELTAIL name               удалить хвост
+FDELBEFORE name key         удалить элемент перед key
+FDELAFTER name key          удалить элемент после key
+FDEL name key               удалить по значению
+FGET name key               найти по значению
+FPRINTREC name              вывести рекурсивно (второй способ чтения)
+
+
+ДВУСВЯЗНЫЙ СПИСОК (L)
+---------------------
+Те же команды, что у односвязного, но с буквой L:
+LCREATE name
+LPUSHHEAD name val
+LPUSHTAIL name val
+LPUSHBEFORE name key val
+LPUSHAFTER name key val
+LDELHEAD name
+LDELTAIL name
+LDELBEFORE name key
+LDELAFTER name key
+LDEL name key
+LGET name key
+LPRINTREC name
+
+
+СТЕК (S)
+--------
+SCREATE name                создать пустой стек
+SPUSH name val              положить на вершину (выводит val)
+SPOP name                   снять вершину и вывести ее
+
+
+ОЧЕРЕДЬ (Q)
+-----------
+QCREATE name                создать пустую очередь
+QPUSH name val              добавить в хвост (выводит val)
+QPOP name                   взять из головы и вывести
+
+
+АВЛ-ДЕРЕВО (T)
+--------------
+TCREATE name                создать пустое дерево
+TINSERT name val            добавить ключ
+TDEL name val               удалить ключ
+TGET name val               есть ли ключ: TRUE или FALSE
+ISMEMBER name val           то же, что TGET
+
+Примечание: ключи сравниваются как строки, поэтому "10" < "2".
+Для отчета удобнее брать числа одной длины (01, 02, 03 ...) или буквы.
+PRINT выводит дерево по уровням (обход в ширину).
+
+
+ПРИМЕРЫ
+-------
+./dbms --file file.data --query 'SPUSH mystack item'      -> item
+./dbms --file file.data --query 'SPUSH mystack item2'     -> item2
+./dbms --file file.data --query 'PRINT mystack'
+./dbms --file file.data --query 'SPOP mystack'            -> item2
+
+./dbms --file file.data --query 'QPUSH myqueue a'         -> a
+./dbms --file file.data --query 'QPOP myqueue'            -> a
+
+./dbms --file file.data --query 'MPUSH myarr 10'
+./dbms --file file.data --query 'MINSERT myarr 0 5'
+./dbms --file file.data --query 'MGET myarr 1'            -> 10
+
+./dbms --file file.data --query 'FPUSHTAIL mylist a'
+./dbms --file file.data --query 'FPUSHAFTER mylist a b'
+./dbms --file file.data --query 'FDEL mylist a'
+
+./dbms --file file.data --query 'TINSERT mytree 05'
+./dbms --file file.data --query 'ISMEMBER mytree 05'      -> TRUE
+./dbms --file file.data --query 'PRINT mytree'
+
+
+ФОРМАТ ФАЙЛА ДАННЫХ
+-------------------
+Одна строка = один контейнер:  <тип> <имя> <элементы через пробел>
+
+    M myarr 10 20 30          массив: с начала до конца
+    F mylist a b c            односвязный список: с головы до хвоста
+    L mylist2 a b c           двусвязный список: с головы до хвоста
+    S mystack c b a           стек: от вершины вниз
+    Q myqueue a b c           очередь: от головы к хвосту
+    T mytree 5 2 8            дерево: по уровням (сверху вниз, слева направо)
