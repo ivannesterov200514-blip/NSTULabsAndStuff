@@ -27,18 +27,32 @@ void TestNeg() {
     Check(sum(-2,-2), -4, "from TestNeg");
 }
 
-template <typename T>
-void UnitTestModule(T t, const string& str) {
-    try {
-        t();
-    } catch (runtime_error& re) {
-        cerr << re.what() << " in " << str << endl;
+class UnitClass {
+public:
+    template <typename T>
+    void UnitTestModule(T t, const string& str) {
+        try {
+            t();
+            cout << str << " is fine ;)\n";
+        } catch (runtime_error& re) {
+            cerr << re.what() << " in " << str << endl;
+            bTest++;
+        }
     }
-}
+
+    ~UnitClass() {
+        cerr << "Number of bugs: " << bTest << endl;
+        if (bTest > 0) exit(1);
+    }
+
+private:
+    int bTest = 0;
+};
 
 void UnitTests() {
-    UnitTestModule(TestPlus, "Block 1");
-    UnitTestModule(TestNeg, "Block 2");
+    UnitClass unitClass;
+    unitClass.UnitTestModule(TestPlus, "Block 1");
+    unitClass.UnitTestModule(TestNeg, "Block 2");
 }
 
 int main() {
@@ -56,6 +70,6 @@ int main() {
     // }
 
     UnitTests();
-
+    cout << "soska" << endl;
     return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -39,5 +40,6 @@ public:
     void dl_print_iter();
     void printrecurs(SNode* c);
     void dl_print_rec();
+    vector<string> dl_items() const;
     ~DList();
-};
+};

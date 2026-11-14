@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -35,7 +36,8 @@ public:
     void t_delete(int val);
     bool t_search(int val);
     void t_print_wide();
+    vector<int> t_items() const;
 
     void t_free(TNode* t);
     ~AVLTree();
-};
+};

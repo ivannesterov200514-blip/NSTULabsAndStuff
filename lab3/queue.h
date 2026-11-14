@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -23,5 +24,6 @@ public:
     void q_push(string val);
     void q_pop();
     void q_print();
+    vector<string> q_items() const;
     ~Queue();
-};
+};

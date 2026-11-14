@@ -1,6 +1,6 @@
 #include "array.h"
 
-Arr::Arr(int cap = 2) {
+Arr::Arr(int cap) {
     capacity = cap > 0 ? cap : 2;
     data = new string[capacity];
     size = 0;
@@ -70,4 +70,4 @@ void Arr::arr_print(){
     cout << endl;
 }
 
-Arr::~Arr() { delete[] data; }
+Arr::~Arr() { delete[] data; }

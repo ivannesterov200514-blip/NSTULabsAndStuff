@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -22,5 +23,6 @@ public:
     void st_push(string val);
     void st_pop();
     void st_print();
+    vector<string> st_items() const;
     ~Stack();
-};
+};

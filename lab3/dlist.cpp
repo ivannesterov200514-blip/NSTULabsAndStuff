@@ -2,7 +2,7 @@
 
 DList::SNode::SNode(string val, SNode* nx, SNode* pv) : data(val), next(nx), prev(pv) {}
 
-DList::DList(SNode* n = nullptr) : head(n), tail(n), sz(n ? 1 : 0) {}
+DList::DList(SNode* n) : head(n), tail(n), sz(n ? 1 : 0) {}
 
 DList::SNode* DList::dl_find(string key) {
     SNode* cur = head;
@@ -166,10 +166,16 @@ void DList::dl_print_rec() {
     printrecurs(head);
 }
 
+vector<string> DList::dl_items() const {
+    vector<string> res;
+    for (SNode* cur = head; cur != nullptr; cur = cur->next) res.push_back(cur->data);
+    return res;
+}
+
 DList::~DList() {
     while (head != nullptr) {
         SNode* v = head;
         head = head->next;
         delete v;
     }
-}
+}

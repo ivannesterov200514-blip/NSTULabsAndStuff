@@ -3,7 +3,7 @@
 
 AVLTree::TNode::TNode(int k) : key(k), left(nullptr), right(nullptr), height(1) {}
 
-AVLTree::AVLTree(TNode* n = nullptr) : root(n) {}
+AVLTree::AVLTree(TNode* n) : root(n) {}
 
 int AVLTree::getheight(TNode* t) {
     return t ? t->height : 0;
@@ -157,6 +157,18 @@ void AVLTree::t_print_wide() {
 }
 
 
+vector<int> AVLTree::t_items() const {
+    vector<int> res;
+    vector<TNode*> q;
+    if (root != nullptr) q.push_back(root);
+    for (size_t i = 0; i < q.size(); ++i) {
+        res.push_back(q[i]->key);
+        if (q[i]->left != nullptr) q.push_back(q[i]->left);
+        if (q[i]->right != nullptr) q.push_back(q[i]->right);
+    }
+    return res;
+}
+
 void AVLTree::t_free(TNode* t){
     if (t == nullptr) return;
     t_free(t->left);
@@ -166,4 +178,4 @@ void AVLTree::t_free(TNode* t){
 
 AVLTree::~AVLTree() {
     t_free(root);
-}
+}
