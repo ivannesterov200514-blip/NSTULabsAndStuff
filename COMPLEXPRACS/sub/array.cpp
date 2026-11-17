@@ -13,7 +13,7 @@ int Arr::arr_getsz(){
 
 void Arr::arr_resize (int newcap) {
     if (newcap <= 0 || newcap < size) {
-        throw std::invalid_argument("arr_resize: new capacity is smaller than size");
+        throw invalid_argument("resize(arr): new capacity is smaller than size");
     }
     Task* newdata = new Task[newcap];
     for (int i = 0; i < size; i++) newdata[i] = data[i];
@@ -39,27 +39,9 @@ void Arr::arr_insert_tail (Task* val) {
     size++;
 }
 
-void Arr::arr_insert_idx (Task* val, int idx) {
-    if (val == nullptr) {
-        throw invalid_argument("Пустой указатель");
-    }
-
-    if (idx > size || idx < 0) {
-        cout << "Ошибка: Такого индекса нет\n";
-        return;
-    }
-    if (size >= capacity) arr_resize(capacity*2);
-    for (int i = size; i > idx; --i) {
-        data[i] = data[i-1];
-    }
-    data[idx] = *val;
-    size++;
-}
-
 void Arr::arr_delete_idx (int idx){
     if (idx >= size || idx < 0) {
-        cout << "Ошибка: Такого индекса нет\n";
-        return;
+        throw out_of_range("Такого индекса нет");
     }
     for (int i = idx; i < size - 1; ++i) {
         data[i] = data[i+1];
