@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # cmake -DENABLE_COVERAGE=ON .. включает измерение покрытия (gcov/lcov)
 option(ENABLE_COVERAGE "Build with coverage instrumentation" OFF)
+option(BUILD_UNIT_TESTS "Build GTest, Boost.Test and Catch2 tests" ON)
 
 # Все структуры данных (без main.cpp) собираются в одну библиотеку,
 # с которой линкуются тесты.
@@ -27,7 +28,26 @@ if(ENABLE_COVERAGE)
     target_link_options(structs PUBLIC --coverage)
 endif()
 
+# Консольная программа и бенчмарк работают без библиотек тестирования.
+add_executable(dbms main.cpp binary_storage.cpp)
+target_link_libraries(dbms PRIVATE structs)
+
+add_executable(benchmark_cpp bench/benchmark.cpp)
+target_link_libraries(benchmark_cpp PRIVATE structs)
+target_compile_options(benchmark_cpp PRIVATE -O2)
+
+add_executable(test_safety tests/test_safety.cpp)
+target_link_libraries(test_safety PRIVATE structs)
+
 enable_testing()
+add_test(NAME safety COMMAND test_safety)
+find_package(Python3 COMPONENTS Interpreter QUIET)
+if(Python3_Interpreter_FOUND)
+    add_test(NAME cli_roundtrip COMMAND ${Python3_EXECUTABLE}
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_cli.py $<TARGET_FILE:dbms>)
+endif()
+
+if(BUILD_UNIT_TESTS)
 
 # ---------- Google Test: ulist, dlist ----------
 find_package(GTest REQUIRED)
@@ -61,3 +81,5 @@ add_executable(test_catch2
 target_include_directories(test_catch2 PRIVATE tests)
 target_link_libraries(test_catch2 PRIVATE structs Catch2::Catch2WithMain)
 add_test(NAME catch2 COMMAND test_catch2)
+
+endif() # BUILD_UNIT_TESTS

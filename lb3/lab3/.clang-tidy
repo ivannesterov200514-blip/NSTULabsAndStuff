@@ -1,0 +1,4 @@
+Checks: '-*,clang-analyzer-*,bugprone-*,performance-*'
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*(array|ulist|dlist|stack|queue|avltree|hashtable|binary_storage)\.h'
+FormatStyle: none

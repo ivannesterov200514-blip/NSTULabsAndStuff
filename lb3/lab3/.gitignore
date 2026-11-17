@@ -1,0 +1,9 @@
+dbms
+benchmark_cpp
+build/
+build-coverage/
+*.gcda
+*.gcno
+*.gcov
+*.data
+*.bin

@@ -5,8 +5,10 @@
 #include "ulist.h"
 #include "avltree.h"
 #include "hashtable.h"
+#include "binary_storage.h"
 
 #include <fstream>
+#include <iomanip>
 #include <sstream>
 #include <map>
 #include <vector>
@@ -87,7 +89,56 @@ static bool to_key(const string& s, int& x) {
     return ok;
 }
 
+// Собираем структурированные записи для настоящего бинарного формата.
+static vector<BinaryRecord> collect_records(Db& db) {
+    vector<BinaryRecord> result;
+    for (auto& p : db.arrs) {
+        BinaryRecord r{'M', p.first, {}};
+        for (int i = 0; i < p.second->arr_getsz(); ++i) r.values.push_back(p.second->arr_search(i));
+        result.push_back(r);
+    }
+    for (auto& p : db.uls) {
+        BinaryRecord r{'F', p.first, {}};
+        for (auto& kv : p.second->ul_get_pairs()) r.values.push_back(kv.first);
+        result.push_back(r);
+    }
+    for (auto& p : db.dls) result.push_back({'L', p.first, p.second->dl_items()});
+    for (auto& p : db.sts) result.push_back({'S', p.first, p.second->st_items()});
+    for (auto& p : db.qs) result.push_back({'Q', p.first, p.second->q_items()});
+    for (auto& p : db.trs) {
+        BinaryRecord r{'T', p.first, {}};
+        for (int v : p.second->t_items()) r.values.push_back(to_string(v));
+        result.push_back(r);
+    }
+    for (auto& p : db.cts) {
+        BinaryRecord r{'C', p.first, {}};
+        for (auto& kv : p.second->ct_get_all()) {
+            r.values.push_back(kv.first);
+            r.values.push_back(kv.second);
+        }
+        result.push_back(r);
+    }
+    for (auto& p : db.cus) {
+        BinaryRecord r{'K', p.first, {}};
+        for (auto& kv : p.second->cu_get_all()) {
+            r.values.push_back(kv.first);
+            r.values.push_back(kv.second);
+        }
+        result.push_back(r);
+    }
+    return result;
+}
+
+static bool is_binary_file(const string& path) {
+    return path.size() >= 4 && path.compare(path.size() - 4, 4, ".bin") == 0;
+}
+
 static void save_db(Db& db, const string& file) {
+    if (is_binary_file(file)) {
+        if (!write_binary_records(file, collect_records(db)))
+            cout << "Ошибка: Не удалось записать бинарный файл " << file << "\n";
+        return;
+    }
     ofstream out(file);
     if (!out) {
         cout << "Ошибка: Не удалось записать файл " << file << "\n";
@@ -136,10 +187,73 @@ static void save_db(Db& db, const string& file) {
     }
 }
 
-static void load_db(Db& db, const string& file) {
-    ifstream in(file);
-    if (!in) return;
+static void load_record(Db& db, const string& type, const string& name,
+                        const vector<string>& vals) {
+        if (type == "M") {
+            Arr* a = get_or_create(db, db.arrs, name, 'M');
+            if (a == nullptr) return;
+            for (size_t i = 0; i < vals.size(); ++i) a->arr_insert_tail(vals[i]);
+        } else if (type == "F") {
+            UList* l = get_or_create(db, db.uls, name, 'F');
+            if (l == nullptr) return;
+            for (size_t i = 0; i < vals.size(); ++i) l->ul_insert_tail(vals[i]);
+        } else if (type == "L") {
+            DList* l = get_or_create(db, db.dls, name, 'L');
+            if (l == nullptr) return;
+            for (size_t i = 0; i < vals.size(); ++i) l->dl_insert_tail(vals[i]);
+        } else if (type == "S") {
+            Stack* s = get_or_create(db, db.sts, name, 'S');
+            if (s == nullptr) return;
+            // в файле порядок от вершины к дну, поэтому пушим с конца
+            for (size_t i = vals.size(); i > 0; --i) s->st_push(vals[i - 1]);
+        } else if (type == "Q") {
+            Queue* q = get_or_create(db, db.qs, name, 'Q');
+            if (q == nullptr) return;
+            for (size_t i = 0; i < vals.size(); ++i) q->q_push(vals[i]);
+        } else if (type == "T") {
+            AVLTree* t = get_or_create(db, db.trs, name, 'T');
+            if (t == nullptr) return;
+            for (size_t i = 0; i < vals.size(); ++i) {
+                int key;
+                if (to_key(vals[i], key)) t->t_insert(key);
+            }
+        } else if (type == "C") {
+            ChainTable* h = get_or_create(db, db.cts, name, 'C');
+            if (h == nullptr) return;
+            if (vals.size() % 2 != 0) {
+                cout << "Ошибка: Некорректная запись хеш-таблицы " << name << " в файле\n";
+                return;
+            }
+            for (size_t i = 0; i + 1 < vals.size(); i += 2) h->ct_put(vals[i], vals[i + 1]);
+        } else if (type == "K") {
+            CuckooTable* h = get_or_create(db, db.cus, name, 'K');
+            if (h == nullptr) return;
+            if (vals.size() % 2 != 0) {
+                cout << "Ошибка: Некорректная запись хеш-таблицы " << name << " в файле\n";
+                return;
+            }
+            for (size_t i = 0; i + 1 < vals.size(); i += 2) h->cu_put(vals[i], vals[i + 1]);
+        } else {
+            cout << "Ошибка: Неизвестный тип структуры в файле: " << type << "\n";
+        }
+ }
 
+static bool load_db(Db& db, const string& file) {
+    if (is_binary_file(file)) {
+        ifstream probe(file, ios::binary);
+        if (!probe) return true;  // Новый файл: следующий изменяющий запрос его создаст.
+        probe.close();
+        vector<BinaryRecord> records;
+        if (!read_binary_records(file, records)) {
+            cout << "Ошибка: Повреждённый или неподдерживаемый бинарный файл " << file << "\n";
+            return false;
+        }
+        for (const auto& r : records)
+            load_record(db, string(1, r.type), r.name, r.values);
+        return true;
+    }
+    ifstream in(file);
+    if (!in) return true;
     string line;
     while (getline(in, line)) {
         istringstream ss(line);
@@ -147,55 +261,9 @@ static void load_db(Db& db, const string& file) {
         if (!(ss >> type >> name)) continue;
         vector<string> vals;
         while (ss >> tok) vals.push_back(tok);
-
-        if (type == "M") {
-            Arr* a = get_or_create(db, db.arrs, name, 'M');
-            if (a == nullptr) continue;
-            for (size_t i = 0; i < vals.size(); ++i) a->arr_insert_tail(vals[i]);
-        } else if (type == "F") {
-            UList* l = get_or_create(db, db.uls, name, 'F');
-            if (l == nullptr) continue;
-            for (size_t i = 0; i < vals.size(); ++i) l->ul_insert_tail(vals[i]);
-        } else if (type == "L") {
-            DList* l = get_or_create(db, db.dls, name, 'L');
-            if (l == nullptr) continue;
-            for (size_t i = 0; i < vals.size(); ++i) l->dl_insert_tail(vals[i]);
-        } else if (type == "S") {
-            Stack* s = get_or_create(db, db.sts, name, 'S');
-            if (s == nullptr) continue;
-            // в файле порядок от вершины к дну, поэтому пушим с конца
-            for (size_t i = vals.size(); i > 0; --i) s->st_push(vals[i - 1]);
-        } else if (type == "Q") {
-            Queue* q = get_or_create(db, db.qs, name, 'Q');
-            if (q == nullptr) continue;
-            for (size_t i = 0; i < vals.size(); ++i) q->q_push(vals[i]);
-        } else if (type == "T") {
-            AVLTree* t = get_or_create(db, db.trs, name, 'T');
-            if (t == nullptr) continue;
-            for (size_t i = 0; i < vals.size(); ++i) {
-                int key;
-                if (to_key(vals[i], key)) t->t_insert(key);
-            }
-        } else if (type == "C") {
-            ChainTable* h = get_or_create(db, db.cts, name, 'C');
-            if (h == nullptr) continue;
-            if (vals.size() % 2 != 0) {
-                cout << "Ошибка: Некорректная запись хеш-таблицы " << name << " в файле\n";
-                continue;
-            }
-            for (size_t i = 0; i + 1 < vals.size(); i += 2) h->ct_put(vals[i], vals[i + 1]);
-        } else if (type == "K") {
-            CuckooTable* h = get_or_create(db, db.cus, name, 'K');
-            if (h == nullptr) continue;
-            if (vals.size() % 2 != 0) {
-                cout << "Ошибка: Некорректная запись хеш-таблицы " << name << " в файле\n";
-                continue;
-            }
-            for (size_t i = 0; i + 1 < vals.size(); i += 2) h->cu_put(vals[i], vals[i + 1]);
-        } else {
-            cout << "Ошибка: Неизвестный тип структуры в файле: " << type << "\n";
-        }
+        load_record(db, type, name, vals);
     }
+    return true;
 }
 
 static void print_any(Db& db, const string& name) {
@@ -603,14 +671,14 @@ int main(int argc, char* argv[]) {
         else if (strcmp(argv[i], "--query") == 0 && i + 1 < argc) query = argv[++i];
     }
     if (file.empty() || query.empty()) {
-        cout << "Использование: ./dbms --file file.data --query 'КОМАНДА имя [аргументы]'\n";
+        cout << "Использование: ./dbms --file file.data|file.bin --query 'КОМАНДА имя [аргументы]'\n";
         return 1;
     }
 
     vector<string> t;
     istringstream ss(query);
     string tok;
-    while (ss >> tok) t.push_back(tok);
+    while (ss >> std::quoted(tok)) t.push_back(tok);
     if (t.empty()) {
         cout << "Ошибка: Пустой запрос\n";
         return 1;
@@ -629,7 +697,7 @@ int main(int argc, char* argv[]) {
     }
 
     Db db;
-    load_db(db, file);
+    if (!load_db(db, file)) return 1;
     run(db, info->cmd, t);
 
     if (info->changes) save_db(db, file);

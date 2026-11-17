@@ -1,10 +1,11 @@
 // Catch2 (v3): динамический массив Arr.
 //
-// Внимание: у Arr нет копирующего конструктора (владеет сырым указателем),
-// поэтому в тестах объекты никогда не копируются и не передаются по значению.
+// Arr запрещает копирование, чтобы избежать двойного освобождения памяти.
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>
+#include <stdexcept>
+#include <type_traits>
 #include <vector>
 
 #include "array.h"
@@ -231,4 +232,18 @@ TEST_CASE("Arr: arr_print format", "[array]") {
         string out = capture_output([&] { a.arr_print(); });
         REQUIRE(out == "Массив: a b \n");
     }
+}
+
+TEST_CASE("Arr: unsafe shallow copy is disabled", "[array][safety]") {
+    STATIC_REQUIRE_FALSE(std::is_copy_constructible<Arr>::value);
+    STATIC_REQUIRE_FALSE(std::is_copy_assignable<Arr>::value);
+}
+
+TEST_CASE("Arr: invalid resize is rejected without damaging elements", "[array][safety]") {
+    Arr a;
+    a.arr_insert_tail("one");
+    a.arr_insert_tail("two");
+    REQUIRE_THROWS_AS(a.arr_resize(1), std::invalid_argument);
+    REQUIRE_THROWS_AS(a.arr_resize(0), std::invalid_argument);
+    REQUIRE(contents(a) == Strings{"one", "two"});
 }

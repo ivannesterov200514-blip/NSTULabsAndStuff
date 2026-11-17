@@ -1,4 +1,5 @@
 #include "array.h"
+#include <stdexcept>
 
 Arr::Arr(int cap) {
     capacity = cap > 0 ? cap : 2;
@@ -11,6 +12,10 @@ int Arr::arr_getsz(){
 }
 
 void Arr::arr_resize (int newcap) {
+    // При уменьшении нельзя потерять элементы или выделить 0 ячеек.
+    if (newcap <= 0 || newcap < size) {
+        throw std::invalid_argument("arr_resize: new capacity is smaller than size");
+    }
     string* newdata = new string[newcap];
     for (int i = 0; i < size; i++) newdata[i] = data[i];
     delete[] data;
@@ -70,4 +75,4 @@ void Arr::arr_print(){
     cout << endl;
 }
 
-Arr::~Arr() { delete[] data; }
+Arr::~Arr() { delete[] data; }

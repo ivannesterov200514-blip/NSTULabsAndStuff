@@ -20,9 +20,12 @@ private:
     int sz;
 public:
     Stack(STNode* n = nullptr);
+    // Владеем памятью: запрещаем поверхностное копирование и double free.
+    Stack(const Stack&) = delete;
+    Stack& operator=(const Stack&) = delete;
     void st_push(string val);
     void st_pop();
     void st_print();
     vector<string> st_items() const;
     ~Stack();
-};
+};

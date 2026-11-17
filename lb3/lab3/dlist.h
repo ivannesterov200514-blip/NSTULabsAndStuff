@@ -22,6 +22,9 @@ private:
     int sz;
 public:
     DList(SNode* n = nullptr);
+    // Владеем памятью: запрещаем поверхностное копирование и double free.
+    DList(const DList&) = delete;
+    DList& operator=(const DList&) = delete;
     SNode* dl_find(string key);
     void dl_unlink(SNode* v);
 
@@ -42,4 +45,4 @@ public:
     void dl_print_rec();
     vector<string> dl_items() const;
     ~DList();
-};
+};

@@ -21,6 +21,9 @@ private:
     TNode* root;
 public:
     AVLTree(TNode* n = nullptr);
+    // Владеем памятью: запрещаем поверхностное копирование и double free.
+    AVLTree(const AVLTree&) = delete;
+    AVLTree& operator=(const AVLTree&) = delete;
     int getheight(TNode* t);
     int getbalance(TNode* t);
     TNode* rotate_right (TNode* y);
@@ -40,4 +43,4 @@ public:
 
     void t_free(TNode* t);
     ~AVLTree();
-};
+};
