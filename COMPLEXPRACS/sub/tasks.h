@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Task {
+struct Task {
     int id;
     string type;
     string payload;

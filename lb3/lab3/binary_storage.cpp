@@ -3,12 +3,9 @@
 #include <cstdint>
 #include <fstream>
 
-// Чтобы повреждённый файл не занимал всю память при загрузке.
 const std::uint32_t MAX_RECORDS = 1000000;
 const std::uint32_t MAX_STRING_SIZE = 1024 * 1024;
 
-// Число записывается в 4 байта (сначала младший байт).
-// Такой порядок не зависит от процессора и одинаков на Linux и Windows.
 static bool write_number(std::ofstream& file, std::uint32_t number) {
     for (int i = 0; i < 4; i++) {
         file.put((char)(number & 255));
@@ -27,7 +24,6 @@ static bool read_number(std::ifstream& file, std::uint32_t& number) {
     return true;
 }
 
-// Перед самой строкой записываем её длину, чтобы пробелы сохранялись правильно.
 static bool write_string(std::ofstream& file, const std::string& value) {
     if (value.size() > MAX_STRING_SIZE) return false;
     if (!write_number(file, (std::uint32_t)value.size())) return false;
@@ -56,8 +52,8 @@ bool write_binary_records(const std::string& filename,
     std::ofstream file(filename, std::ios::binary);
     if (!file.is_open()) return false;
 
-    file.write("LB3B", 4); // Признак нашего формата.
-    if (!write_number(file, 1)) return false; // Версия файла.
+    file.write("LB3B", 4);
+    if (!write_number(file, 1)) return false;
     if (!write_number(file, (std::uint32_t)records.size())) return false;
 
     for (const BinaryRecord& record : records) {
@@ -100,9 +96,8 @@ bool read_binary_records(const std::string& filename,
         loaded.push_back(record);
     }
 
-    // Если после последнего значения остались байты, файл некорректен.
     if (file.peek() != -1) return false;
     if (file.bad()) return false;
-    records = loaded; // При ошибке исходный список записей не изменяется.
+    records = loaded;
     return true;
 }

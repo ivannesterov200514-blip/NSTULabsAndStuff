@@ -1,6 +1,3 @@
-// Catch2 (v3): динамический массив Arr.
-//
-// Arr запрещает копирование, чтобы избежать двойного освобождения памяти.
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>

@@ -11,9 +11,8 @@ private:
     int size;
     int capacity;
 public:
-    Arr(int cap = 2);
-    Arr(const Arr&) = delete;
-    Arr& operator=(const Arr&) = delete;
+    Arr(int cap);
+
     void arr_resize (int newcap);
     Task* arr_search (int idx);
     void arr_insert_tail (Task* val);

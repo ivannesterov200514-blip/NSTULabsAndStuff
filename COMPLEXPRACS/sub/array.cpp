@@ -24,19 +24,26 @@ void Arr::arr_resize (int newcap) {
 
 Task* Arr::arr_search (int idx) {
     if (idx >= size || idx < 0) {
-        cout << "Ошибка: Такого индекса нет\n";
-        return nullptr;
+        throw out_of_range("Такого индекса нет");
     }
     return &data[idx];
 }
 
-void Arr::arr_insert_tail (Task* val){
+void Arr::arr_insert_tail (Task* val) {
+    if (val == nullptr) {
+        throw invalid_argument("Пустой указатель");
+    }
+
     if (size >= capacity) arr_resize(capacity*2);
     data[size] = *val;
     size++;
 }
 
-void Arr::arr_insert_idx (Task* val, int idx){
+void Arr::arr_insert_idx (Task* val, int idx) {
+    if (val == nullptr) {
+        throw invalid_argument("Пустой указатель");
+    }
+
     if (idx > size || idx < 0) {
         cout << "Ошибка: Такого индекса нет\n";
         return;
@@ -61,6 +68,10 @@ void Arr::arr_delete_idx (int idx){
 }
 
 void Arr::arr_change_idx (Task* val, int idx){
+    if (val == nullptr) {
+        throw invalid_argument("Пустой указатель");
+    }
+
     if (idx >= size || idx < 0) {
         cout << "Ошибка: Такого индекса нет\n";
         return;
@@ -70,7 +81,9 @@ void Arr::arr_change_idx (Task* val, int idx){
 
 void Arr::arr_print(){
     cout << "Массив: ";
-    for (int i = 0; i < size; ++i) cout << data[i] << " ";
+    for (int i = 0; i < size; ++i) {
+        cout << data[i].id << " ";
+    }
     cout << endl;
 }
 
