@@ -13,7 +13,7 @@ private:
 public:
     Arr(int cap);
 
-    void arr_resize (int newcap);
+    void arr_resize (int newcap = 2);
     Task* arr_search (int idx);
     void arr_insert_tail (Task* val);
     void arr_insert_idx (Task* val, int idx);

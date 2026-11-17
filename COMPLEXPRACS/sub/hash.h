@@ -1,17 +1,15 @@
 #pragma once
 #include "array.h"
-
 #include <iostream>
+#include <stdint.h>
+
 using namespace std;
 
 struct HashNode {
-    Task* task;
+    uint64_t id;
+    int index;
     HashNode* next;
 };
-
-int hash(int id) {
-
-}
 
 class HashTable {
 private:
@@ -20,6 +18,8 @@ private:
     int size;
 public:
     HashTable(int cap = 2);
+
+    uint64_t hash(uint64_t id);
 
     void hash_insert(Task* val);
     Task* hash_search(int id);
