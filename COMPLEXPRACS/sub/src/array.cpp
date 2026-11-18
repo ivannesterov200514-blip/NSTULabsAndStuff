@@ -55,8 +55,7 @@ void Arr::arr_change_idx (Task* val, int idx){
     }
 
     if (idx >= size || idx < 0) {
-        cout << "Ошибка: Такого индекса нет\n";
-        return;
+        throw out_of_range("Такого индекса нет");
     }
     data[idx] = *val;
 }

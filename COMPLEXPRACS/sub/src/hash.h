@@ -16,6 +16,8 @@ private:
     HashNode** table;
     int capacity;
     int size;
+    int resize_count;
+    double max_load_factor;
 public:
     HashTable(int cap = 2);
     HashTable(const HashTable&) = delete;
@@ -29,5 +31,8 @@ public:
     bool hash_contains(uint64_t id);
     void hash_change(uint64_t id, int idx);
     void hash_resize();
+
+    int hash_get_resize_count();
+    double hash_get_max_load_factor();
     ~HashTable();
 };

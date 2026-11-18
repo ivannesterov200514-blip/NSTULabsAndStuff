@@ -7,6 +7,8 @@ HashTable::HashTable(int cap) {
         table[i] = nullptr;
     }
     size = 0;
+    resize_count = 0;
+    max_load_factor = 0.0;
 }
 
 // splitmix64 
@@ -40,7 +42,16 @@ void HashTable::hash_insert(uint64_t id, int idx) {
     node->next = table[cell];
     table[cell] = node;
     size++;
-    if (static_cast<double>(size) / capacity >= 0.75) hash_resize();
+    
+    double load_factor = static_cast<double>(size) / capacity;
+
+    if (load_factor > max_load_factor) {
+        max_load_factor = load_factor;
+    }
+
+    if (load_factor >= 0.75) {
+        hash_resize();
+    }
 }
 
 HashNode* HashTable::hash_search(uint64_t id) {
@@ -130,6 +141,15 @@ void HashTable::hash_resize() {
         }
     }
     delete[] prevtable;
+    resize_count++;
+}
+
+int HashTable::hash_get_resize_count() {
+    return resize_count;
+}
+
+double HashTable::hash_get_max_load_factor() {
+    return max_load_factor;
 }
 
 HashTable::~HashTable() {
