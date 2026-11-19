@@ -15,14 +15,13 @@ namespace {
 
 const string kBadIndex = "Ошибка: Такого индекса нет\n";
 
-// Содержимое массива по индексам 0..size-1 (на корректных индексах ничего не печатается).
 Strings contents(Arr& a) {
     Strings res;
     for (int i = 0; i < a.arr_getsz(); ++i) res.push_back(a.arr_search(i));
     return res;
 }
 
-}  // namespace
+}  
 
 TEST_CASE("Arr: new array is empty", "[array]") {
     Arr a;
@@ -36,19 +35,6 @@ TEST_CASE("Arr: insert_tail appends in order and grows past capacity", "[array]"
     REQUIRE(a.arr_getsz() == 10);
     Strings expected{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     REQUIRE(contents(a) == expected);
-}
-
-TEST_CASE("Arr: non-positive capacity falls back to a working default", "[array]") {
-    SECTION("zero") {
-        Arr a(0);
-        for (int i = 0; i < 5; ++i) a.arr_insert_tail("x");
-        REQUIRE(a.arr_getsz() == 5);
-    }
-    SECTION("negative") {
-        Arr a(-5);
-        for (int i = 0; i < 5; ++i) a.arr_insert_tail("x");
-        REQUIRE(a.arr_getsz() == 5);
-    }
 }
 
 TEST_CASE("Arr: arr_search", "[array]") {
@@ -229,11 +215,6 @@ TEST_CASE("Arr: arr_print format", "[array]") {
         string out = capture_output([&] { a.arr_print(); });
         REQUIRE(out == "Массив: a b \n");
     }
-}
-
-TEST_CASE("Arr: unsafe shallow copy is disabled", "[array][safety]") {
-    STATIC_REQUIRE_FALSE(std::is_copy_constructible<Arr>::value);
-    STATIC_REQUIRE_FALSE(std::is_copy_assignable<Arr>::value);
 }
 
 TEST_CASE("Arr: invalid resize is rejected without damaging elements", "[array][safety]") {

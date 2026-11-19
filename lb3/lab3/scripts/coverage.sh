@@ -8,6 +8,7 @@ fi
 
 cmake -S . -B build-coverage -DENABLE_COVERAGE=ON -DBUILD_UNIT_TESTS=ON -DCMAKE_BUILD_TYPE=Debug
 cmake --build build-coverage --parallel
+find build-coverage -type f -name '*.gcda' -delete
 ctest --test-dir build-coverage --output-on-failure
 mkdir -p build-coverage/coverage
 

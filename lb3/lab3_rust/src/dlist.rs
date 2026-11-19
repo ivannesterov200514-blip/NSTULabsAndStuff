@@ -3,14 +3,12 @@ use std::rc::{Rc, Weak};
 
 type Link = Option<Rc<RefCell<SNode>>>;
 
-/// Узел двусвязного списка: `next` - сильная ссылка, `prev` - слабая.
 struct SNode {
     data: String,
     next: Link,
     prev: Option<Weak<RefCell<SNode>>>,
 }
 
-/// Двусвязный список (аналог `DList` из C++), без `unsafe`.
 #[derive(Default)]
 pub struct DList {
     head: Link,
@@ -271,7 +269,7 @@ impl DList {
 }
 
 impl Drop for DList {
-    // Итеративное удаление, чтобы длинный список не переполнил стек рекурсией.
+
     fn drop(&mut self) {
         self.tail = None;
         let mut cur = self.head.take();
@@ -297,7 +295,6 @@ mod tests {
         l
     }
 
-    /// Прямой и обратный обходы должны быть зеркальны.
     fn assert_consistent(l: &DList) {
         let mut back = l.items_backwards();
         back.reverse();

@@ -1,5 +1,3 @@
-// Бенчмарк: обычные функции и циклы, без шаблонов и лямбда-функций.
-// Для каждой структуры трижды измеряем добавление и (где есть) поиск.
 #include "array.h"
 #include "ulist.h"
 #include "dlist.h"
@@ -14,7 +12,7 @@
 #include <vector>
 
 const int REPEATS = 3;
-unsigned long long checksum = 0; // Чтобы компилятор не выбросил результаты поиска.
+unsigned long long checksum = 0; 
 
 void show_result(const std::string& name, const std::string& operation,
                  int count, long long time_ns) {
@@ -22,7 +20,6 @@ void show_result(const std::string& name, const std::string& operation,
     std::cout << name << "," << operation << "," << count << "," << average << "\n";
 }
 
-// array: создание, заполнение и проверка элементов.
 void bench_array(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -35,7 +32,6 @@ void bench_array(const std::vector<std::string>& keys) {
         insert_time += std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count();
         checksum += a.arr_getsz();
 
-        // Поиск начинаем после заполнения, чтобы не учитывать вставку.
         start = std::chrono::steady_clock::now();
         for (int i = 0; i < n; i++) checksum += a.arr_search(i).size();
         finish = std::chrono::steady_clock::now();
@@ -45,7 +41,6 @@ void bench_array(const std::vector<std::string>& keys) {
     show_result("array", "get_by_index", n, search_time);
 }
 
-// singly_linked_list: создание, заполнение и проверка элементов.
 void bench_singly_linked_list(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -58,7 +53,6 @@ void bench_singly_linked_list(const std::vector<std::string>& keys) {
         insert_time += std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count();
         checksum += a.ul_getsz();
 
-        // Поиск начинаем после заполнения, чтобы не учитывать вставку.
         start = std::chrono::steady_clock::now();
         for (int i = 0; i < n; i++) checksum += a.ul_find(keys[i]) != nullptr;
         finish = std::chrono::steady_clock::now();
@@ -68,7 +62,6 @@ void bench_singly_linked_list(const std::vector<std::string>& keys) {
     show_result("singly_linked_list", "find_by_value", n, search_time);
 }
 
-// doubly_linked_list: создание, заполнение и проверка элементов.
 void bench_doubly_linked_list(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -81,7 +74,6 @@ void bench_doubly_linked_list(const std::vector<std::string>& keys) {
         insert_time += std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count();
         checksum += a.dl_items().size();
 
-        // Поиск начинаем после заполнения, чтобы не учитывать вставку.
         start = std::chrono::steady_clock::now();
         for (int i = 0; i < n; i++) checksum += a.dl_find(keys[i]) != nullptr;
         finish = std::chrono::steady_clock::now();
@@ -91,7 +83,6 @@ void bench_doubly_linked_list(const std::vector<std::string>& keys) {
     show_result("doubly_linked_list", "find_by_value", n, search_time);
 }
 
-// stack: создание, заполнение и проверка элементов.
 void bench_stack(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -106,7 +97,6 @@ void bench_stack(const std::vector<std::string>& keys) {
     show_result("stack", "push", n, insert_time);
 }
 
-// queue: создание, заполнение и проверка элементов.
 void bench_queue(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -121,7 +111,6 @@ void bench_queue(const std::vector<std::string>& keys) {
     show_result("queue", "push", n, insert_time);
 }
 
-// chain_table: создание, заполнение и проверка элементов.
 void bench_chain_table(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -134,7 +123,6 @@ void bench_chain_table(const std::vector<std::string>& keys) {
         insert_time += std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count();
         checksum += a.ct_getsz();
 
-        // Поиск начинаем после заполнения, чтобы не учитывать вставку.
         start = std::chrono::steady_clock::now();
         std::string value;
         for (int i = 0; i < n; i++) checksum += a.ct_get(keys[i], value);
@@ -145,7 +133,6 @@ void bench_chain_table(const std::vector<std::string>& keys) {
     show_result("chain_table", "get", n, search_time);
 }
 
-// cuckoo_table: создание, заполнение и проверка элементов.
 void bench_cuckoo_table(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -158,7 +145,6 @@ void bench_cuckoo_table(const std::vector<std::string>& keys) {
         insert_time += std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count();
         checksum += a.cu_getsz();
 
-        // Поиск начинаем после заполнения, чтобы не учитывать вставку.
         start = std::chrono::steady_clock::now();
         std::string value;
         for (int i = 0; i < n; i++) checksum += a.cu_get(keys[i], value);
@@ -169,7 +155,6 @@ void bench_cuckoo_table(const std::vector<std::string>& keys) {
     show_result("cuckoo_table", "get", n, search_time);
 }
 
-// avl_tree: создание, заполнение и проверка элементов.
 void bench_avl_tree(const std::vector<std::string>& keys) {
     int n = (int)keys.size();
     long long insert_time = 0;
@@ -182,7 +167,6 @@ void bench_avl_tree(const std::vector<std::string>& keys) {
         insert_time += std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count();
         checksum += a.t_items().size();
 
-        // Поиск начинаем после заполнения, чтобы не учитывать вставку.
         start = std::chrono::steady_clock::now();
         for (int i = 0; i < n; i++) checksum += a.t_search(i);
         finish = std::chrono::steady_clock::now();

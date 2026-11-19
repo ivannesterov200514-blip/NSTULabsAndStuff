@@ -14,7 +14,6 @@ lint:
 bench:
 	cargo run --release --bin benchmark -- 2000
 
-# Понадобится cargo-llvm-cov (cargo install cargo-llvm-cov).
 coverage:
 	cargo llvm-cov --html --fail-under-lines 85
 

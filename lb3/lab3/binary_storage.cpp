@@ -52,8 +52,8 @@ bool write_binary_records(const std::string& filename,
     std::ofstream file(filename, std::ios::binary);
     if (!file.is_open()) return false;
 
-    file.write("LB3B", 4);
-    if (!write_number(file, 1)) return false;
+    file.write("LB3B", 4); 
+    if (!write_number(file, 1)) return false; 
     if (!write_number(file, (std::uint32_t)records.size())) return false;
 
     for (const BinaryRecord& record : records) {
@@ -98,6 +98,6 @@ bool read_binary_records(const std::string& filename,
 
     if (file.peek() != -1) return false;
     if (file.bad()) return false;
-    records = loaded;
+    records = loaded; 
     return true;
 }

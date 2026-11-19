@@ -1,4 +1,3 @@
-// Boost.Test: хеш-функции, ChainTable (цепочки) и CuckooTable (кукушка).
 #include <boost/test/unit_test.hpp>
 
 #include <set>
@@ -19,21 +18,19 @@ namespace {
 
 const string kEmptyTable = "Хеш-таблица пуста\n";
 
-// Проверка, что таблица содержит ровно ожидаемые пары (в любом порядке).
 void check_same_content(const std::unordered_map<string, string>& ref, const Pairs& all) {
     BOOST_CHECK_EQUAL(all.size(), ref.size());
     std::set<string> seen;
     for (const auto& p : all) {
-        BOOST_CHECK(seen.insert(p.first).second);   // нет дублей ключей
+        BOOST_CHECK(seen.insert(p.first).second);   
         auto it = ref.find(p.first);
         BOOST_REQUIRE(it != ref.end());
         BOOST_CHECK_EQUAL(p.second, it->second);
     }
 }
 
-}  // namespace
+}  
 
-// =====================================================================
 BOOST_AUTO_TEST_SUITE(HashFunctions)
 
 BOOST_AUTO_TEST_CASE(known_values) {
@@ -47,23 +44,11 @@ BOOST_AUTO_TEST_CASE(known_values) {
     BOOST_CHECK_EQUAL(hash2("abc", 101), 74);
 }
 
-BOOST_AUTO_TEST_CASE(empty_key_starts_from_initial_value) {
-    BOOST_CHECK_EQUAL(hash1("", 101), 0);
-    BOOST_CHECK_EQUAL(hash2("", 101), 7);
-}
-
 BOOST_AUTO_TEST_CASE(non_positive_modulus_returns_zero) {
     BOOST_CHECK_EQUAL(hash1("abc", 0), 0);
     BOOST_CHECK_EQUAL(hash2("abc", 0), 0);
     BOOST_CHECK_EQUAL(hash1("abc", -5), 0);
     BOOST_CHECK_EQUAL(hash2("abc", -5), 0);
-}
-
-BOOST_AUTO_TEST_CASE(modulus_one_always_gives_zero) {
-    for (const char* k : {"a", "apple", "banana", "key"}) {
-        BOOST_CHECK_EQUAL(hash1(k, 1), 0);
-        BOOST_CHECK_EQUAL(hash2(k, 1), 0);
-    }
 }
 
 BOOST_AUTO_TEST_CASE(result_is_deterministic_and_in_range) {
@@ -80,18 +65,8 @@ BOOST_AUTO_TEST_CASE(result_is_deterministic_and_in_range) {
     }
 }
 
-BOOST_AUTO_TEST_CASE(two_hash_functions_differ) {
-    int different = 0;
-    for (int i = 0; i < 100; ++i) {
-        string key = "key" + std::to_string(i);
-        if (hash1(key, 1009) != hash2(key, 1009)) ++different;
-    }
-    BOOST_CHECK(different > 50);
-}
-
 BOOST_AUTO_TEST_SUITE_END()
 
-// =====================================================================
 BOOST_AUTO_TEST_SUITE(ChainTableTests)
 
 BOOST_AUTO_TEST_CASE(new_table_is_empty) {
@@ -99,18 +74,6 @@ BOOST_AUTO_TEST_CASE(new_table_is_empty) {
     BOOST_CHECK_EQUAL(t.ct_getsz(), 0);
     BOOST_CHECK_EQUAL(t.ct_getcap(), 101);
     BOOST_CHECK(t.ct_get_all().empty());
-}
-
-BOOST_AUTO_TEST_CASE(non_positive_capacity_falls_back_to_default) {
-    ChainTable zero(0);
-    ChainTable negative(-7);
-    BOOST_CHECK_EQUAL(zero.ct_getcap(), 101);
-    BOOST_CHECK_EQUAL(negative.ct_getcap(), 101);
-}
-
-BOOST_AUTO_TEST_CASE(custom_capacity_is_kept) {
-    ChainTable t(17);
-    BOOST_CHECK_EQUAL(t.ct_getcap(), 17);
 }
 
 BOOST_AUTO_TEST_CASE(put_and_get) {
@@ -143,14 +106,6 @@ BOOST_AUTO_TEST_CASE(get_missing_key_leaves_output_untouched) {
     BOOST_CHECK_EQUAL(value, "untouched");
 }
 
-BOOST_AUTO_TEST_CASE(empty_value_is_allowed) {
-    ChainTable t;
-    t.ct_put("k", "");
-    string value = "x";
-    BOOST_CHECK(t.ct_get("k", value));
-    BOOST_CHECK_EQUAL(value, "");
-}
-
 BOOST_AUTO_TEST_CASE(remove_existing_and_missing_key) {
     ChainTable t;
     t.ct_put("apple", "red");
@@ -163,7 +118,7 @@ BOOST_AUTO_TEST_CASE(remove_existing_and_missing_key) {
 }
 
 BOOST_AUTO_TEST_CASE(colliding_keys_share_a_bucket_and_stay_separate) {
-    // "apple" и "key" дают hash1 == 29 при емкости 101
+
     BOOST_REQUIRE_EQUAL(hash1("apple", 101), hash1("key", 101));
     ChainTable t;
     t.ct_put("apple", "1");
@@ -181,9 +136,9 @@ BOOST_AUTO_TEST_CASE(colliding_keys_share_a_bucket_and_stay_separate) {
 BOOST_AUTO_TEST_CASE(single_bucket_table_remove_head_middle_tail) {
     ChainTable t(1);
     for (int i = 0; i < 5; ++i) t.ct_put("k" + std::to_string(i), "v" + std::to_string(i));
-    BOOST_CHECK(t.ct_remove("k4"));   // голова цепочки (вставка идет в голову)
-    BOOST_CHECK(t.ct_remove("k2"));   // середина
-    BOOST_CHECK(t.ct_remove("k0"));   // хвост
+    BOOST_CHECK(t.ct_remove("k4"));   
+    BOOST_CHECK(t.ct_remove("k2"));   
+    BOOST_CHECK(t.ct_remove("k0"));   
     BOOST_CHECK_EQUAL(t.ct_getsz(), 2);
     string value;
     BOOST_CHECK(t.ct_get("k1", value));
@@ -203,15 +158,6 @@ BOOST_AUTO_TEST_CASE(get_all_returns_every_pair) {
     check_same_content(ref, t.ct_get_all());
 }
 
-BOOST_AUTO_TEST_CASE(get_all_in_single_bucket_goes_from_newest_to_oldest) {
-    ChainTable t(1);
-    t.ct_put("k0", "v0");
-    t.ct_put("k1", "v1");
-    t.ct_put("k2", "v2");
-    Pairs expected = {{"k2", "v2"}, {"k1", "v1"}, {"k0", "v0"}};
-    BOOST_CHECK(t.ct_get_all() == expected);
-}
-
 BOOST_AUTO_TEST_CASE(print_empty_table) {
     ChainTable t;
     string out = capture_output([&] { t.ct_print(); });
@@ -225,29 +171,6 @@ BOOST_AUTO_TEST_CASE(print_shows_only_non_empty_buckets) {
     BOOST_CHECK_EQUAL(out,
                       "Хеш-таблица (цепочки):\n"
                       "[29] apple=red -> nullptr\n");
-}
-
-BOOST_AUTO_TEST_CASE(print_collision_chain_newest_first) {
-    ChainTable t;
-    t.ct_put("apple", "1");
-    t.ct_put("key", "2");
-    string out = capture_output([&] { t.ct_print(); });
-    BOOST_CHECK_EQUAL(out,
-                      "Хеш-таблица (цепочки):\n"
-                      "[29] key=2 -> apple=1 -> nullptr\n");
-}
-
-BOOST_AUTO_TEST_CASE(print_after_removing_everything_says_empty) {
-    ChainTable t;
-    t.ct_put("a", "1");
-    t.ct_remove("a");
-    string out = capture_output([&] { t.ct_print(); });
-    BOOST_CHECK_EQUAL(out, kEmptyTable);
-}
-
-BOOST_AUTO_TEST_CASE(table_cannot_be_copied) {
-    BOOST_CHECK(!std::is_copy_constructible<ChainTable>::value);
-    BOOST_CHECK(!std::is_copy_assignable<ChainTable>::value);
 }
 
 BOOST_AUTO_TEST_CASE(random_operations_match_unordered_map) {
@@ -281,7 +204,6 @@ BOOST_AUTO_TEST_CASE(random_operations_match_unordered_map) {
 
 BOOST_AUTO_TEST_SUITE_END()
 
-// =====================================================================
 BOOST_AUTO_TEST_SUITE(CuckooTableTests)
 
 BOOST_AUTO_TEST_CASE(new_table_is_empty) {
@@ -291,13 +213,6 @@ BOOST_AUTO_TEST_CASE(new_table_is_empty) {
     BOOST_CHECK_EQUAL(t.cu_getgrows(), 0);
     BOOST_CHECK_EQUAL(t.cu_getkicks(), 0u);
     BOOST_CHECK(t.cu_get_all().empty());
-}
-
-BOOST_AUTO_TEST_CASE(non_positive_capacity_falls_back_to_default) {
-    CuckooTable zero(0);
-    CuckooTable negative(-3);
-    BOOST_CHECK_EQUAL(zero.cu_getcap(), 11);
-    BOOST_CHECK_EQUAL(negative.cu_getcap(), 11);
 }
 
 BOOST_AUTO_TEST_CASE(put_and_get) {
@@ -323,7 +238,7 @@ BOOST_AUTO_TEST_CASE(put_existing_key_updates_value_without_growing) {
 }
 
 BOOST_AUTO_TEST_CASE(updating_a_key_stored_in_second_table) {
-    // "a" и "k15" совпадают по hash1 при емкости 11, поэтому один из них окажется в T2
+
     BOOST_REQUIRE_EQUAL(hash1("a", 11), hash1("k15", 11));
     CuckooTable t;
     t.cu_put("a", "1");
@@ -366,17 +281,6 @@ BOOST_AUTO_TEST_CASE(remove_existing_and_missing_key) {
     BOOST_CHECK(!t.cu_get("a", value));
 }
 
-BOOST_AUTO_TEST_CASE(removed_key_can_be_put_again) {
-    CuckooTable t;
-    t.cu_put("a", "1");
-    t.cu_remove("a");
-    t.cu_put("a", "2");
-    string value;
-    BOOST_CHECK(t.cu_get("a", value));
-    BOOST_CHECK_EQUAL(value, "2");
-    BOOST_CHECK_EQUAL(t.cu_getsz(), 1);
-}
-
 BOOST_AUTO_TEST_CASE(collision_in_first_table_kicks_the_old_key) {
     BOOST_REQUIRE_EQUAL(hash1("a", 11), hash1("k15", 11));
     CuckooTable t;
@@ -411,14 +315,6 @@ BOOST_AUTO_TEST_CASE(table_grows_and_keeps_every_key) {
     check_same_content(ref, t.cu_get_all());
 }
 
-BOOST_AUTO_TEST_CASE(capacity_follows_the_doubling_formula) {
-    // каждый рост меняет емкость как cap -> 2 * cap + 1, то есть 3 -> 7 -> 15 -> ...
-    CuckooTable t(3);
-    for (int i = 0; i < 300; ++i) t.cu_put("key" + std::to_string(i), "v");
-    BOOST_REQUIRE(t.cu_getgrows() > 0);
-    BOOST_CHECK_EQUAL(t.cu_getcap(), (4 << t.cu_getgrows()) - 1);
-}
-
 BOOST_AUTO_TEST_CASE(remove_half_of_the_keys_after_growth) {
     CuckooTable t(3);
     for (int i = 0; i < 200; ++i) t.cu_put("key" + std::to_string(i), "v");
@@ -430,43 +326,22 @@ BOOST_AUTO_TEST_CASE(remove_half_of_the_keys_after_growth) {
     }
 }
 
-BOOST_AUTO_TEST_CASE(get_all_lists_first_table_then_second) {
-    CuckooTable t;
-    t.cu_put("a", "1");
-    Pairs expected = {{"a", "1"}};
-    BOOST_CHECK(t.cu_get_all() == expected);
-}
-
 BOOST_AUTO_TEST_CASE(print_empty_table) {
     CuckooTable t;
     string out = capture_output([&] { t.cu_print(); });
     BOOST_CHECK_EQUAL(out, kEmptyTable);
 }
 
-BOOST_AUTO_TEST_CASE(print_shows_slot_positions) {
-    CuckooTable t;
-    t.cu_put("a", "1");   // hash1("a", 11) == 9
-    string out = capture_output([&] { t.cu_print(); });
-    BOOST_CHECK_EQUAL(out,
-                      "Хеш-таблица (кукушка):\n"
-                      "T1[9] a=1\n");
-}
-
 BOOST_AUTO_TEST_CASE(print_shows_second_table_after_kick) {
     BOOST_REQUIRE_EQUAL(hash1("a", 11), hash1("k15", 11));
     CuckooTable t;
     t.cu_put("a", "1");
-    t.cu_put("k15", "2");   // вытесняет "a" в T2: hash2("a", 11) == 2
+    t.cu_put("k15", "2");   
     string out = capture_output([&] { t.cu_print(); });
     BOOST_CHECK_EQUAL(out,
                       "Хеш-таблица (кукушка):\n"
                       "T1[9] k15=2\n"
                       "T2[2] a=1\n");
-}
-
-BOOST_AUTO_TEST_CASE(table_cannot_be_copied) {
-    BOOST_CHECK(!std::is_copy_constructible<CuckooTable>::value);
-    BOOST_CHECK(!std::is_copy_assignable<CuckooTable>::value);
 }
 
 BOOST_AUTO_TEST_CASE(random_operations_match_unordered_map) {

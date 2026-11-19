@@ -21,7 +21,7 @@ private:
     TNode* root;
 public:
     AVLTree(TNode* n = nullptr);
-    // Владеем памятью: запрещаем поверхностное копирование и double free.
+
     AVLTree(const AVLTree&) = delete;
     AVLTree& operator=(const AVLTree&) = delete;
     int getheight(TNode* t);

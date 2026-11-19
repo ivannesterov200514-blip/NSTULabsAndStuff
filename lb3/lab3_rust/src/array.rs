@@ -1,4 +1,3 @@
-/// Динамический массив строк (аналог класса `Arr` из C++).
 #[derive(Debug, Clone)]
 pub struct Arr {
     data: Vec<String>,
@@ -24,7 +23,6 @@ impl Arr {
         self.data.capacity()
     }
 
-    /// Проверяет индекс. `allow_end` разрешает индекс, равный длине (для вставки).
     fn index(&self, idx: isize, allow_end: bool) -> Option<usize> {
         if idx < 0 {
             return None;

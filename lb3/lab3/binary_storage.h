@@ -9,5 +9,7 @@ struct BinaryRecord {
     std::vector<std::string> values;
 };
 
-bool write_binary_records(const std::string& filename, const std::vector<BinaryRecord>& records);
-bool read_binary_records(const std::string& filename, std::vector<BinaryRecord>& records);
+bool write_binary_records(const std::string& filename,
+                          const std::vector<BinaryRecord>& records);
+bool read_binary_records(const std::string& filename,
+                         std::vector<BinaryRecord>& records);

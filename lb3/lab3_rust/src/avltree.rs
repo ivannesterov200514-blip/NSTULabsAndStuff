@@ -53,7 +53,6 @@ fn rotate_left(mut x: Box<TNode>) -> Box<TNode> {
     y
 }
 
-/// Пересчитывает высоту узла и при необходимости выполняет поворот.
 fn rebalance(mut n: Box<TNode>) -> Box<TNode> {
     update(&mut n);
     let b = balance_of(&n);
@@ -138,7 +137,6 @@ fn print_level(t: &Option<Box<TNode>>, level: i32) {
     }
 }
 
-/// AVL-дерево с целыми ключами (аналог `AVLTree` из C++).
 #[derive(Default)]
 pub struct AVLTree {
     root: Option<Box<TNode>>,
@@ -182,7 +180,6 @@ impl AVLTree {
         }
     }
 
-    /// Ключи в порядке обхода по уровням.
     pub fn items(&self) -> Vec<i32> {
         let mut res = Vec::new();
         let mut q: VecDeque<&TNode> = VecDeque::new();
@@ -206,7 +203,6 @@ impl AVLTree {
 mod tests {
     use super::*;
 
-    /// (дерево корректно, высота) - проверка баланса, высот и порядка ключей.
     fn check(t: &Option<Box<TNode>>, lo: Option<i32>, hi: Option<i32>) -> (bool, i32) {
         match t {
             None => (true, 0),
@@ -285,9 +281,9 @@ mod tests {
         for k in [10, 5, 15, 3, 7, 12, 20] {
             t.insert(k);
         }
-        assert!(t.delete(3)); // лист
-        assert!(t.delete(5)); // один потомок
-        assert!(t.delete(10)); // два потомка (корень)
+        assert!(t.delete(3)); 
+        assert!(t.delete(5)); 
+        assert!(t.delete(10)); 
         assert!(!t.delete(10));
         assert_valid(&t);
         t.print_wide();

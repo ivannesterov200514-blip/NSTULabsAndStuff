@@ -3,7 +3,6 @@ struct STNode {
     next: Option<Box<STNode>>,
 }
 
-/// Стек на односвязном списке (аналог `Stack` из C++).
 #[derive(Default)]
 pub struct Stack {
     top: Option<Box<STNode>>,
@@ -25,7 +24,6 @@ impl Stack {
         self.sz += 1;
     }
 
-    /// Снимает вершину, печатает её значение и возвращает его.
     pub fn pop(&mut self) -> Option<String> {
         match self.top.take() {
             None => {
@@ -55,7 +53,6 @@ impl Stack {
         println!("nullptr");
     }
 
-    /// Элементы от вершины ко дну.
     pub fn items(&self) -> Vec<String> {
         let mut res = Vec::new();
         let mut cur = self.top.as_deref();

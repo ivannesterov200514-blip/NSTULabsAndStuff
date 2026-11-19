@@ -1,5 +1,3 @@
-// Простые измерения для ЛР3. Запуск: cargo run --release --bin benchmark -- 2000
-// На каждую операцию делаем 3 повтора и выводим среднее время в наносекундах.
 use std::time::Instant;
 use lab3_rust::array::Arr;
 use lab3_rust::ulist::UList;
@@ -28,7 +26,6 @@ fn bench_array(keys: &[String]) -> usize {
         insert_time += start.elapsed().as_nanos();
         checksum += a.size();
 
-        // Поиск уже в заполненной структуре.
         let start = Instant::now();
         for i in 0..n { if a.search(i as isize).is_some() { checksum += 1; } }
         search_time += start.elapsed().as_nanos();
@@ -50,7 +47,6 @@ fn bench_singly_linked_list(keys: &[String]) -> usize {
         insert_time += start.elapsed().as_nanos();
         checksum += a.size();
 
-        // Поиск уже в заполненной структуре.
         let start = Instant::now();
         for key in keys { if a.search(key).is_some() { checksum += 1; } }
         search_time += start.elapsed().as_nanos();
@@ -72,7 +68,6 @@ fn bench_doubly_linked_list(keys: &[String]) -> usize {
         insert_time += start.elapsed().as_nanos();
         checksum += a.size();
 
-        // Поиск уже в заполненной структуре.
         let start = Instant::now();
         for key in keys { if a.search(key).is_some() { checksum += 1; } }
         search_time += start.elapsed().as_nanos();
@@ -124,7 +119,6 @@ fn bench_chain_table(keys: &[String]) -> usize {
         insert_time += start.elapsed().as_nanos();
         checksum += a.size();
 
-        // Поиск уже в заполненной структуре.
         let start = Instant::now();
         for key in keys { if a.get(key).is_some() { checksum += 1; } }
         search_time += start.elapsed().as_nanos();
@@ -146,7 +140,6 @@ fn bench_cuckoo_table(keys: &[String]) -> usize {
         insert_time += start.elapsed().as_nanos();
         checksum += a.size();
 
-        // Поиск уже в заполненной структуре.
         let start = Instant::now();
         for key in keys { if a.get(key).is_some() { checksum += 1; } }
         search_time += start.elapsed().as_nanos();
@@ -168,7 +161,6 @@ fn bench_avl_tree(keys: &[String]) -> usize {
         insert_time += start.elapsed().as_nanos();
         checksum += a.items().len();
 
-        // Поиск уже в заполненной структуре.
         let start = Instant::now();
         for i in 0..n { if a.search(i as i32) { checksum += 1; } }
         search_time += start.elapsed().as_nanos();

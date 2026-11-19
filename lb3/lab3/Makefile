@@ -18,7 +18,6 @@ benchmark: benchmark_cpp
 test-cli: dbms
 	python3 tests/test_cli.py ./dbms
 
-# Полный прогон тестов Linux (потребуются GTest, Boost.Test, Catch2 v3).
 test:
 	cmake -S . -B build -DBUILD_UNIT_TESTS=ON
 	cmake --build build --parallel

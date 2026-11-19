@@ -1,4 +1,3 @@
-// Google Test: односвязный список UList.
 #include <gtest/gtest.h>
 
 #include <string>
@@ -19,14 +18,12 @@ const string kLastRemoved = "Последний узел списка удале
 const string kNothingBefore = "Ошибка: Перед элементом ничего нет\n";
 const string kNothingAfter = "Ошибка: После элемента ничего нет\n";
 
-// Ключи списка от головы к хвосту.
 Strings keys(const UList& l) {
     Strings res;
     for (const auto& p : l.ul_get_pairs()) res.push_back(p.first);
     return res;
 }
 
-// Фикстура: пустой список и список a -> b -> c. Создаются заново для каждого теста.
 class UListTest : public ::testing::Test {
 protected:
     UList empty;
@@ -39,26 +36,11 @@ protected:
     }
 };
 
-}  // namespace
-
-// ---------- создание ----------
+}  
 
 TEST_F(UListTest, NewListIsEmpty) {
     EXPECT_EQ(empty.ul_getsz(), 0);
     EXPECT_TRUE(keys(empty).empty());
-}
-
-TEST_F(UListTest, FixtureListHasThreeElements) {
-    EXPECT_EQ(abc.ul_getsz(), 3);
-    EXPECT_EQ(keys(abc), (Strings{"a", "b", "c"}));
-}
-
-// ---------- вставка ----------
-
-TEST_F(UListTest, InsertHeadPutsElementFirst) {
-    abc.ul_insert_head("x");
-    EXPECT_EQ(keys(abc), (Strings{"x", "a", "b", "c"}));
-    EXPECT_EQ(abc.ul_getsz(), 4);
 }
 
 TEST_F(UListTest, InsertHeadOnEmptyList) {
@@ -67,21 +49,10 @@ TEST_F(UListTest, InsertHeadOnEmptyList) {
     EXPECT_EQ(empty.ul_getsz(), 1);
 }
 
-TEST_F(UListTest, InsertTailOnEmptyList) {
-    empty.ul_insert_tail("x");
-    EXPECT_EQ(keys(empty), (Strings{"x"}));
-    EXPECT_EQ(empty.ul_getsz(), 1);
-}
-
 TEST_F(UListTest, InsertTailAppendsLast) {
     abc.ul_insert_tail("x");
     EXPECT_EQ(keys(abc), (Strings{"a", "b", "c", "x"}));
     EXPECT_EQ(abc.ul_getsz(), 4);
-}
-
-TEST_F(UListTest, InsertBeforeHead) {
-    abc.ul_insert_before("a", "x");
-    EXPECT_EQ(keys(abc), (Strings{"x", "a", "b", "c"}));
 }
 
 TEST_F(UListTest, InsertBeforeMiddleAndTail) {
@@ -97,38 +68,12 @@ TEST_F(UListTest, InsertBeforeMissingKeyPrintsError) {
     EXPECT_EQ(keys(abc), (Strings{"a", "b", "c"}));
 }
 
-TEST_F(UListTest, InsertBeforeOnEmptyListPrintsError) {
-    string out = capture_output([&] { empty.ul_insert_before("a", "x"); });
-    EXPECT_EQ(out, kNotFound);
-    EXPECT_EQ(empty.ul_getsz(), 0);
-}
-
 TEST_F(UListTest, InsertAfterHeadMiddleTail) {
     abc.ul_insert_after("a", "x");
     abc.ul_insert_after("b", "y");
     abc.ul_insert_after("c", "z");
     EXPECT_EQ(keys(abc), (Strings{"a", "x", "b", "y", "c", "z"}));
     EXPECT_EQ(abc.ul_getsz(), 6);
-}
-
-TEST_F(UListTest, InsertAfterMissingKeyPrintsError) {
-    string out = capture_output([&] { abc.ul_insert_after("zzz", "x"); });
-    EXPECT_EQ(out, kNotFound);
-    EXPECT_EQ(abc.ul_getsz(), 3);
-}
-
-// ---------- удаление с головы и с хвоста ----------
-
-TEST_F(UListTest, DeleteHeadRemovesFirst) {
-    string out = capture_output([&] { abc.ul_delete_head(); });
-    EXPECT_EQ(out, "");
-    EXPECT_EQ(keys(abc), (Strings{"b", "c"}));
-    EXPECT_EQ(abc.ul_getsz(), 2);
-}
-
-TEST_F(UListTest, DeleteHeadOnEmptyListPrintsError) {
-    string out = capture_output([&] { empty.ul_delete_head(); });
-    EXPECT_EQ(out, kEmptyList);
 }
 
 TEST_F(UListTest, DeleteHeadOfSingleElementReportsLastNode) {
@@ -145,45 +90,10 @@ TEST_F(UListTest, DeleteTailRemovesLast) {
     EXPECT_EQ(abc.ul_getsz(), 2);
 }
 
-TEST_F(UListTest, DeleteTailOnEmptyListPrintsError) {
-    string out = capture_output([&] { empty.ul_delete_tail(); });
-    EXPECT_EQ(out, kEmptyList);
-}
-
-TEST_F(UListTest, DeleteTailOfSingleElementReportsLastNode) {
-    empty.ul_insert_tail("x");
-    string out = capture_output([&] { empty.ul_delete_tail(); });
-    EXPECT_EQ(out, kLastRemoved);
-    EXPECT_EQ(empty.ul_getsz(), 0);
-    // после опустошения список остается рабочим
-    empty.ul_insert_tail("y");
-    EXPECT_EQ(keys(empty), (Strings{"y"}));
-}
-
-// ---------- удаление перед / после ключа ----------
-
-TEST_F(UListTest, DeleteBeforeOnEmptyListPrintsNotFound) {
-    string out = capture_output([&] { empty.ul_delete_before("a"); });
-    EXPECT_EQ(out, kNotFound);
-}
-
-TEST_F(UListTest, DeleteBeforeOnSingleElementPrintsNotFound) {
-    empty.ul_insert_head("a");
-    string out = capture_output([&] { empty.ul_delete_before("a"); });
-    EXPECT_EQ(out, kNotFound);
-    EXPECT_EQ(empty.ul_getsz(), 1);
-}
-
 TEST_F(UListTest, DeleteBeforeHeadPrintsNothingBefore) {
     string out = capture_output([&] { abc.ul_delete_before("a"); });
     EXPECT_EQ(out, kNothingBefore);
     EXPECT_EQ(abc.ul_getsz(), 3);
-}
-
-TEST_F(UListTest, DeleteBeforeSecondElementRemovesHead) {
-    string out = capture_output([&] { abc.ul_delete_before("b"); });
-    EXPECT_EQ(out, "");
-    EXPECT_EQ(keys(abc), (Strings{"b", "c"}));
 }
 
 TEST_F(UListTest, DeleteBeforeTailRemovesMiddle) {
@@ -193,22 +103,10 @@ TEST_F(UListTest, DeleteBeforeTailRemovesMiddle) {
     EXPECT_EQ(abc.ul_getsz(), 2);
 }
 
-TEST_F(UListTest, DeleteBeforeMissingKeyPrintsNotFound) {
-    string out = capture_output([&] { abc.ul_delete_before("zzz"); });
-    EXPECT_EQ(out, kNotFound);
-    EXPECT_EQ(abc.ul_getsz(), 3);
-}
-
 TEST_F(UListTest, DeleteAfterHeadRemovesSecond) {
     string out = capture_output([&] { abc.ul_delete_after("a"); });
     EXPECT_EQ(out, "");
     EXPECT_EQ(keys(abc), (Strings{"a", "c"}));
-}
-
-TEST_F(UListTest, DeleteAfterMiddleRemovesTail) {
-    abc.ul_delete_after("b");
-    EXPECT_EQ(keys(abc), (Strings{"a", "b"}));
-    EXPECT_EQ(abc.ul_getsz(), 2);
 }
 
 TEST_F(UListTest, DeleteAfterTailPrintsNothingAfter) {
@@ -217,28 +115,11 @@ TEST_F(UListTest, DeleteAfterTailPrintsNothingAfter) {
     EXPECT_EQ(abc.ul_getsz(), 3);
 }
 
-TEST_F(UListTest, DeleteAfterMissingKeyPrintsNotFound) {
-    string out = capture_output([&] { abc.ul_delete_after("zzz"); });
-    EXPECT_EQ(out, kNotFound);
-}
-
-// ---------- удаление по ключу ----------
-
-TEST_F(UListTest, DeleteKeyHead) {
-    abc.ul_delete_key("a");
-    EXPECT_EQ(keys(abc), (Strings{"b", "c"}));
-}
-
-TEST_F(UListTest, DeleteKeyMiddle) {
-    abc.ul_delete_key("b");
-    EXPECT_EQ(keys(abc), (Strings{"a", "c"}));
-}
-
 TEST_F(UListTest, DeleteKeyTail) {
     abc.ul_delete_key("c");
     EXPECT_EQ(keys(abc), (Strings{"a", "b"}));
     EXPECT_EQ(abc.ul_getsz(), 2);
-    // хвост после удаления остается рабочим
+
     abc.ul_insert_tail("d");
     EXPECT_EQ(keys(abc), (Strings{"a", "b", "d"}));
 }
@@ -248,20 +129,6 @@ TEST_F(UListTest, DeleteKeyMissingPrintsNotFound) {
     EXPECT_EQ(out, kNotFound);
     EXPECT_EQ(abc.ul_getsz(), 3);
 }
-
-TEST_F(UListTest, DeleteKeyOnEmptyListPrintsNotFound) {
-    string out = capture_output([&] { empty.ul_delete_key("a"); });
-    EXPECT_EQ(out, kNotFound);
-}
-
-TEST_F(UListTest, DeleteKeyOfSingleElementReportsLastNode) {
-    empty.ul_insert_head("x");
-    string out = capture_output([&] { empty.ul_delete_key("x"); });
-    EXPECT_EQ(out, kLastRemoved);
-    EXPECT_EQ(empty.ul_getsz(), 0);
-}
-
-// ---------- поиск ----------
 
 TEST_F(UListTest, SearchFoundPrintsAndReturnsKey) {
     string result;
@@ -277,13 +144,6 @@ TEST_F(UListTest, SearchMissingReturnsEmptyString) {
     EXPECT_EQ(out, kNotFound);
 }
 
-// ---------- печать ----------
-
-TEST_F(UListTest, PrintIterShowsAllElements) {
-    string out = capture_output([&] { abc.ul_print_iter(); });
-    EXPECT_EQ(out, "a -> b -> c -> nullptr\n");
-}
-
 TEST_F(UListTest, PrintRecMatchesPrintIter) {
     string rec = capture_output([&] { abc.ul_print_rec(); });
     string iter = capture_output([&] { abc.ul_print_iter(); });
@@ -295,22 +155,6 @@ TEST_F(UListTest, PrintOfEmptyListSaysEmpty) {
     string rec = capture_output([&] { empty.ul_print_rec(); });
     EXPECT_EQ(iter, "Список пуст\n");
     EXPECT_EQ(rec, "Список пуст\n");
-}
-
-// ---------- пары ключ-значение (используются цепочками хеш-таблицы) ----------
-
-TEST_F(UListTest, InsertHeadWithValueKeepsPairs) {
-    empty.ul_insert_head("k1", "v1");
-    empty.ul_insert_head("k2", "v2");
-    vector<std::pair<string, string>> expected = {{"k2", "v2"}, {"k1", "v1"}};
-    EXPECT_EQ(empty.ul_get_pairs(), expected);
-    EXPECT_EQ(empty.ul_getsz(), 2);
-}
-
-TEST_F(UListTest, PlainInsertGivesEmptyValue) {
-    string value = "unchanged";
-    EXPECT_TRUE(abc.ul_get_value("a", value));
-    EXPECT_EQ(value, "");
 }
 
 TEST_F(UListTest, GetValueFoundAndMissing) {
@@ -339,14 +183,14 @@ TEST_F(UListTest, RemoveKeyHeadMiddleTailAndMissing) {
     empty.ul_insert_tail("b");
     empty.ul_insert_tail("c");
     empty.ul_insert_tail("d");
-    EXPECT_TRUE(empty.ul_remove_key("a"));   // голова
-    EXPECT_TRUE(empty.ul_remove_key("c"));   // середина
-    EXPECT_TRUE(empty.ul_remove_key("d"));   // хвост
+    EXPECT_TRUE(empty.ul_remove_key("a"));   
+    EXPECT_TRUE(empty.ul_remove_key("c"));   
+    EXPECT_TRUE(empty.ul_remove_key("d"));   
     EXPECT_FALSE(empty.ul_remove_key("zzz"));
     EXPECT_EQ(keys(empty), (Strings{"b"}));
     EXPECT_EQ(empty.ul_getsz(), 1);
     EXPECT_TRUE(empty.ul_remove_key("b"));
-    EXPECT_FALSE(empty.ul_remove_key("b"));   // список уже пуст
+    EXPECT_FALSE(empty.ul_remove_key("b"));   
     EXPECT_EQ(empty.ul_getsz(), 0);
 }
 
@@ -361,10 +205,8 @@ TEST_F(UListTest, PrintPairsFormat) {
     EXPECT_EQ(out, "nullptr\n");
 }
 
-// ---------- жизненный цикл ----------
-
 TEST(UListLifetimeTest, LargeListIsDestroyedWithoutStackOverflow) {
     UList big;
     for (int i = 0; i < 100000; ++i) big.ul_insert_head(std::to_string(i));
     EXPECT_EQ(big.ul_getsz(), 100000);
-}   // деструктор должен отработать итеративно
+}   

@@ -1,4 +1,3 @@
-"""Интеграционные тесты: запускаем dbms как пользователь, проверяем файлы и вывод."""
 import os
 import subprocess
 import sys
@@ -8,7 +7,6 @@ from pathlib import Path
 
 APP = str(Path(sys.argv[1]).resolve()) if len(sys.argv) > 1 else "./dbms"
 sys.argv = sys.argv[:1]
-
 
 class TestDBMS(unittest.TestCase):
     def setUp(self):
@@ -58,7 +56,6 @@ class TestDBMS(unittest.TestCase):
         self.command(path, 'MPUSH arr "Привет Linux"')
         self.assertEqual(self.command(path, "MGET arr 0"), "Привет Linux\n")
 
-        # Повреждённый файл должен отклоняться, а не перезаписываться.
         bad = path.read_bytes()[:-1]
         path.write_bytes(bad)
         output = self.command(path, "MPUSH arr second", expected_returncode=1)
@@ -78,7 +75,6 @@ class TestDBMS(unittest.TestCase):
         out = self.command(file, "MPUSH arr hello", expected_returncode=1)
         self.assertIn("Ошибка:", out)
         self.assertEqual(file.read_bytes(), original)
-
 
 if __name__ == "__main__":
     unittest.main()

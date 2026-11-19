@@ -11,9 +11,6 @@ use lab3_rust::queue::Queue;
 use lab3_rust::stack::Stack;
 use lab3_rust::ulist::UList;
 
-// Типы структур (символ в файле):
-// M - массив, F - односвязный список, L - двусвязный список, S - стек,
-// Q - очередь, T - AVL-дерево, C - хеш-таблица (цепочки), K - хеш-таблица (кукушка)
 #[derive(Default)]
 struct Db {
     arrs: BTreeMap<String, Arr>,
@@ -116,14 +113,14 @@ fn save_db(db: &Db, file: &str) {
         push_line(&mut out, 'L', name, &l.items());
     }
     for (name, s) in &db.sts {
-        push_line(&mut out, 'S', name, &s.items()); // от вершины ко дну
+        push_line(&mut out, 'S', name, &s.items()); 
     }
     for (name, q) in &db.qs {
         push_line(&mut out, 'Q', name, &q.items());
     }
     for (name, t) in &db.trs {
         let keys: Vec<String> = t.items().iter().map(|k| k.to_string()).collect();
-        push_line(&mut out, 'T', name, &keys); // обход по уровням
+        push_line(&mut out, 'T', name, &keys); 
     }
     for (name, h) in &db.cts {
         push_line(&mut out, 'C', name, &flatten_pairs(h.get_all()));
@@ -173,7 +170,7 @@ fn load_db(db: &mut Db, file: &str) {
             }
             "S" => {
                 if let Some(s) = goc!(db, sts, name, 'S', Stack::default) {
-                    // в файле порядок от вершины ко дну, поэтому кладем с конца
+
                     for v in vals.iter().rev() {
                         s.push(v.to_string());
                     }
@@ -237,7 +234,6 @@ fn print_any(db: &Db, name: &str) {
     }
 }
 
-/// (число токенов команды вместе с ее именем, меняет ли команда данные)
 fn cmd_info(name: &str) -> Option<(usize, bool)> {
     Some(match name {
         "PRINT" => (2, false),
@@ -281,7 +277,6 @@ fn run(db: &mut Db, t: &[String]) {
     match t[0].as_str() {
         "PRINT" => print_any(db, name),
 
-        // ---------- массив ----------
         "MCREATE" => {
             goc!(db, arrs, name, 'M', Arr::default);
         }
@@ -326,7 +321,6 @@ fn run(db: &mut Db, t: &[String]) {
             }
         }
 
-        // ---------- односвязный список ----------
         "FCREATE" => {
             goc!(db, uls, name, 'F', UList::default);
         }
@@ -386,7 +380,6 @@ fn run(db: &mut Db, t: &[String]) {
             }
         }
 
-        // ---------- двусвязный список ----------
         "LCREATE" => {
             goc!(db, dls, name, 'L', DList::default);
         }
@@ -446,7 +439,6 @@ fn run(db: &mut Db, t: &[String]) {
             }
         }
 
-        // ---------- стек ----------
         "SCREATE" => {
             goc!(db, sts, name, 'S', Stack::default);
         }
@@ -462,7 +454,6 @@ fn run(db: &mut Db, t: &[String]) {
             }
         }
 
-        // ---------- очередь ----------
         "QCREATE" => {
             goc!(db, qs, name, 'Q', Queue::default);
         }
@@ -478,7 +469,6 @@ fn run(db: &mut Db, t: &[String]) {
             }
         }
 
-        // ---------- AVL-дерево ----------
         "TCREATE" => {
             goc!(db, trs, name, 'T', AVLTree::default);
         }
@@ -504,7 +494,6 @@ fn run(db: &mut Db, t: &[String]) {
             }
         }
 
-        // ---------- хеш-таблица (цепочки) ----------
         "CCREATE" => {
             goc!(db, cts, name, 'C', ChainTable::default);
         }
@@ -534,7 +523,6 @@ fn run(db: &mut Db, t: &[String]) {
             }
         }
 
-        // ---------- хеш-таблица (кукушка) ----------
         "KCREATE" => {
             goc!(db, cus, name, 'K', CuckooTable::default);
         }

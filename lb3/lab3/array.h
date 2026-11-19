@@ -11,7 +11,7 @@ private:
     int capacity;
 public:
     Arr(int cap = 2);
-    // Владеем памятью: запрещаем поверхностное копирование и double free.
+
     Arr(const Arr&) = delete;
     Arr& operator=(const Arr&) = delete;
     void arr_resize (int newcap);

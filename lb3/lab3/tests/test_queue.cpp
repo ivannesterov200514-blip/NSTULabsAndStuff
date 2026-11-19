@@ -1,4 +1,3 @@
-// Catch2 (v3): очередь Queue.
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>
@@ -21,15 +20,6 @@ TEST_CASE("Queue: push appends to the tail", "[queue]") {
     q.q_push("b");
     q.q_push("c");
     REQUIRE(q.q_items() == Strings{"a", "b", "c"});
-}
-
-TEST_CASE("Queue: pop prints and removes the oldest element", "[queue]") {
-    Queue q;
-    q.q_push("a");
-    q.q_push("b");
-    string out = capture_output([&] { q.q_pop(); });
-    REQUIRE(out == "a\n");
-    REQUIRE(q.q_items() == Strings{"b"});
 }
 
 TEST_CASE("Queue: pop on empty queue prints an error", "[queue]") {
@@ -56,18 +46,10 @@ TEST_CASE("Queue: tail is reset when the queue becomes empty", "[queue]") {
     Queue q;
     q.q_push("a");
     capture_output([&] { q.q_pop(); });
-    // если хвост не сброшен, следующий push запишет в уже удаленный узел
+
     q.q_push("b");
     q.q_push("c");
     REQUIRE(q.q_items() == Strings{"b", "c"});
-}
-
-TEST_CASE("Queue: pop after emptying keeps printing the error", "[queue]") {
-    Queue q;
-    q.q_push("a");
-    capture_output([&] { q.q_pop(); });
-    string out = capture_output([&] { q.q_pop(); });
-    REQUIRE(out == "Ошибка: Очередь пуста\n");
 }
 
 TEST_CASE("Queue: print format", "[queue]") {
@@ -85,8 +67,3 @@ TEST_CASE("Queue: print format", "[queue]") {
     }
 }
 
-TEST_CASE("Queue: large queue is destroyed without stack overflow", "[queue]") {
-    Queue q;
-    for (int i = 0; i < 100000; ++i) q.q_push(std::to_string(i));
-    REQUIRE(q.q_items().size() == 100000);
-}

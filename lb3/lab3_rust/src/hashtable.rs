@@ -24,7 +24,6 @@ pub fn hash2(key: &str, m: usize) -> usize {
     h as usize
 }
 
-/// Хеш-таблица с цепочками; каждая цепочка - `UList` (аналог `ChainTable` из C++).
 pub struct ChainTable {
     buckets: Vec<UList>,
     cap: usize,
@@ -101,8 +100,6 @@ impl ChainTable {
 
 type Slot = Option<(String, String)>;
 
-/// Хеш-таблица с кукушкиным хешированием (аналог `CuckooTable` из C++).
-/// Пустой ключ зарезервирован и не допускается.
 pub struct CuckooTable {
     t1: Vec<Slot>,
     t2: Vec<Slot>,
@@ -145,7 +142,6 @@ impl CuckooTable {
         self.kicks
     }
 
-    /// Пытается вставить пару; при зацикливании возвращает вытесненную пару.
     fn insert_raw(&mut self, mut key: String, mut value: String) -> Result<(), (String, String)> {
         for _ in 0..32 {
             let i = hash1(&key, self.capacity());
@@ -292,7 +288,6 @@ impl CuckooTable {
         }
     }
 
-    /// Сначала все пары из T1, затем из T2 (как в C++-версии).
     pub fn get_all(&self) -> Vec<(String, String)> {
         self.t1.iter().chain(self.t2.iter()).flatten().cloned().collect()
     }
@@ -308,7 +303,7 @@ mod tests {
 
     #[test]
     fn hash_functions_match_cpp() {
-        // значения посчитаны по формулам из C++: h = (h*31 + c) % m, h = (h*131 + c) % m, старт 0 и 7
+
         assert_eq!(hash1("", 101), 0);
         assert_eq!(hash2("", 101), 7);
         assert_eq!(hash1("a", 101), 97 % 101);

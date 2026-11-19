@@ -21,7 +21,7 @@ private:
     int sz;
 public:
     Queue(QNode* n = nullptr);
-    // Владеем памятью: запрещаем поверхностное копирование и double free.
+
     Queue(const Queue&) = delete;
     Queue& operator=(const Queue&) = delete;
     void q_push(string val);

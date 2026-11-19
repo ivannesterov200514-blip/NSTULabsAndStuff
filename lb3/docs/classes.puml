@@ -1,6 +1,4 @@
 @startuml
-' Упрощенная UML-диаграмма классов C++ для отчёта по ЛР3.
-' Указаны ключевые поля и методы. Сверьте детали с заголовочными файлами.
 skinparam classAttributeIconSize 0
 class Arr {
   - data : string*

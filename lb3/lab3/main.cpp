@@ -15,9 +15,6 @@
 #include <cstring>
 #include <cctype>
 
-// Типы структур (символ в файле):
-// M - массив, F - односвязный список, L - двусвязный список, S - стек,
-// Q - очередь, T - AVL-дерево, C - хеш-таблица (цепочки), K - хеш-таблица (кукушка)
 struct Db {
     map<string, Arr*> arrs;
     map<string, UList*> uls;
@@ -89,7 +86,6 @@ static bool to_key(const string& s, int& x) {
     return ok;
 }
 
-// Собираем структурированные записи для настоящего бинарного формата.
 static vector<BinaryRecord> collect_records(Db& db) {
     vector<BinaryRecord> result;
     for (auto& p : db.arrs) {
@@ -162,7 +158,7 @@ static void save_db(Db& db, const string& file) {
     }
     for (auto& p : db.sts) {
         out << "S " << p.first;
-        for (auto& v : p.second->st_items()) out << " " << v;   // от вершины к дну
+        for (auto& v : p.second->st_items()) out << " " << v;   
         out << "\n";
     }
     for (auto& p : db.qs) {
@@ -172,7 +168,7 @@ static void save_db(Db& db, const string& file) {
     }
     for (auto& p : db.trs) {
         out << "T " << p.first;
-        for (int k : p.second->t_items()) out << " " << k;      // обход по уровням
+        for (int k : p.second->t_items()) out << " " << k;      
         out << "\n";
     }
     for (auto& p : db.cts) {
@@ -204,7 +200,7 @@ static void load_record(Db& db, const string& type, const string& name,
         } else if (type == "S") {
             Stack* s = get_or_create(db, db.sts, name, 'S');
             if (s == nullptr) return;
-            // в файле порядок от вершины к дну, поэтому пушим с конца
+
             for (size_t i = vals.size(); i > 0; --i) s->st_push(vals[i - 1]);
         } else if (type == "Q") {
             Queue* q = get_or_create(db, db.qs, name, 'Q');
@@ -241,7 +237,7 @@ static void load_record(Db& db, const string& type, const string& name,
 static bool load_db(Db& db, const string& file) {
     if (is_binary_file(file)) {
         ifstream probe(file, ios::binary);
-        if (!probe) return true;  // Новый файл: следующий изменяющий запрос его создаст.
+        if (!probe) return true;  
         probe.close();
         vector<BinaryRecord> records;
         if (!read_binary_records(file, records)) {
@@ -356,14 +352,12 @@ static const CmdInfo* find_cmd(const string& name) {
         {"TGET", {Cmd::TGet, 3, false}},
         {"ISMEMBER", {Cmd::TGet, 3, false}},
 
-        // хеш-таблица на цепочках
         {"CCREATE", {Cmd::CCreate, 2, true}},
         {"CPUT", {Cmd::CPut, 4, true}},
         {"CGET", {Cmd::CGet, 3, false}},
         {"CDEL", {Cmd::CDel, 3, true}},
         {"CLEN", {Cmd::CLen, 2, false}},
 
-        // хеш-таблица с кукушкой
         {"KCREATE", {Cmd::KCreate, 2, true}},
         {"KPUT", {Cmd::KPut, 4, true}},
         {"KGET", {Cmd::KGet, 3, false}},
@@ -382,7 +376,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             print_any(db, t[1]);
             break;
 
-        // ---------- массив ----------
         case Cmd::MCreate:
             get_or_create(db, db.arrs, t[1], 'M');
             break;
@@ -424,7 +417,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             break;
         }
 
-        // ---------- односвязный список ----------
         case Cmd::FCreate:
             get_or_create(db, db.uls, t[1], 'F');
             break;
@@ -484,7 +476,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             break;
         }
 
-        // ---------- двусвязный список ----------
         case Cmd::LCreate:
             get_or_create(db, db.dls, t[1], 'L');
             break;
@@ -544,7 +535,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             break;
         }
 
-        // ---------- стек ----------
         case Cmd::SCreate:
             get_or_create(db, db.sts, t[1], 'S');
             break;
@@ -562,7 +552,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             break;
         }
 
-        // ---------- очередь ----------
         case Cmd::QCreate:
             get_or_create(db, db.qs, t[1], 'Q');
             break;
@@ -580,7 +569,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             break;
         }
 
-        // ---------- AVL-дерево ----------
         case Cmd::TCreate:
             get_or_create(db, db.trs, t[1], 'T');
             break;
@@ -603,7 +591,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             break;
         }
 
-        // ---------- хеш-таблица (цепочки) ----------
         case Cmd::CCreate:
             get_or_create(db, db.cts, t[1], 'C');
             break;
@@ -632,7 +619,6 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             break;
         }
 
-        // ---------- хеш-таблица (кукушка) ----------
         case Cmd::KCreate:
             get_or_create(db, db.cus, t[1], 'K');
             break;

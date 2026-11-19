@@ -7,8 +7,6 @@
 #include <stdexcept>
 #include <type_traits>
 
-// Самодостаточные тесты для проверки критических ошибок памяти.
-// Не заменяют Google Test / Boost.Test / Catch2.
 int main() {
     static_assert(!std::is_copy_constructible<Arr>::value, "Arr must not be shallow-copied");
     static_assert(!std::is_copy_constructible<DList>::value, "DList must not be shallow-copied");

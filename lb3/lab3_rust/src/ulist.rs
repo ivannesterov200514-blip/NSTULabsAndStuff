@@ -1,5 +1,3 @@
-/// Односвязный список (аналог `UList` из C++).
-/// Узел хранит `data` (ключ) и `value` (используется в цепочках хеш-таблицы).
 #[derive(Debug)]
 struct Node {
     data: String,
@@ -57,8 +55,6 @@ impl UList {
         None
     }
 
-    /// Ссылка (`Option<Box<Node>>`), которая указывает на узел с номером `idx`
-    /// (или на конец списка, если `idx == sz`).
     fn link_at(&mut self, idx: usize) -> &mut Option<Box<Node>> {
         let mut link = &mut self.head;
         for _ in 0..idx {
@@ -208,8 +204,6 @@ impl UList {
         Self::print_rec_node(self.head.as_deref());
     }
 
-    // ---- методы для хеш-таблицы ----
-
     pub fn get_value(&self, key: &str) -> Option<String> {
         self.find(key).map(|n| n.value.clone())
     }
@@ -255,7 +249,7 @@ impl UList {
 }
 
 impl Drop for UList {
-    // Итеративное удаление, чтобы длинный список не переполнил стек рекурсией.
+
     fn drop(&mut self) {
         let mut cur = self.head.take();
         while let Some(mut n) = cur {

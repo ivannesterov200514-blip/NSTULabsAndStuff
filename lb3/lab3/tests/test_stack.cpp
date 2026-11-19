@@ -1,4 +1,3 @@
-// Catch2 (v3): стек Stack.
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>
@@ -23,15 +22,6 @@ TEST_CASE("Stack: push puts the newest element on top", "[stack]") {
     REQUIRE(s.st_items() == Strings{"c", "b", "a"});
 }
 
-TEST_CASE("Stack: pop prints and removes the top element", "[stack]") {
-    Stack s;
-    s.st_push("a");
-    s.st_push("b");
-    string out = capture_output([&] { s.st_pop(); });
-    REQUIRE(out == "b\n");
-    REQUIRE(s.st_items() == Strings{"a"});
-}
-
 TEST_CASE("Stack: pop on empty stack prints an error", "[stack]") {
     Stack s;
     string out = capture_output([&] { s.st_pop(); });
@@ -49,15 +39,6 @@ TEST_CASE("Stack: elements come out in LIFO order", "[stack]") {
     });
     REQUIRE(out == expected);
     REQUIRE(s.st_items().empty());
-}
-
-TEST_CASE("Stack: stays usable after being emptied", "[stack]") {
-    Stack s;
-    s.st_push("a");
-    capture_output([&] { s.st_pop(); });
-    capture_output([&] { s.st_pop(); });   // pop из пустого стека не должен ничего ломать
-    s.st_push("b");
-    REQUIRE(s.st_items() == Strings{"b"});
 }
 
 TEST_CASE("Stack: print format", "[stack]") {

@@ -5,8 +5,6 @@ struct QNode {
     next: Option<Box<QNode>>,
 }
 
-/// Очередь на односвязном списке с указателем на хвост (аналог `Queue` из C++).
-/// Для O(1)-вставки в хвост используется один небольшой `unsafe`-блок.
 pub struct Queue {
     head: Option<Box<QNode>>,
     tail: *mut QNode,
@@ -34,7 +32,7 @@ impl Queue {
         if self.tail.is_null() {
             self.head = Some(node);
         } else {
-            // SAFETY: tail указывает на последний живой узел, принадлежащий этой очереди.
+
             unsafe {
                 (*self.tail).next = Some(node);
             }
@@ -43,7 +41,6 @@ impl Queue {
         self.sz += 1;
     }
 
-    /// Извлекает элемент из головы, печатает его и возвращает.
     pub fn pop(&mut self) -> Option<String> {
         match self.head.take() {
             None => {
@@ -77,7 +74,6 @@ impl Queue {
         println!(": Tail");
     }
 
-    /// Элементы от головы к хвосту.
     pub fn items(&self) -> Vec<String> {
         let mut res = Vec::new();
         let mut cur = self.head.as_deref();
@@ -129,7 +125,7 @@ mod tests {
         q.push(s("a"));
         assert_eq!(q.pop(), Some(s("a")));
         assert_eq!(q.pop(), None);
-        // после опустошения хвост должен быть сброшен
+
         q.push(s("b"));
         q.push(s("c"));
         q.print();

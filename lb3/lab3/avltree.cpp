@@ -156,7 +156,6 @@ void AVLTree::t_print_wide() {
     }
 }
 
-
 vector<int> AVLTree::t_items() const {
     vector<int> res;
     vector<TNode*> q;
@@ -178,4 +177,4 @@ void AVLTree::t_free(TNode* t){
 
 AVLTree::~AVLTree() {
     t_free(root);
-}
+}

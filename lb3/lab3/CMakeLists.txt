@@ -5,12 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# cmake -DENABLE_COVERAGE=ON .. включает измерение покрытия (gcov/lcov)
 option(ENABLE_COVERAGE "Build with coverage instrumentation" OFF)
 option(BUILD_UNIT_TESTS "Build GTest, Boost.Test and Catch2 tests" ON)
 
-# Все структуры данных (без main.cpp) собираются в одну библиотеку,
-# с которой линкуются тесты.
 add_library(structs STATIC
     array.cpp
     avltree.cpp
@@ -28,7 +25,6 @@ if(ENABLE_COVERAGE)
     target_link_options(structs PUBLIC --coverage)
 endif()
 
-# Консольная программа и бенчмарк работают без библиотек тестирования.
 add_executable(dbms main.cpp binary_storage.cpp)
 target_link_libraries(dbms PRIVATE structs)
 
@@ -49,7 +45,6 @@ endif()
 
 if(BUILD_UNIT_TESTS)
 
-# ---------- Google Test: ulist, dlist ----------
 find_package(GTest REQUIRED)
 add_executable(test_gtest
     tests/test_ulist.cpp
@@ -59,7 +54,6 @@ target_include_directories(test_gtest PRIVATE tests)
 target_link_libraries(test_gtest PRIVATE structs GTest::gtest_main)
 add_test(NAME gtest COMMAND test_gtest)
 
-# ---------- Boost.Test: avltree, hashtable ----------
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 add_executable(test_boost
     tests/boost_main.cpp
@@ -71,7 +65,6 @@ target_compile_definitions(test_boost PRIVATE BOOST_TEST_DYN_LINK)
 target_link_libraries(test_boost PRIVATE structs Boost::unit_test_framework)
 add_test(NAME boost COMMAND test_boost)
 
-# ---------- Catch2 v3: array, stack, queue ----------
 find_package(Catch2 3 REQUIRED)
 add_executable(test_catch2
     tests/test_array.cpp
@@ -82,4 +75,4 @@ target_include_directories(test_catch2 PRIVATE tests)
 target_link_libraries(test_catch2 PRIVATE structs Catch2::Catch2WithMain)
 add_test(NAME catch2 COMMAND test_catch2)
 
-endif() # BUILD_UNIT_TESTS
+endif() 
