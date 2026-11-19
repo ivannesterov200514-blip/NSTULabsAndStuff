@@ -11,16 +11,17 @@
 #include "capture.h"
 #include "hashtable.h"
 
-using std::string;
-using Pairs = std::vector<std::pair<string, string>>;
+using namespace std;
+
+using Pairs = vector<pair<string, string>>;
 
 namespace {
 
 const string kEmptyTable = "Хеш-таблица пуста\n";
 
-void check_same_content(const std::unordered_map<string, string>& ref, const Pairs& all) {
+void check_same_content(const unordered_map<string, string>& ref, const Pairs& all) {
     BOOST_CHECK_EQUAL(all.size(), ref.size());
-    std::set<string> seen;
+    set<string> seen;
     for (const auto& p : all) {
         BOOST_CHECK(seen.insert(p.first).second);   
         auto it = ref.find(p.first);
@@ -54,7 +55,7 @@ BOOST_AUTO_TEST_CASE(non_positive_modulus_returns_zero) {
 BOOST_AUTO_TEST_CASE(result_is_deterministic_and_in_range) {
     for (int m : {2, 11, 101, 1009}) {
         for (int i = 0; i < 200; ++i) {
-            string key = "key" + std::to_string(i);
+            string key = "key" + to_string(i);
             int h1 = hash1(key, m);
             int h2 = hash2(key, m);
             BOOST_CHECK(h1 >= 0 && h1 < m);
@@ -135,7 +136,7 @@ BOOST_AUTO_TEST_CASE(colliding_keys_share_a_bucket_and_stay_separate) {
 
 BOOST_AUTO_TEST_CASE(single_bucket_table_remove_head_middle_tail) {
     ChainTable t(1);
-    for (int i = 0; i < 5; ++i) t.ct_put("k" + std::to_string(i), "v" + std::to_string(i));
+    for (int i = 0; i < 5; ++i) t.ct_put("k" + to_string(i), "v" + to_string(i));
     BOOST_CHECK(t.ct_remove("k4"));   
     BOOST_CHECK(t.ct_remove("k2"));   
     BOOST_CHECK(t.ct_remove("k0"));   
@@ -148,10 +149,10 @@ BOOST_AUTO_TEST_CASE(single_bucket_table_remove_head_middle_tail) {
 
 BOOST_AUTO_TEST_CASE(get_all_returns_every_pair) {
     ChainTable t;
-    std::unordered_map<string, string> ref;
+    unordered_map<string, string> ref;
     for (int i = 0; i < 50; ++i) {
-        string k = "key" + std::to_string(i);
-        string v = "val" + std::to_string(i);
+        string k = "key" + to_string(i);
+        string v = "val" + to_string(i);
         t.ct_put(k, v);
         ref[k] = v;
     }
@@ -174,12 +175,12 @@ BOOST_AUTO_TEST_CASE(print_shows_only_non_empty_buckets) {
 }
 
 BOOST_AUTO_TEST_CASE(random_operations_match_unordered_map) {
-    std::mt19937 gen(2024);
+    mt19937 gen(2024);
     ChainTable t(7);
-    std::unordered_map<string, string> ref;
+    unordered_map<string, string> ref;
     for (int i = 0; i < 5000; ++i) {
-        string key = "k" + std::to_string(gen() % 300);
-        string val = "v" + std::to_string(gen() % 1000);
+        string key = "k" + to_string(gen() % 300);
+        string val = "v" + to_string(gen() % 1000);
         switch (gen() % 3) {
             case 0:
                 t.ct_put(key, val);
@@ -296,10 +297,10 @@ BOOST_AUTO_TEST_CASE(collision_in_first_table_kicks_the_old_key) {
 
 BOOST_AUTO_TEST_CASE(table_grows_and_keeps_every_key) {
     CuckooTable t(3);
-    std::unordered_map<string, string> ref;
+    unordered_map<string, string> ref;
     for (int i = 0; i < 500; ++i) {
-        string k = "key" + std::to_string(i);
-        string v = "val" + std::to_string(i);
+        string k = "key" + to_string(i);
+        string v = "val" + to_string(i);
         t.cu_put(k, v);
         ref[k] = v;
     }
@@ -317,12 +318,12 @@ BOOST_AUTO_TEST_CASE(table_grows_and_keeps_every_key) {
 
 BOOST_AUTO_TEST_CASE(remove_half_of_the_keys_after_growth) {
     CuckooTable t(3);
-    for (int i = 0; i < 200; ++i) t.cu_put("key" + std::to_string(i), "v");
-    for (int i = 0; i < 200; i += 2) BOOST_CHECK(t.cu_remove("key" + std::to_string(i)));
+    for (int i = 0; i < 200; ++i) t.cu_put("key" + to_string(i), "v");
+    for (int i = 0; i < 200; i += 2) BOOST_CHECK(t.cu_remove("key" + to_string(i)));
     BOOST_CHECK_EQUAL(t.cu_getsz(), 100);
     string value;
     for (int i = 0; i < 200; ++i) {
-        BOOST_CHECK_EQUAL(t.cu_get("key" + std::to_string(i), value), i % 2 == 1);
+        BOOST_CHECK_EQUAL(t.cu_get("key" + to_string(i), value), i % 2 == 1);
     }
 }
 
@@ -345,12 +346,12 @@ BOOST_AUTO_TEST_CASE(print_shows_second_table_after_kick) {
 }
 
 BOOST_AUTO_TEST_CASE(random_operations_match_unordered_map) {
-    std::mt19937 gen(777);
+    mt19937 gen(777);
     CuckooTable t(3);
-    std::unordered_map<string, string> ref;
+    unordered_map<string, string> ref;
     for (int i = 0; i < 5000; ++i) {
-        string key = "k" + std::to_string(gen() % 300);
-        string val = "v" + std::to_string(gen() % 1000);
+        string key = "k" + to_string(gen() % 300);
+        string val = "v" + to_string(gen() % 1000);
         switch (gen() % 3) {
             case 0:
                 t.cu_put(key, val);

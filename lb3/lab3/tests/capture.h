@@ -4,23 +4,25 @@
 #include <string>
 #include <utility>
 
+using namespace std;
+
 class CoutCapture {
 public:
-    CoutCapture() : old_(std::cout.rdbuf(buf_.rdbuf())) {}
-    ~CoutCapture() { std::cout.rdbuf(old_); }
+    CoutCapture() : old_(cout.rdbuf(buf_.rdbuf())) {}
+    ~CoutCapture() { cout.rdbuf(old_); }
     CoutCapture(const CoutCapture&) = delete;
     CoutCapture& operator=(const CoutCapture&) = delete;
 
-    std::string str() const { return buf_.str(); }
+    string str() const { return buf_.str(); }
 
 private:
-    std::ostringstream buf_;
-    std::streambuf* old_;
+    ostringstream buf_;
+    streambuf* old_;
 };
 
 template <class F>
-std::string capture_output(F&& f) {
+string capture_output(F&& f) {
     CoutCapture c;
-    std::forward<F>(f)();
+    forward<F>(f)();
     return c.str();
 }

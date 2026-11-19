@@ -10,8 +10,9 @@
 #include "avltree.h"
 #include "capture.h"
 
-using std::string;
-using Ints = std::vector<int>;
+using namespace std;
+
+using Ints = vector<int>;
 
 namespace {
 
@@ -30,7 +31,7 @@ Plain* plain_insert(Plain* t, int k) {
 }
 
 int plain_height(const Plain* t) {
-    return t == nullptr ? 0 : 1 + std::max(plain_height(t->l), plain_height(t->r));
+    return t == nullptr ? 0 : 1 + max(plain_height(t->l), plain_height(t->r));
 }
 
 bool plain_balanced(const Plain* t) {
@@ -41,7 +42,7 @@ bool plain_balanced(const Plain* t) {
 
 Ints plain_level_order(const Plain* t) {
     Ints res;
-    std::queue<const Plain*> q;
+    queue<const Plain*> q;
     if (t != nullptr) q.push(t);
     while (!q.empty()) {
         const Plain* n = q.front();
@@ -90,7 +91,7 @@ void check_items(AVLTree& t, const Ints& expected) {
 
 int printed_height(AVLTree& t) {
     string out = capture_output([&] { t.t_print_wide(); });
-    return static_cast<int>(std::count(out.begin(), out.end(), '\n'));
+    return static_cast<int>(count(out.begin(), out.end(), '\n'));
 }
 
 }  
@@ -219,10 +220,10 @@ BOOST_AUTO_TEST_CASE(print_wide_prints_level_by_level) {
 }
 
 BOOST_AUTO_TEST_CASE(random_inserts_and_deletes_match_std_set) {
-    std::mt19937 gen(12345);
-    std::uniform_int_distribution<int> dist(0, 4999);
+    mt19937 gen(12345);
+    uniform_int_distribution<int> dist(0, 4999);
     AVLTree t;
-    std::set<int> ref;
+    set<int> ref;
 
     for (int i = 0; i < 2000; ++i) {
         int k = dist(gen);
@@ -243,7 +244,7 @@ BOOST_AUTO_TEST_CASE(random_inserts_and_deletes_match_std_set) {
     check_valid(t);
 
     Ints actual = t.t_items();
-    std::sort(actual.begin(), actual.end());
+    sort(actual.begin(), actual.end());
     Ints expected(ref.begin(), ref.end());
     BOOST_CHECK_EQUAL_COLLECTIONS(actual.begin(), actual.end(), expected.begin(), expected.end());
 

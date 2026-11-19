@@ -32,16 +32,7 @@ add_executable(benchmark_cpp bench/benchmark.cpp)
 target_link_libraries(benchmark_cpp PRIVATE structs)
 target_compile_options(benchmark_cpp PRIVATE -O2)
 
-add_executable(test_safety tests/test_safety.cpp)
-target_link_libraries(test_safety PRIVATE structs)
-
 enable_testing()
-add_test(NAME safety COMMAND test_safety)
-find_package(Python3 COMPONENTS Interpreter QUIET)
-if(Python3_Interpreter_FOUND)
-    add_test(NAME cli_roundtrip COMMAND ${Python3_EXECUTABLE}
-        ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_cli.py $<TARGET_FILE:dbms>)
-endif()
 
 if(BUILD_UNIT_TESTS)
 

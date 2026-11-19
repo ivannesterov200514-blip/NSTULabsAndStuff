@@ -6,8 +6,9 @@
 #include "capture.h"
 #include "stack.h"
 
-using std::string;
-using Strings = std::vector<string>;
+using namespace std;
+
+using Strings = vector<string>;
 
 TEST_CASE("Stack: new stack is empty", "[stack]") {
     Stack s;
@@ -32,8 +33,8 @@ TEST_CASE("Stack: pop on empty stack prints an error", "[stack]") {
 TEST_CASE("Stack: elements come out in LIFO order", "[stack]") {
     Stack s;
     string expected;
-    for (int i = 0; i < 1000; ++i) s.st_push(std::to_string(i));
-    for (int i = 999; i >= 0; --i) expected += std::to_string(i) + "\n";
+    for (int i = 0; i < 1000; ++i) s.st_push(to_string(i));
+    for (int i = 999; i >= 0; --i) expected += to_string(i) + "\n";
     string out = capture_output([&] {
         for (int i = 0; i < 1000; ++i) s.st_pop();
     });
@@ -59,6 +60,6 @@ TEST_CASE("Stack: print format", "[stack]") {
 
 TEST_CASE("Stack: large stack is destroyed without stack overflow", "[stack]") {
     Stack s;
-    for (int i = 0; i < 100000; ++i) s.st_push(std::to_string(i));
+    for (int i = 0; i < 100000; ++i) s.st_push(to_string(i));
     REQUIRE(s.st_items().size() == 100000);
 }

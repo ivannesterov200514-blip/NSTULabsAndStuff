@@ -6,8 +6,9 @@
 #include "capture.h"
 #include "queue.h"
 
-using std::string;
-using Strings = std::vector<string>;
+using namespace std;
+
+using Strings = vector<string>;
 
 TEST_CASE("Queue: new queue is empty", "[queue]") {
     Queue q;
@@ -32,8 +33,8 @@ TEST_CASE("Queue: elements come out in FIFO order", "[queue]") {
     Queue q;
     string expected;
     for (int i = 0; i < 1000; ++i) {
-        q.q_push(std::to_string(i));
-        expected += std::to_string(i) + "\n";
+        q.q_push(to_string(i));
+        expected += to_string(i) + "\n";
     }
     string out = capture_output([&] {
         for (int i = 0; i < 1000; ++i) q.q_pop();

@@ -2,7 +2,7 @@
 set -eu
 cd "$(dirname "$0")/.."
 if ! command -v gcovr >/dev/null 2>&1; then
-  echo 'Для HTML-покрытия установите gcovr (python -m pip install gcovr).' >&2
+  echo 'Для HTML-покрытия установите gcovr (например, sudo apt install gcovr).' >&2
   exit 1
 fi
 

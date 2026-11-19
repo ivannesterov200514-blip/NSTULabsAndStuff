@@ -3,13 +3,15 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct BinaryRecord {
     char type;
-    std::string name;
-    std::vector<std::string> values;
+    string name;
+    vector<string> values;
 };
 
-bool write_binary_records(const std::string& filename,
-                          const std::vector<BinaryRecord>& records);
-bool read_binary_records(const std::string& filename,
-                         std::vector<BinaryRecord>& records);
+bool write_binary_records(const string& filename,
+                          const vector<BinaryRecord>& records);
+bool read_binary_records(const string& filename,
+                         vector<BinaryRecord>& records);

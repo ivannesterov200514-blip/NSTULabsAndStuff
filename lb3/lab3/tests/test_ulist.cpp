@@ -6,8 +6,8 @@
 #include "capture.h"
 #include "ulist.h"
 
-using std::string;
-using std::vector;
+using namespace std;
+
 using Strings = vector<string>;
 
 namespace {
@@ -207,6 +207,6 @@ TEST_F(UListTest, PrintPairsFormat) {
 
 TEST(UListLifetimeTest, LargeListIsDestroyedWithoutStackOverflow) {
     UList big;
-    for (int i = 0; i < 100000; ++i) big.ul_insert_head(std::to_string(i));
+    for (int i = 0; i < 100000; ++i) big.ul_insert_head(to_string(i));
     EXPECT_EQ(big.ul_getsz(), 100000);
 }   

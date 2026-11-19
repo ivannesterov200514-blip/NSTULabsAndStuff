@@ -1,6 +1,8 @@
 #include "array.h"
 #include <stdexcept>
 
+using namespace std;
+
 Arr::Arr(int cap) {
     capacity = cap > 0 ? cap : 2;
     data = new string[capacity];
@@ -14,7 +16,7 @@ int Arr::arr_getsz(){
 void Arr::arr_resize (int newcap) {
 
     if (newcap <= 0 || newcap < size) {
-        throw std::invalid_argument("arr_resize: new capacity is smaller than size");
+        throw invalid_argument("arr_resize: new capacity is smaller than size");
     }
     string* newdata = new string[newcap];
     for (int i = 0; i < size; i++) newdata[i] = data[i];

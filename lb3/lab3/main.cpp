@@ -15,6 +15,8 @@
 #include <cstring>
 #include <cctype>
 
+using namespace std;
+
 struct Db {
     map<string, Arr*> arrs;
     map<string, UList*> uls;
@@ -664,7 +666,7 @@ int main(int argc, char* argv[]) {
     vector<string> t;
     istringstream ss(query);
     string tok;
-    while (ss >> std::quoted(tok)) t.push_back(tok);
+    while (ss >> quoted(tok)) t.push_back(tok);
     if (t.empty()) {
         cout << "Ошибка: Пустой запрос\n";
         return 1;

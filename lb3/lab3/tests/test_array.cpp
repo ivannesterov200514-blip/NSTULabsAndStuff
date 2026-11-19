@@ -8,8 +8,9 @@
 #include "array.h"
 #include "capture.h"
 
-using std::string;
-using Strings = std::vector<string>;
+using namespace std;
+
+using Strings = vector<string>;
 
 namespace {
 
@@ -31,7 +32,7 @@ TEST_CASE("Arr: new array is empty", "[array]") {
 
 TEST_CASE("Arr: insert_tail appends in order and grows past capacity", "[array]") {
     Arr a(1);
-    for (int i = 0; i < 10; ++i) a.arr_insert_tail(std::to_string(i));
+    for (int i = 0; i < 10; ++i) a.arr_insert_tail(to_string(i));
     REQUIRE(a.arr_getsz() == 10);
     Strings expected{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     REQUIRE(contents(a) == expected);
@@ -115,7 +116,7 @@ TEST_CASE("Arr: arr_insert_idx", "[array]") {
     }
     SECTION("repeated inserts at the front force reallocation") {
         Arr a(1);
-        for (int i = 0; i < 8; ++i) a.arr_insert_idx(std::to_string(i), 0);
+        for (int i = 0; i < 8; ++i) a.arr_insert_idx(to_string(i), 0);
         REQUIRE(contents(a) == Strings{"7", "6", "5", "4", "3", "2", "1", "0"});
     }
 }
@@ -221,7 +222,7 @@ TEST_CASE("Arr: invalid resize is rejected without damaging elements", "[array][
     Arr a;
     a.arr_insert_tail("one");
     a.arr_insert_tail("two");
-    REQUIRE_THROWS_AS(a.arr_resize(1), std::invalid_argument);
-    REQUIRE_THROWS_AS(a.arr_resize(0), std::invalid_argument);
+    REQUIRE_THROWS_AS(a.arr_resize(1), invalid_argument);
+    REQUIRE_THROWS_AS(a.arr_resize(0), invalid_argument);
     REQUIRE(contents(a) == Strings{"one", "two"});
 }

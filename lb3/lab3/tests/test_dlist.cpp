@@ -6,8 +6,8 @@
 #include "capture.h"
 #include "dlist.h"
 
-using std::string;
-using std::vector;
+using namespace std;
+
 using Strings = vector<string>;
 
 namespace {
@@ -176,6 +176,6 @@ TEST_F(DListTest, PrintOfEmptyListSaysEmpty) {
 
 TEST(DListLifetimeTest, LargeListIsDestroyedWithoutStackOverflow) {
     DList big;
-    for (int i = 0; i < 100000; ++i) big.dl_insert_tail(std::to_string(i));
+    for (int i = 0; i < 100000; ++i) big.dl_insert_tail(to_string(i));
     EXPECT_EQ(big.dl_items().size(), 100000u);
 }
