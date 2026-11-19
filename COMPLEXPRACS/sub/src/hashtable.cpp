@@ -1,4 +1,4 @@
-#include "hash.h"
+#include "hashtable.h"
 
 HashTable::HashTable(int cap) {
     capacity = cap > 0 ? cap : 2;

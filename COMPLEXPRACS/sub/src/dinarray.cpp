@@ -1,4 +1,4 @@
-#include "array.h"
+#include "dinarray.h"
 #include <stdexcept>
 
 Arr::Arr(int cap) {

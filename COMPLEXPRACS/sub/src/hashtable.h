@@ -1,5 +1,5 @@
 #pragma once
-#include "array.h"
+#include "dinarray.h"
 #include <iostream>
 #include <stdint.h>
 
