@@ -209,4 +209,33 @@ TEST(UListLifetimeTest, LargeListIsDestroyedWithoutStackOverflow) {
     UList big;
     for (int i = 0; i < 100000; ++i) big.ul_insert_head(to_string(i));
     EXPECT_EQ(big.ul_getsz(), 100000);
-}   
+}
+
+TEST_F(UListTest, EmptyListErrorCases) {
+    string out = capture_output([&] { empty.ul_insert_before("a", "x"); });
+    EXPECT_EQ(out, kNotFound);
+
+    out = capture_output([&] { empty.ul_delete_head(); });
+    EXPECT_EQ(out, kEmptyList);
+
+    out = capture_output([&] { empty.ul_delete_tail(); });
+    EXPECT_EQ(out, kEmptyList);
+
+    out = capture_output([&] { empty.ul_delete_before("a"); });
+    EXPECT_EQ(out, kNotFound);
+
+    out = capture_output([&] { empty.ul_delete_after("a"); });
+    EXPECT_EQ(out, kNotFound);
+
+    out = capture_output([&] { empty.ul_delete_key("a"); });
+    EXPECT_EQ(out, kNotFound);
+    EXPECT_EQ(empty.ul_getsz(), 0);
+}
+
+TEST_F(UListTest, InsertBeforeFirstAndInsertAfterMissing) {
+    abc.ul_insert_before("a", "x");
+    string out = capture_output([&] { abc.ul_insert_after("missing", "y"); });
+    EXPECT_EQ(out, kNotFound);
+    EXPECT_EQ(keys(abc), (Strings{"x", "a", "b", "c"}));
+    EXPECT_EQ(abc.ul_getsz(), 4);
+}
