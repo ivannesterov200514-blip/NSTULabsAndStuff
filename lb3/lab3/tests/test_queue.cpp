@@ -67,3 +67,4 @@ TEST_CASE("Queue: print format", "[queue]") {
         REQUIRE(out == "Head: a -> b -> : Tail\n");
     }
 }
+

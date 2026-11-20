@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -51,7 +51,7 @@ private:
     int cap;
     int sz;
     int grows;
-    uint64_t kicks;
+    size_t kicks;
 
     void cu_insert(string key, string value);
     void cu_grow(string key, string value);
@@ -69,7 +69,7 @@ public:
     int cu_getsz() const;
     int cu_getcap() const;
     int cu_getgrows() const;
-    uint64_t cu_getkicks() const;
+    size_t cu_getkicks() const;
     vector<pair<string, string>> cu_get_all() const;
 
     ~CuckooTable();

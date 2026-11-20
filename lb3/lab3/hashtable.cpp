@@ -4,18 +4,18 @@
 
 int hash1(string key, int m) {
     if (m <= 0) return 0;
-    long long h = 0;
+    size_t h = 0;
     for (size_t i = 0; i < key.size(); i++) {
-        h = (h * 31 + (unsigned char)key[i]) % m;
+        h = (h * 31 + (unsigned char)key[i]) % (size_t)m;
     }
     return (int)h;
 }
 
 int hash2(string key, int m) {
     if (m <= 0) return 0;
-    long long h = 7;
+    size_t h = 7;
     for (size_t i = 0; i < key.size(); i++) {
-        h = (h * 131 + (unsigned char)key[i]) % m;
+        h = (h * 131 + (unsigned char)key[i]) % (size_t)m;
     }
     return (int)h;
 }
@@ -216,7 +216,7 @@ int CuckooTable::cu_getgrows() const {
     return grows;
 }
 
-uint64_t CuckooTable::cu_getkicks() const {
+size_t CuckooTable::cu_getkicks() const {
     return kicks;
 }
 

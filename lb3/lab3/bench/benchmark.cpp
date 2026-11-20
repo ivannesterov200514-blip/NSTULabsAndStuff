@@ -14,18 +14,18 @@
 using namespace std;
 
 const int REPEATS = 3;
-unsigned long long checksum = 0; 
+size_t checksum = 0; 
 
 void show_result(const string& name, const string& operation,
-                 int count, long long time_ns) {
-    double average = (double)time_ns / REPEATS / count;
+                 int count, double time_ns) {
+    double average = time_ns / REPEATS / count;
     cout << name << "," << operation << "," << count << "," << average << "\n";
 }
 
 void bench_array(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
-    long long search_time = 0;
+    double insert_time = 0;
+    double search_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         Arr a;
         auto start = chrono::steady_clock::now();
@@ -45,8 +45,8 @@ void bench_array(const vector<string>& keys) {
 
 void bench_singly_linked_list(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
-    long long search_time = 0;
+    double insert_time = 0;
+    double search_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         UList a;
         auto start = chrono::steady_clock::now();
@@ -66,8 +66,8 @@ void bench_singly_linked_list(const vector<string>& keys) {
 
 void bench_doubly_linked_list(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
-    long long search_time = 0;
+    double insert_time = 0;
+    double search_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         DList a;
         auto start = chrono::steady_clock::now();
@@ -87,7 +87,7 @@ void bench_doubly_linked_list(const vector<string>& keys) {
 
 void bench_stack(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
+    double insert_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         Stack a;
         auto start = chrono::steady_clock::now();
@@ -101,7 +101,7 @@ void bench_stack(const vector<string>& keys) {
 
 void bench_queue(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
+    double insert_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         Queue a;
         auto start = chrono::steady_clock::now();
@@ -115,8 +115,8 @@ void bench_queue(const vector<string>& keys) {
 
 void bench_chain_table(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
-    long long search_time = 0;
+    double insert_time = 0;
+    double search_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         ChainTable a;
         auto start = chrono::steady_clock::now();
@@ -137,8 +137,8 @@ void bench_chain_table(const vector<string>& keys) {
 
 void bench_cuckoo_table(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
-    long long search_time = 0;
+    double insert_time = 0;
+    double search_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         CuckooTable a;
         auto start = chrono::steady_clock::now();
@@ -159,8 +159,8 @@ void bench_cuckoo_table(const vector<string>& keys) {
 
 void bench_avl_tree(const vector<string>& keys) {
     int n = (int)keys.size();
-    long long insert_time = 0;
-    long long search_time = 0;
+    double insert_time = 0;
+    double search_time = 0;
     for (int repeat = 0; repeat < REPEATS; repeat++) {
         AVLTree a;
         auto start = chrono::steady_clock::now();

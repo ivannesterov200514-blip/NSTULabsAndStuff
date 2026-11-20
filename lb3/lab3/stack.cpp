@@ -47,4 +47,4 @@ Stack::~Stack() {
         top = top->next;
         delete v;
     }
-}
+}
