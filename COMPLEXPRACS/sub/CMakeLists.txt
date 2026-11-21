@@ -16,11 +16,12 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
+include(GoogleTest)
 
 add_library(
     task_structures
     src/dinarray.cpp
-    src/hashtable.cpp
+    src/table.cpp
 )
 
 target_include_directories(task_structures PUBLIC src)
@@ -47,6 +48,4 @@ target_link_libraries(
 )
 
 gtest_discover_tests(test_hashtable)
-
-include(GoogleTest)
 gtest_discover_tests(test_array)
