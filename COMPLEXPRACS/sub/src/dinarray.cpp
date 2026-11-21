@@ -7,7 +7,7 @@ Arr::Arr(int cap) {
     size = 0;
 }
 
-int Arr::arr_getsz(){
+const int Arr::arr_getsz(){
     return size;
 }
 
@@ -66,6 +66,10 @@ void Arr::arr_print(){
         cout << data[i].id << " ";
     }
     cout << endl;
+}
+
+const int Arr::arr_getcap() {
+    return capacity;
 }
 
 Arr::~Arr() { delete[] data; }

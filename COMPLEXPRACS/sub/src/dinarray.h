@@ -20,7 +20,9 @@ public:
     void arr_insert_tail (Task* val);
     void arr_delete_idx (int idx);
     void arr_change_idx (Task* val, int idx);
-    int arr_getsz();
+    const int arr_getsz();
     void arr_print();
+
+    const int arr_getcap();
     ~Arr();
 };

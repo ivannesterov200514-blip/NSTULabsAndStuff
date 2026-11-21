@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(TaskManager LANGUAGES CXX)
 
-set(cmake_cxx_standart 17)
-set (cmake_cxx_standart_required ON)
+set(CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 
@@ -27,7 +27,7 @@ target_include_directories(task_structures PUBLIC src)
 
 add_executable(
     test_array
-    test/test_array.cpp
+    tests/test_array.cpp
 )
 
 target_link_libraries(
