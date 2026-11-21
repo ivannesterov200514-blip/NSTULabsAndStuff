@@ -37,5 +37,16 @@ target_link_libraries(
     GTest::gtest_main
 )
 
+add_executable(test_hashtable tests/test_hashtable.cpp)
+
+target_link_libraries(
+    test_hashtable
+    PRIVATE
+    task_structures
+    GTest::gtest_main
+)
+
+gtest_discover_tests(test_hashtable)
+
 include(GoogleTest)
 gtest_discover_tests(test_array)
