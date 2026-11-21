@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(TaskManager LANGUAGES CSS)
+project(TaskManager LANGUAGES CXX)
 
 set(cmake_cxx_standart 17)
 set (cmake_cxx_standart_required ON)
@@ -19,15 +19,15 @@ enable_testing()
 
 add_library(
     task_structures
-    src/array.cpp
-    src/hash.cpp
+    src/dinarray.cpp
+    src/hashtable.cpp
 )
 
 target_include_directories(task_structures PUBLIC src)
 
 add_executable(
     test_array
-    tests/test_array.cpp
+    test/test_array.cpp
 )
 
 target_link_libraries(

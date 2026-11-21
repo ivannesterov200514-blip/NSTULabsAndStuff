@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtask_structures.a CMakeFiles/task_structures.dir/src/dinarray.cpp.o CMakeFiles/task_structures.dir/src/hashtable.cpp.o
+/usr/bin/ranlib libtask_structures.a
