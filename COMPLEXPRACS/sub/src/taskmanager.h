@@ -3,6 +3,17 @@
 #include "table.h"
 #include "heap.h"
 
+struct TaskStats {
+    int total = 0;
+    int queued = 0;
+    int running = 0;
+    int completed = 0;
+    int failed = 0;
+    int cancelled = 0;
+    int queue_size = 0;
+    int max_priority = -1;
+};
+
 class TaskManager {
 private:
     Arr tasks;
@@ -12,6 +23,12 @@ private:
     uint64_t next_order;
 public:
     TaskManager();
-    uint64_t createTask(string type, string payload, unsigned int priority);
-
+    uint64_t createTask(const string& type, const string& payload, unsigned int priority);
+    Task* getTask(uint64_t id);
+    Task* startNextTask();
+    void completeTask(uint64_t id);
+    void failTask(uint64_t id, const string& error);
+    void cancelTask(uint64_t id);
+    void listTasks(Arr& result, const string& status = "");
+    TaskStats getStats();
 };
