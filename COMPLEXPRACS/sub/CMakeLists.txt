@@ -22,14 +22,12 @@ add_library(
     task_structures
     src/dinarray.cpp
     src/table.cpp
+    src/heap.cpp
 )
 
 target_include_directories(task_structures PUBLIC src)
 
-add_executable(
-    test_array
-    tests/test_array.cpp
-)
+add_executable(test_array tests/test_array.cpp)
 
 target_link_libraries(
     test_array
@@ -47,5 +45,16 @@ target_link_libraries(
     GTest::gtest_main
 )
 
+add_executable(test_heap tests/test_heap.cpp)
+
+target_link_libraries(
+    test_heap
+    PRIVATE
+    task_structures
+    GTest::gtest_main
+)
+
+
+gtest_discover_tests(test_heap)
 gtest_discover_tests(test_hashtable)
 gtest_discover_tests(test_array)

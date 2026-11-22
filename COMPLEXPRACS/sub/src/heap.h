@@ -1,6 +1,6 @@
+
 #pragma once
 #include <cstdint>
-#include <iostream>
 
 using namespace std;
 
@@ -14,20 +14,21 @@ class Heap {
 private:
     HeapNode* data;
     int size;
-    int capacity;   
-public:
-    Heap(int cap = 2);
-    Heap(const Heap&) = delete;
-    Heap& operator=(const Heap&) = delete;
-
-    HeapNode* heap_peek();
-    void heap_push(HeapNode* node);
-    HeapNode heap_pop();
+    int capacity;
 
     void heap_resize(int newcap);
     void siftUp(int idx);
     void siftDown(int idx);
     bool higherPriority(HeapNode a, HeapNode b);
+
+public:
+    Heap(int cap = 2);
+    Heap(const Heap&) = delete;
+    Heap& operator=(const Heap&) = delete;
+
+    HeapNode heap_peek();
+    void heap_push(HeapNode* node);
+    HeapNode heap_pop();
 
     int heap_getsz();
     int heap_getcap();
