@@ -1,5 +1,6 @@
 #include "dinarray.h"
 #include <stdexcept>
+#include <utility>
 
 Arr::Arr(int cap) {
     capacity = cap > 0 ? cap : 2;
@@ -16,7 +17,15 @@ void Arr::arr_resize (int newcap) {
         throw invalid_argument("resize(arr): new capacity is smaller than size");
     }
     Task* newdata = new Task[newcap];
-    for (int i = 0; i < size; i++) newdata[i] = data[i];
+    try {
+        for (int i = 0; i < size; i++) {
+            newdata[i] = data[i];
+        }
+    }
+    catch (...) {
+        delete[] newdata;
+        throw;
+    }
     delete[] data;
     data = newdata;
     capacity = newcap;
@@ -70,6 +79,12 @@ void Arr::arr_print(){
 
 const int Arr::arr_getcap() {
     return capacity;
+}
+
+void Arr::swap(Arr& other) noexcept {
+    std::swap(data, other.data);
+    std::swap(size, other.size);
+    std::swap(capacity, other.capacity);
 }
 
 Arr::~Arr() { delete[] data; }

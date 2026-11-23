@@ -31,4 +31,7 @@ public:
     void cancelTask(uint64_t id);
     void listTasks(Arr& result, const string& status = "");
     TaskStats getStats();
+    void saveToFile(const string& path);
+    void loadFromFile(const string& path);
+    void swap(TaskManager& other) noexcept;
 };

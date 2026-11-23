@@ -34,5 +34,6 @@ public:
 
     int hash_get_resize_count();
     double hash_get_max_load_factor();
+    void swap(HashTable& other) noexcept;
     ~HashTable();
 };

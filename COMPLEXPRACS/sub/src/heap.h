@@ -32,6 +32,7 @@ public:
 
     int heap_getsz();
     int heap_getcap();
+    void swap(Heap& other) noexcept;
 
     ~Heap();
 };

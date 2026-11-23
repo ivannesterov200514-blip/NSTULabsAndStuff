@@ -1,5 +1,6 @@
 #include "heap.h"
 #include <stdexcept>
+#include <utility>
 
 Heap::Heap(int cap) {
     capacity = cap > 0 ? cap : 2;
@@ -96,6 +97,12 @@ int Heap::heap_getsz() {
 
 int Heap::heap_getcap() {
     return capacity;
+}
+
+void Heap::swap(Heap& other) noexcept {
+    std::swap(data, other.data);
+    std::swap(size, other.size);
+    std::swap(capacity, other.capacity);
 }
 
 Heap::~Heap() { delete[] data; }

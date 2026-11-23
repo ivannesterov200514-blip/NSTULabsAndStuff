@@ -24,5 +24,6 @@ public:
     void arr_print();
 
     const int arr_getcap();
+    void swap(Arr& other) noexcept;
     ~Arr();
 };

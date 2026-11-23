@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include <fstream>
+#include <filesystem>
 #include <stdexcept>
 #include "taskmanager.h"
 
@@ -157,4 +159,55 @@ TEST(TaskManagerTest, StatsAndIndexAfterChanges) {
     EXPECT_EQ(manager.startNextTask()->id, queued1);
     EXPECT_EQ(manager.startNextTask()->id, queued2);
     EXPECT_THROW(manager.startNextTask(), std::out_of_range);
+}
+
+
+TEST(TaskManagerTest, SaveAndLoad) {
+    TaskManager manager;
+
+    uint64_t id1 = manager.createTask("calculate", "2 + 2", 80);
+    uint64_t id2 = manager.createTask("download", "file.txt", 50);
+
+    manager.startNextTask();
+    manager.completeTask(id1);
+    manager.saveToFile("test_tasks.dat");
+    TaskManager loaded;
+    loaded.loadFromFile("test_tasks.dat");
+
+    EXPECT_EQ(loaded.getTask(id1)->status, "completed");
+    EXPECT_EQ(loaded.getTask(id2)->status, "queued");
+    EXPECT_EQ(loaded.getTask(id1)->payload, "2 + 2");
+    EXPECT_EQ(loaded.getTask(id2)->priority, 50);
+    EXPECT_EQ(loaded.getStats().total, 2);
+
+    std::filesystem::remove("test_tasks.dat");
+}
+
+
+TEST(TaskManagerTest, CorruptedFile) {
+    const string path = "test_corrupted.dat";
+
+    {
+        ofstream file(path);
+
+        file << "TASKS_V1\n";
+        file << "3 2\n";
+        file << "2\n";
+        file << "1 80 \"calculate\" \"2 + 2\" queued \"2026-11-23 14:30:00\" \"2026-11-23 14:30:00\" \"\"\n";
+        file << "2 50 \"download\"\n";
+    }
+
+    TaskManager manager;
+    uint64_t id = manager.createTask("original", "test", 60);
+
+    EXPECT_THROW(manager.loadFromFile(path), runtime_error);
+
+    EXPECT_EQ(manager.getStats().total, 1);
+    EXPECT_EQ(manager.getTask(id)->type, "original");
+    EXPECT_EQ(manager.getTask(id)->payload, "test");
+    EXPECT_EQ(manager.getTask(id)->status, "queued");
+    EXPECT_EQ(manager.createTask("next", "test", 50), 2);
+    EXPECT_TRUE(filesystem::exists(path));
+
+    filesystem::remove(path);
 }

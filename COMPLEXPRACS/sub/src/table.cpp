@@ -1,4 +1,5 @@
 #include "table.h"
+#include <utility>
 
 HashTable::HashTable(int cap) {
     capacity = cap > 0 ? cap : 2;
@@ -150,6 +151,14 @@ int HashTable::hash_get_resize_count() {
 
 double HashTable::hash_get_max_load_factor() {
     return max_load_factor;
+}
+
+void HashTable::swap(HashTable& other) noexcept {
+    std::swap(table, other.table);
+    std::swap(capacity, other.capacity);
+    std::swap(size, other.size);
+    std::swap(resize_count, other.resize_count);
+    std::swap(max_load_factor, other.max_load_factor);
 }
 
 HashTable::~HashTable() {

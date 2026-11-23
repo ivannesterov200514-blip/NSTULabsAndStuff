@@ -1,6 +1,10 @@
 #include "taskmanager.h"
 #include <ctime>
 #include <stdexcept>
+#include <fstream>
+#include <iomanip>
+#include <filesystem>
+#include <utility>
 
 TaskManager::TaskManager() {
     next_id = 1;
@@ -146,4 +150,131 @@ void TaskManager::listTasks(Arr& result, const string& status) {
             result.arr_insert_tail(task);
         }
     }
+}
+
+void TaskManager::saveToFile(const string& path) {
+    ofstream file(path + ".tmp", ios::binary);
+    
+    if (!file.is_open()) {
+        throw runtime_error("Не удалось открыть файл");
+    }
+    file << "TASKS_V1\n";
+    file << next_id << " " << next_order << "\n";
+    file << tasks.arr_getsz() << "\n";
+
+    for (int i = 0; i < tasks.arr_getsz(); i++) {
+        Task* task = tasks.arr_search(i);
+        file << task->id << " ";
+        file << task->priority << " ";
+        file << quoted(task->type) << " ";
+        file << quoted(task->payload) << " ";
+        file << task->status << " ";
+        file << quoted(task->created_at) << " ";
+        file << quoted(task->updated_at) << " ";
+        file << quoted(task->error) << "\n";
+    }
+
+    file.flush();
+    if (!file) {
+        throw runtime_error("Ошибка записи файла");
+    }
+    file.close();
+    if (!file) {
+        throw runtime_error("Ошибка закрытия файла");
+    }
+
+    filesystem::rename(path + ".tmp", path);
+}
+
+void TaskManager::loadFromFile(const string& path) {
+    if (!filesystem::exists(path)) return;
+    ifstream file(path, ios::binary);
+    if (!file.is_open()) {
+        throw runtime_error("Не удалось открыть файл");
+    }
+
+    string version;
+    file >> version;
+
+    if (!file || version != "TASKS_V1") {
+        throw runtime_error("Неверная версия или повреждённый файл");
+    }
+    uint64_t fileNextId;
+    uint64_t fileNextOrder;
+    int count;
+
+    file >> fileNextId >> fileNextOrder >> count;
+    if (!file || count < 0) {
+        throw runtime_error("Повреждённый файл");
+    }
+    TaskManager loaded;
+    uint64_t maxId = 0;
+
+    for (int i = 0; i < count; i++) {
+        Task task{};
+        file >> task.id;
+        file >> task.priority;
+        file >> quoted(task.type);
+        file >> quoted(task.payload);
+        file >> task.status;
+        file >> quoted(task.created_at);
+        file >> quoted(task.updated_at);
+        file >> quoted(task.error);
+
+        if (!file) {
+            throw runtime_error("Повреждённая запись задачи");
+        }
+        if (task.id == 0 || task.priority > 100) {
+            throw runtime_error("Некорректные данные задачи");
+        }
+        if (task.status != "queued" && task.status != "running" &&
+            task.status != "completed" && task.status != "failed" && task.status != "cancelled") {
+            throw runtime_error("Некорректный статус задачи");
+        }
+
+        if (loaded.table.hash_contains(task.id)) {
+            throw runtime_error("Повторяющийся ID задачи");
+        }
+        if (task.id > maxId) {
+            maxId = task.id;
+        }
+        if (task.id != static_cast<uint64_t>(i) + 1) {
+            throw runtime_error("Нарушен порядок ID задач");
+        }
+
+        loaded.tasks.arr_insert_tail(&task);
+        int idx = loaded.tasks.arr_getsz() - 1;
+        loaded.table.hash_insert(task.id, idx);
+
+        if (task.status == "queued") {
+            HeapNode node{task.id, task.priority, static_cast<uint64_t>(i)};
+            loaded.heap.heap_push(&node);
+        }
+    }
+    if (fileNextId == 0 || fileNextId <= maxId) {
+        throw runtime_error("Некорректный следующий ID");
+    }
+
+    if (fileNextOrder < static_cast<uint64_t>(count)) {
+        throw runtime_error("Некорректный порядок создания задач");
+    }
+
+    string extra;
+    if (file >> extra) {
+        throw runtime_error("Лишние данные в файле");
+    }
+    if (!file.eof()) {
+        throw runtime_error("Ошибка чтения файла");
+    }
+    loaded.next_id = fileNextId;
+    loaded.next_order = fileNextOrder;
+    swap(loaded);
+}
+
+void TaskManager::swap(TaskManager& other) noexcept {
+    tasks.swap(other.tasks);
+    table.swap(other.table);
+    heap.swap(other.heap);
+    std::swap(next_id, other.next_id);
+    std::swap(next_order, other.next_order);
 }
