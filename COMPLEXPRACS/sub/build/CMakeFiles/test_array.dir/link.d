@@ -2,7 +2,7 @@ test_array: \
   /usr/lib/gcc/x86_64-linux-gnu/15/../../../x86_64-linux-gnu/Scrt1.o \
   /usr/lib/gcc/x86_64-linux-gnu/15/../../../x86_64-linux-gnu/crti.o \
   /usr/lib/gcc/x86_64-linux-gnu/15/crtbeginS.o \
-  CMakeFiles/test_array.dir/test/test_array.cpp.o \
+  CMakeFiles/test_array.dir/tests/test_array.cpp.o \
   libtask_structures.a \
   lib/libgtest_main.a \
   lib/libgtest.a \
@@ -40,7 +40,7 @@ test_array: \
 
 /usr/lib/gcc/x86_64-linux-gnu/15/crtbeginS.o:
 
-CMakeFiles/test_array.dir/test/test_array.cpp.o:
+CMakeFiles/test_array.dir/tests/test_array.cpp.o:
 
 libtask_structures.a:
 

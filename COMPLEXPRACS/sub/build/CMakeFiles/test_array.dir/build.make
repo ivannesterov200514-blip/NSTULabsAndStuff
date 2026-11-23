@@ -72,28 +72,28 @@ include CMakeFiles/test_array.dir/flags.make
 CMakeFiles/test_array.dir/codegen:
 .PHONY : CMakeFiles/test_array.dir/codegen
 
-CMakeFiles/test_array.dir/test/test_array.cpp.o: CMakeFiles/test_array.dir/flags.make
-CMakeFiles/test_array.dir/test/test_array.cpp.o: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/test/test_array.cpp
-CMakeFiles/test_array.dir/test/test_array.cpp.o: CMakeFiles/test_array.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_array.dir/test/test_array.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_array.dir/test/test_array.cpp.o -MF CMakeFiles/test_array.dir/test/test_array.cpp.o.d -o CMakeFiles/test_array.dir/test/test_array.cpp.o -c /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/test/test_array.cpp
+CMakeFiles/test_array.dir/tests/test_array.cpp.o: CMakeFiles/test_array.dir/flags.make
+CMakeFiles/test_array.dir/tests/test_array.cpp.o: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/tests/test_array.cpp
+CMakeFiles/test_array.dir/tests/test_array.cpp.o: CMakeFiles/test_array.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_array.dir/tests/test_array.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_array.dir/tests/test_array.cpp.o -MF CMakeFiles/test_array.dir/tests/test_array.cpp.o.d -o CMakeFiles/test_array.dir/tests/test_array.cpp.o -c /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/tests/test_array.cpp
 
-CMakeFiles/test_array.dir/test/test_array.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_array.dir/test/test_array.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/test/test_array.cpp > CMakeFiles/test_array.dir/test/test_array.cpp.i
+CMakeFiles/test_array.dir/tests/test_array.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_array.dir/tests/test_array.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/tests/test_array.cpp > CMakeFiles/test_array.dir/tests/test_array.cpp.i
 
-CMakeFiles/test_array.dir/test/test_array.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_array.dir/test/test_array.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/test/test_array.cpp -o CMakeFiles/test_array.dir/test/test_array.cpp.s
+CMakeFiles/test_array.dir/tests/test_array.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_array.dir/tests/test_array.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/tests/test_array.cpp -o CMakeFiles/test_array.dir/tests/test_array.cpp.s
 
 # Object files for target test_array
 test_array_OBJECTS = \
-"CMakeFiles/test_array.dir/test/test_array.cpp.o"
+"CMakeFiles/test_array.dir/tests/test_array.cpp.o"
 
 # External object files for target test_array
 test_array_EXTERNAL_OBJECTS =
 
-test_array: CMakeFiles/test_array.dir/test/test_array.cpp.o
+test_array: CMakeFiles/test_array.dir/tests/test_array.cpp.o
 test_array: CMakeFiles/test_array.dir/build.make
 test_array: CMakeFiles/test_array.dir/compiler_depend.ts
 test_array: libtask_structures.a

@@ -1,0 +1,1056 @@
+Start testing: Nov 22 14:49 +07
+----------------------------------------------------------
+1/39 Testing: HeapTest.EmptyHeap
+1/39 Test: HeapTest.EmptyHeap
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.EmptyHeap" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.EmptyHeap" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.EmptyHeap
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.EmptyHeap
+[       OK ] HeapTest.EmptyHeap (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.EmptyHeap" end time: Nov 22 14:49 +07
+"HeapTest.EmptyHeap" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/39 Testing: HeapTest.HeapPush
+2/39 Test: HeapTest.HeapPush
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.HeapPush" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.HeapPush" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.HeapPush
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.HeapPush
+[       OK ] HeapTest.HeapPush (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.HeapPush" end time: Nov 22 14:49 +07
+"HeapTest.HeapPush" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/39 Testing: HeapTest.HeapPeek
+3/39 Test: HeapTest.HeapPeek
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.HeapPeek" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.HeapPeek" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.HeapPeek
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.HeapPeek
+[       OK ] HeapTest.HeapPeek (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.HeapPeek" end time: Nov 22 14:49 +07
+"HeapTest.HeapPeek" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/39 Testing: HeapTest.EmptyPeek
+4/39 Test: HeapTest.EmptyPeek
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.EmptyPeek" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.EmptyPeek" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.EmptyPeek
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.EmptyPeek
+[       OK ] HeapTest.EmptyPeek (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.EmptyPeek" end time: Nov 22 14:49 +07
+"HeapTest.EmptyPeek" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/39 Testing: HeapTest.EmptyPop
+5/39 Test: HeapTest.EmptyPop
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.EmptyPop" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.EmptyPop" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.EmptyPop
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.EmptyPop
+[       OK ] HeapTest.EmptyPop (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.EmptyPop" end time: Nov 22 14:49 +07
+"HeapTest.EmptyPop" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/39 Testing: HeapTest.HeapResize
+6/39 Test: HeapTest.HeapResize
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.HeapResize" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.HeapResize" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.HeapResize
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.HeapResize
+[       OK ] HeapTest.HeapResize (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.HeapResize" end time: Nov 22 14:49 +07
+"HeapTest.HeapResize" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/39 Testing: HeapTest.NullPointer
+7/39 Test: HeapTest.NullPointer
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.NullPointer" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.NullPointer" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.NullPointer
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.NullPointer
+[       OK ] HeapTest.NullPointer (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.NullPointer" end time: Nov 22 14:49 +07
+"HeapTest.NullPointer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/39 Testing: HeapTest.SiftDown
+8/39 Test: HeapTest.SiftDown
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.SiftDown" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.SiftDown" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.SiftDown
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.SiftDown
+[       OK ] HeapTest.SiftDown (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.SiftDown" end time: Nov 22 14:49 +07
+"HeapTest.SiftDown" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/39 Testing: HeapTest.SamePriorityOrder
+9/39 Test: HeapTest.SamePriorityOrder
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.SamePriorityOrder" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.SamePriorityOrder" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.SamePriorityOrder
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.SamePriorityOrder
+[       OK ] HeapTest.SamePriorityOrder (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.SamePriorityOrder" end time: Nov 22 14:49 +07
+"HeapTest.SamePriorityOrder" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/39 Testing: HeapTest.SingleElement
+10/39 Test: HeapTest.SingleElement
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.SingleElement" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.SingleElement" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.SingleElement
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.SingleElement
+[       OK ] HeapTest.SingleElement (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.SingleElement" end time: Nov 22 14:49 +07
+"HeapTest.SingleElement" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/39 Testing: HeapTest.PeekAfterPop
+11/39 Test: HeapTest.PeekAfterPop
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.PeekAfterPop" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.PeekAfterPop" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.PeekAfterPop
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.PeekAfterPop
+[       OK ] HeapTest.PeekAfterPop (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.PeekAfterPop" end time: Nov 22 14:49 +07
+"HeapTest.PeekAfterPop" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/39 Testing: HeapTest.RightChildSiftDown
+12/39 Test: HeapTest.RightChildSiftDown
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.RightChildSiftDown" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.RightChildSiftDown" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.RightChildSiftDown
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.RightChildSiftDown
+[       OK ] HeapTest.RightChildSiftDown (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.RightChildSiftDown" end time: Nov 22 14:49 +07
+"HeapTest.RightChildSiftDown" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/39 Testing: HeapTest.MixedOperations
+13/39 Test: HeapTest.MixedOperations
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap" "--gtest_filter=HeapTest.MixedOperations" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HeapTest.MixedOperations" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HeapTest.MixedOperations
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HeapTest
+[ RUN      ] HeapTest.MixedOperations
+[       OK ] HeapTest.MixedOperations (0 ms)
+[----------] 1 test from HeapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HeapTest.MixedOperations" end time: Nov 22 14:49 +07
+"HeapTest.MixedOperations" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/39 Testing: HashTest.EmptyTable
+14/39 Test: HashTest.EmptyTable
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.EmptyTable" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.EmptyTable" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.EmptyTable
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.EmptyTable
+[       OK ] HashTest.EmptyTable (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.EmptyTable" end time: Nov 22 14:49 +07
+"HashTest.EmptyTable" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/39 Testing: HashTest.InsertAndSearch
+15/39 Test: HashTest.InsertAndSearch
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.InsertAndSearch" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.InsertAndSearch" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.InsertAndSearch
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.InsertAndSearch
+[       OK ] HashTest.InsertAndSearch (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.InsertAndSearch" end time: Nov 22 14:49 +07
+"HashTest.InsertAndSearch" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/39 Testing: HashTest.DuplicateID
+16/39 Test: HashTest.DuplicateID
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.DuplicateID" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.DuplicateID" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.DuplicateID
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.DuplicateID
+[       OK ] HashTest.DuplicateID (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.DuplicateID" end time: Nov 22 14:49 +07
+"HashTest.DuplicateID" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/39 Testing: HashTest.ChangeElement
+17/39 Test: HashTest.ChangeElement
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.ChangeElement" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.ChangeElement" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.ChangeElement
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.ChangeElement
+[       OK ] HashTest.ChangeElement (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.ChangeElement" end time: Nov 22 14:49 +07
+"HashTest.ChangeElement" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/39 Testing: HashTest.DeleteElement
+18/39 Test: HashTest.DeleteElement
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.DeleteElement" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.DeleteElement" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.DeleteElement
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.DeleteElement
+[       OK ] HashTest.DeleteElement (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.DeleteElement" end time: Nov 22 14:49 +07
+"HashTest.DeleteElement" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/39 Testing: HashTest.InvalidSearch
+19/39 Test: HashTest.InvalidSearch
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.InvalidSearch" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.InvalidSearch" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.InvalidSearch
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.InvalidSearch
+[       OK ] HashTest.InvalidSearch (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.InvalidSearch" end time: Nov 22 14:49 +07
+"HashTest.InvalidSearch" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/39 Testing: HashTest.InvalidChange
+20/39 Test: HashTest.InvalidChange
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.InvalidChange" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.InvalidChange" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.InvalidChange
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.InvalidChange
+[       OK ] HashTest.InvalidChange (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.InvalidChange" end time: Nov 22 14:49 +07
+"HashTest.InvalidChange" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/39 Testing: HashTest.InvalidDelete
+21/39 Test: HashTest.InvalidDelete
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.InvalidDelete" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.InvalidDelete" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.InvalidDelete
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.InvalidDelete
+[       OK ] HashTest.InvalidDelete (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.InvalidDelete" end time: Nov 22 14:49 +07
+"HashTest.InvalidDelete" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/39 Testing: HashTest.Collision
+22/39 Test: HashTest.Collision
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.Collision" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.Collision" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.Collision
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.Collision
+[       OK ] HashTest.Collision (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.Collision" end time: Nov 22 14:49 +07
+"HashTest.Collision" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/39 Testing: HashTest.DeleteCollision
+23/39 Test: HashTest.DeleteCollision
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.DeleteCollision" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.DeleteCollision" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.DeleteCollision
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.DeleteCollision
+[       OK ] HashTest.DeleteCollision (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.DeleteCollision" end time: Nov 22 14:49 +07
+"HashTest.DeleteCollision" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/39 Testing: HashTest.HashResize
+24/39 Test: HashTest.HashResize
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.HashResize" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.HashResize" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.HashResize
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.HashResize
+[       OK ] HashTest.HashResize (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.HashResize" end time: Nov 22 14:49 +07
+"HashTest.HashResize" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/39 Testing: HashTest.ResizeDataIntegrity
+25/39 Test: HashTest.ResizeDataIntegrity
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.ResizeDataIntegrity" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.ResizeDataIntegrity" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.ResizeDataIntegrity
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.ResizeDataIntegrity
+[       OK ] HashTest.ResizeDataIntegrity (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.ResizeDataIntegrity" end time: Nov 22 14:49 +07
+"HashTest.ResizeDataIntegrity" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/39 Testing: HashTest.ResizeStatistics
+26/39 Test: HashTest.ResizeStatistics
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable" "--gtest_filter=HashTest.ResizeStatistics" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"HashTest.ResizeStatistics" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = HashTest.ResizeStatistics
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from HashTest
+[ RUN      ] HashTest.ResizeStatistics
+[       OK ] HashTest.ResizeStatistics (0 ms)
+[----------] 1 test from HashTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"HashTest.ResizeStatistics" end time: Nov 22 14:49 +07
+"HashTest.ResizeStatistics" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/39 Testing: ArrayTest.EmptyArray
+27/39 Test: ArrayTest.EmptyArray
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.EmptyArray" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.EmptyArray" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.EmptyArray
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.EmptyArray
+[       OK ] ArrayTest.EmptyArray (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.EmptyArray" end time: Nov 22 14:49 +07
+"ArrayTest.EmptyArray" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/39 Testing: ArrayTest.InsertTail
+28/39 Test: ArrayTest.InsertTail
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.InsertTail" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.InsertTail" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.InsertTail
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.InsertTail
+[       OK ] ArrayTest.InsertTail (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.InsertTail" end time: Nov 22 14:49 +07
+"ArrayTest.InsertTail" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/39 Testing: ArrayTest.ArrayResize
+29/39 Test: ArrayTest.ArrayResize
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.ArrayResize" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.ArrayResize" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.ArrayResize
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.ArrayResize
+[       OK ] ArrayTest.ArrayResize (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.ArrayResize" end time: Nov 22 14:49 +07
+"ArrayTest.ArrayResize" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/39 Testing: ArrayTest.DeleteElement
+30/39 Test: ArrayTest.DeleteElement
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.DeleteElement" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.DeleteElement" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.DeleteElement
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.DeleteElement
+[       OK ] ArrayTest.DeleteElement (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.DeleteElement" end time: Nov 22 14:49 +07
+"ArrayTest.DeleteElement" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/39 Testing: ArrayTest.ChangeIDX
+31/39 Test: ArrayTest.ChangeIDX
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.ChangeIDX" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.ChangeIDX" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.ChangeIDX
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.ChangeIDX
+[       OK ] ArrayTest.ChangeIDX (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.ChangeIDX" end time: Nov 22 14:49 +07
+"ArrayTest.ChangeIDX" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/39 Testing: ArrayTest.InvalidSearch
+32/39 Test: ArrayTest.InvalidSearch
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.InvalidSearch" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.InvalidSearch" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.InvalidSearch
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.InvalidSearch
+[       OK ] ArrayTest.InvalidSearch (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.InvalidSearch" end time: Nov 22 14:49 +07
+"ArrayTest.InvalidSearch" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/39 Testing: ArrayTest.InvalidDelete
+33/39 Test: ArrayTest.InvalidDelete
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.InvalidDelete" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.InvalidDelete" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.InvalidDelete
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.InvalidDelete
+[       OK ] ArrayTest.InvalidDelete (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.InvalidDelete" end time: Nov 22 14:49 +07
+"ArrayTest.InvalidDelete" time elapsed: 00:00:00
+----------------------------------------------------------
+
+34/39 Testing: ArrayTest.NullPointer
+34/39 Test: ArrayTest.NullPointer
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.NullPointer" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.NullPointer" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.NullPointer
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.NullPointer
+[       OK ] ArrayTest.NullPointer (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.NullPointer" end time: Nov 22 14:49 +07
+"ArrayTest.NullPointer" time elapsed: 00:00:00
+----------------------------------------------------------
+
+35/39 Testing: ArrayTest.InvalidResize
+35/39 Test: ArrayTest.InvalidResize
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.InvalidResize" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.InvalidResize" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.InvalidResize
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.InvalidResize
+[       OK ] ArrayTest.InvalidResize (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.InvalidResize" end time: Nov 22 14:49 +07
+"ArrayTest.InvalidResize" time elapsed: 00:00:00
+----------------------------------------------------------
+
+36/39 Testing: ArrayTest.NegativeIndex
+36/39 Test: ArrayTest.NegativeIndex
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.NegativeIndex" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.NegativeIndex" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.NegativeIndex
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.NegativeIndex
+[       OK ] ArrayTest.NegativeIndex (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.NegativeIndex" end time: Nov 22 14:49 +07
+"ArrayTest.NegativeIndex" time elapsed: 00:00:00
+----------------------------------------------------------
+
+37/39 Testing: ArrayTest.InvalidChange
+37/39 Test: ArrayTest.InvalidChange
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.InvalidChange" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.InvalidChange" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.InvalidChange
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.InvalidChange
+[       OK ] ArrayTest.InvalidChange (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.InvalidChange" end time: Nov 22 14:49 +07
+"ArrayTest.InvalidChange" time elapsed: 00:00:00
+----------------------------------------------------------
+
+38/39 Testing: ArrayTest.NullChange
+38/39 Test: ArrayTest.NullChange
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.NullChange" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.NullChange" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.NullChange
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.NullChange
+[       OK ] ArrayTest.NullChange (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.NullChange" end time: Nov 22 14:49 +07
+"ArrayTest.NullChange" time elapsed: 00:00:00
+----------------------------------------------------------
+
+39/39 Testing: ArrayTest.InvalidResizeZero
+39/39 Test: ArrayTest.InvalidResizeZero
+Command: "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array" "--gtest_filter=ArrayTest.InvalidResizeZero" "--gtest_also_run_disabled_tests"
+Directory: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build
+"ArrayTest.InvalidResizeZero" start time: Nov 22 14:49 +07
+Output:
+----------------------------------------------------------
+Running main() from /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ArrayTest.InvalidResizeZero
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ArrayTest
+[ RUN      ] ArrayTest.InvalidResizeZero
+[       OK ] ArrayTest.InvalidResizeZero (0 ms)
+[----------] 1 test from ArrayTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ArrayTest.InvalidResizeZero" end time: Nov 22 14:49 +07
+"ArrayTest.InvalidResizeZero" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 22 14:49 +07

@@ -9,7 +9,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/dinarray.cpp" "CMakeFiles/task_structures.dir/src/dinarray.cpp.o" "gcc" "CMakeFiles/task_structures.dir/src/dinarray.cpp.o.d"
-  "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/hashtable.cpp" "CMakeFiles/task_structures.dir/src/hashtable.cpp.o" "gcc" "CMakeFiles/task_structures.dir/src/hashtable.cpp.o.d"
+  "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/heap.cpp" "CMakeFiles/task_structures.dir/src/heap.cpp.o" "gcc" "CMakeFiles/task_structures.dir/src/heap.cpp.o.d"
+  "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/table.cpp" "CMakeFiles/task_structures.dir/src/table.cpp.o" "gcc" "CMakeFiles/task_structures.dir/src/table.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

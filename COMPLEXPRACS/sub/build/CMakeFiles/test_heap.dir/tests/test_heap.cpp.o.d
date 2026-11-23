@@ -1,5 +1,5 @@
-CMakeFiles/test_array.dir/test/test_array.cpp.o: \
- /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/test/test_array.cpp \
+CMakeFiles/test_heap.dir/tests/test_heap.cpp.o: \
+ /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/tests/test_heap.cpp \
  /usr/include/stdc-predef.h \
  /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/include/gtest/gtest.h \
  /usr/include/c++/15/cstddef \
@@ -279,4 +279,5 @@ CMakeFiles/test_array.dir/test/test_array.cpp.o: \
  /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/include/gtest/gtest-test-part.h \
  /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/include/gtest/gtest-typed-test.h \
  /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/include/gtest/gtest_pred_impl.h \
- /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/include/gtest/gtest_prod.h
+ /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/include/gtest/gtest_prod.h \
+ /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/heap.h

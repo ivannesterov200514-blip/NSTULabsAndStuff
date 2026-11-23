@@ -1,1 +1,1 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/test_array.dir/link.d CMakeFiles/test_array.dir/test/test_array.cpp.o -o test_array  libtask_structures.a lib/libgtest_main.a lib/libgtest.a
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/test_array.dir/link.d CMakeFiles/test_array.dir/tests/test_array.cpp.o -o test_array  libtask_structures.a lib/libgtest_main.a lib/libgtest.a

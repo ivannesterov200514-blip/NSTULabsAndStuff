@@ -1,7 +1,77 @@
 {
-  "tests": 0,
+  "tests": 13,
   "name": "AllTests",
   "testsuites": [
-
+    {
+      "name": "ArrayTest",
+      "tests": 13,
+      "testsuite": [
+        {
+          "name": "EmptyArray",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 5
+        },
+        {
+          "name": "InsertTail",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 10
+        },
+        {
+          "name": "ArrayResize",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 19
+        },
+        {
+          "name": "DeleteElement",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 35
+        },
+        {
+          "name": "ChangeIDX",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 52
+        },
+        {
+          "name": "InvalidSearch",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 64
+        },
+        {
+          "name": "InvalidDelete",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 70
+        },
+        {
+          "name": "NullPointer",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 76
+        },
+        {
+          "name": "InvalidResize",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 82
+        },
+        {
+          "name": "NegativeIndex",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 100
+        },
+        {
+          "name": "InvalidChange",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 106
+        },
+        {
+          "name": "NullChange",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 116
+        },
+        {
+          "name": "InvalidResizeZero",
+          "file": "\/home\/nesterov\/Desktop\/codes\/NSTULabsAndStuff\/COMPLEXPRACS\/sub\/tests\/test_array.cpp",
+          "line": 124
+        }
+      ]
+    }
   ]
 }

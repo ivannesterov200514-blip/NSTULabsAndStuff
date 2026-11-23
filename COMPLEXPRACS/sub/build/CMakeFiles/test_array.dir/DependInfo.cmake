@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/test/test_array.cpp" "CMakeFiles/test_array.dir/test/test_array.cpp.o" "gcc" "CMakeFiles/test_array.dir/test/test_array.cpp.o.d"
+  "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/tests/test_array.cpp" "CMakeFiles/test_array.dir/tests/test_array.cpp.o" "gcc" "CMakeFiles/test_array.dir/tests/test_array.cpp.o.d"
   "" "test_array" "gcc" "CMakeFiles/test_array.dir/link.d"
   )
 

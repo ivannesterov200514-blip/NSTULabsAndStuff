@@ -86,33 +86,49 @@ CMakeFiles/task_structures.dir/src/dinarray.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/task_structures.dir/src/dinarray.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/dinarray.cpp -o CMakeFiles/task_structures.dir/src/dinarray.cpp.s
 
-CMakeFiles/task_structures.dir/src/hashtable.cpp.o: CMakeFiles/task_structures.dir/flags.make
-CMakeFiles/task_structures.dir/src/hashtable.cpp.o: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/hashtable.cpp
-CMakeFiles/task_structures.dir/src/hashtable.cpp.o: CMakeFiles/task_structures.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/task_structures.dir/src/hashtable.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/task_structures.dir/src/hashtable.cpp.o -MF CMakeFiles/task_structures.dir/src/hashtable.cpp.o.d -o CMakeFiles/task_structures.dir/src/hashtable.cpp.o -c /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/hashtable.cpp
+CMakeFiles/task_structures.dir/src/table.cpp.o: CMakeFiles/task_structures.dir/flags.make
+CMakeFiles/task_structures.dir/src/table.cpp.o: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/table.cpp
+CMakeFiles/task_structures.dir/src/table.cpp.o: CMakeFiles/task_structures.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/task_structures.dir/src/table.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/task_structures.dir/src/table.cpp.o -MF CMakeFiles/task_structures.dir/src/table.cpp.o.d -o CMakeFiles/task_structures.dir/src/table.cpp.o -c /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/table.cpp
 
-CMakeFiles/task_structures.dir/src/hashtable.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/task_structures.dir/src/hashtable.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/hashtable.cpp > CMakeFiles/task_structures.dir/src/hashtable.cpp.i
+CMakeFiles/task_structures.dir/src/table.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/task_structures.dir/src/table.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/table.cpp > CMakeFiles/task_structures.dir/src/table.cpp.i
 
-CMakeFiles/task_structures.dir/src/hashtable.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/task_structures.dir/src/hashtable.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/hashtable.cpp -o CMakeFiles/task_structures.dir/src/hashtable.cpp.s
+CMakeFiles/task_structures.dir/src/table.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/task_structures.dir/src/table.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/table.cpp -o CMakeFiles/task_structures.dir/src/table.cpp.s
+
+CMakeFiles/task_structures.dir/src/heap.cpp.o: CMakeFiles/task_structures.dir/flags.make
+CMakeFiles/task_structures.dir/src/heap.cpp.o: /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/heap.cpp
+CMakeFiles/task_structures.dir/src/heap.cpp.o: CMakeFiles/task_structures.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/task_structures.dir/src/heap.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/task_structures.dir/src/heap.cpp.o -MF CMakeFiles/task_structures.dir/src/heap.cpp.o.d -o CMakeFiles/task_structures.dir/src/heap.cpp.o -c /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/heap.cpp
+
+CMakeFiles/task_structures.dir/src/heap.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/task_structures.dir/src/heap.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/heap.cpp > CMakeFiles/task_structures.dir/src/heap.cpp.i
+
+CMakeFiles/task_structures.dir/src/heap.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/task_structures.dir/src/heap.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/heap.cpp -o CMakeFiles/task_structures.dir/src/heap.cpp.s
 
 # Object files for target task_structures
 task_structures_OBJECTS = \
 "CMakeFiles/task_structures.dir/src/dinarray.cpp.o" \
-"CMakeFiles/task_structures.dir/src/hashtable.cpp.o"
+"CMakeFiles/task_structures.dir/src/table.cpp.o" \
+"CMakeFiles/task_structures.dir/src/heap.cpp.o"
 
 # External object files for target task_structures
 task_structures_EXTERNAL_OBJECTS =
 
 libtask_structures.a: CMakeFiles/task_structures.dir/src/dinarray.cpp.o
-libtask_structures.a: CMakeFiles/task_structures.dir/src/hashtable.cpp.o
+libtask_structures.a: CMakeFiles/task_structures.dir/src/table.cpp.o
+libtask_structures.a: CMakeFiles/task_structures.dir/src/heap.cpp.o
 libtask_structures.a: CMakeFiles/task_structures.dir/build.make
 libtask_structures.a: CMakeFiles/task_structures.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libtask_structures.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libtask_structures.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/task_structures.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/task_structures.dir/link.txt --verbose=$(VERBOSE)
 
