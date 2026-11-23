@@ -5,7 +5,7 @@ using namespace std;
 MapGenerator::MapGenerator(const Noise& noise) : noise(noise) {}
 
 char MapGenerator::get_terrain(double height, double moisture) const {
-    if (height < 0.44) return '~';
+    if (height < 0.44) return ' ';
     if (height < 0.48) return '.';
     if (height > 0.64) return '^';
     if (moisture < 0.45) return ':';
