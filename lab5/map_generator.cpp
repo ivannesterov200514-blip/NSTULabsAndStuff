@@ -10,7 +10,7 @@ char MapGenerator::get_terrain(double height, double moisture) const {
     if (height > 0.64) return '^';
     if (moisture < 0.45) return ':';
     if (moisture > 0.52) return 'T';
-    return ',';
+    return '_';
 }
 
 vector<string> MapGenerator::generate(int width, int height) const {
