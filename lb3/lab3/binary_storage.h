@@ -11,7 +11,5 @@ struct BinaryRecord {
     vector<string> values;
 };
 
-bool write_binary_records(const string& filename,
-                          const vector<BinaryRecord>& records);
-bool read_binary_records(const string& filename,
-                         vector<BinaryRecord>& records);
+bool write_binary_records(const string& filename, const vector<BinaryRecord>& records);
+bool read_binary_records(const string& filename, vector<BinaryRecord>& records);

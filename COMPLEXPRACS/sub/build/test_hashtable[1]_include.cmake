@@ -1,0 +1,5 @@
+if(EXISTS "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable[1]_tests.cmake")
+  include("/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable[1]_tests.cmake")
+else()
+  add_test(test_hashtable_NOT_BUILT test_hashtable_NOT_BUILT)
+endif()

@@ -65,12 +65,16 @@ CMAKE_BINARY_DIR = /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/su
 # The main recursive "all" target.
 all: CMakeFiles/task_structures.dir/all
 all: CMakeFiles/test_array.dir/all
+all: CMakeFiles/test_hashtable.dir/all
+all: CMakeFiles/test_heap.dir/all
 all: _deps/googletest-build/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/task_structures.dir/codegen
 codegen: CMakeFiles/test_array.dir/codegen
+codegen: CMakeFiles/test_hashtable.dir/codegen
+codegen: CMakeFiles/test_heap.dir/codegen
 codegen: _deps/googletest-build/codegen
 .PHONY : codegen
 
@@ -81,6 +85,8 @@ preinstall: _deps/googletest-build/preinstall
 # The main recursive "clean" target.
 clean: CMakeFiles/task_structures.dir/clean
 clean: CMakeFiles/test_array.dir/clean
+clean: CMakeFiles/test_hashtable.dir/clean
+clean: CMakeFiles/test_heap.dir/clean
 clean: _deps/googletest-build/clean
 .PHONY : clean
 
@@ -157,12 +163,12 @@ _deps/googletest-build/googletest/clean: _deps/googletest-build/googletest/CMake
 CMakeFiles/task_structures.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=9,10,11 "Built target task_structures"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=9,10,11,12 "Built target task_structures"
 .PHONY : CMakeFiles/task_structures.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/task_structures.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/task_structures.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 0
 .PHONY : CMakeFiles/task_structures.dir/rule
@@ -174,7 +180,7 @@ task_structures: CMakeFiles/task_structures.dir/rule
 # codegen rule for target.
 CMakeFiles/task_structures.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=9,10,11 "Finished codegen for target task_structures"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=9,10,11,12 "Finished codegen for target task_structures"
 .PHONY : CMakeFiles/task_structures.dir/codegen
 
 # clean rule for target.
@@ -191,12 +197,12 @@ CMakeFiles/test_array.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtes
 CMakeFiles/test_array.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=12,13 "Built target test_array"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=13,14 "Built target test_array"
 .PHONY : CMakeFiles/test_array.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_array.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_array.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_array.dir/rule
@@ -208,13 +214,81 @@ test_array: CMakeFiles/test_array.dir/rule
 # codegen rule for target.
 CMakeFiles/test_array.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=12,13 "Finished codegen for target test_array"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=13,14 "Finished codegen for target test_array"
 .PHONY : CMakeFiles/test_array.dir/codegen
 
 # clean rule for target.
 CMakeFiles/test_array.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/clean
 .PHONY : CMakeFiles/test_array.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_hashtable.dir
+
+# All Build rule for target.
+CMakeFiles/test_hashtable.dir/all: CMakeFiles/task_structures.dir/all
+CMakeFiles/test_hashtable.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
+CMakeFiles/test_hashtable.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=15,16 "Built target test_hashtable"
+.PHONY : CMakeFiles/test_hashtable.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_hashtable.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 10
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_hashtable.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_hashtable.dir/rule
+
+# Convenience name for target.
+test_hashtable: CMakeFiles/test_hashtable.dir/rule
+.PHONY : test_hashtable
+
+# codegen rule for target.
+CMakeFiles/test_hashtable.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=15,16 "Finished codegen for target test_hashtable"
+.PHONY : CMakeFiles/test_hashtable.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test_hashtable.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/clean
+.PHONY : CMakeFiles/test_hashtable.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_heap.dir
+
+# All Build rule for target.
+CMakeFiles/test_heap.dir/all: CMakeFiles/task_structures.dir/all
+CMakeFiles/test_heap.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
+CMakeFiles/test_heap.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=17,18 "Built target test_heap"
+.PHONY : CMakeFiles/test_heap.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_heap.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 10
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_heap.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_heap.dir/rule
+
+# Convenience name for target.
+test_heap: CMakeFiles/test_heap.dir/rule
+.PHONY : test_heap
+
+# codegen rule for target.
+CMakeFiles/test_heap.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles --progress-num=17,18 "Finished codegen for target test_heap"
+.PHONY : CMakeFiles/test_heap.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test_heap.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/clean
+.PHONY : CMakeFiles/test_heap.dir/clean
 
 #=============================================================================
 # Target rules for target _deps/googletest-build/googlemock/CMakeFiles/gmock.dir

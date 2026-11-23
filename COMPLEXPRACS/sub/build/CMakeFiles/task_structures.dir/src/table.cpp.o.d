@@ -1,7 +1,7 @@
-CMakeFiles/task_structures.dir/src/hashtable.cpp.o: \
- /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/hashtable.cpp \
+CMakeFiles/task_structures.dir/src/table.cpp.o: \
+ /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/table.cpp \
  /usr/include/stdc-predef.h \
- /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/hashtable.h \
+ /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/table.h \
  /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/dinarray.h \
  /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src/tasks.h \
  /usr/include/c++/15/iostream /usr/include/c++/15/bits/requires_hosted.h \

@@ -198,6 +198,32 @@ test_array/fast:
 .PHONY : test_array/fast
 
 #=============================================================================
+# Target rules for targets named test_hashtable
+
+# Build rule for target.
+test_hashtable: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_hashtable
+.PHONY : test_hashtable
+
+# fast build rule for target.
+test_hashtable/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/build
+.PHONY : test_hashtable/fast
+
+#=============================================================================
+# Target rules for targets named test_heap
+
+# Build rule for target.
+test_heap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_heap
+.PHONY : test_heap
+
+# fast build rule for target.
+test_heap/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/build
+.PHONY : test_heap/fast
+
+#=============================================================================
 # Target rules for targets named gmock
 
 # Build rule for target.
@@ -273,53 +299,125 @@ src/dinarray.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/dinarray.cpp.s
 .PHONY : src/dinarray.cpp.s
 
-src/hashtable.o: src/hashtable.cpp.o
-.PHONY : src/hashtable.o
+src/heap.o: src/heap.cpp.o
+.PHONY : src/heap.o
 
 # target to build an object file
-src/hashtable.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/hashtable.cpp.o
-.PHONY : src/hashtable.cpp.o
+src/heap.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/heap.cpp.o
+.PHONY : src/heap.cpp.o
 
-src/hashtable.i: src/hashtable.cpp.i
-.PHONY : src/hashtable.i
+src/heap.i: src/heap.cpp.i
+.PHONY : src/heap.i
 
 # target to preprocess a source file
-src/hashtable.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/hashtable.cpp.i
-.PHONY : src/hashtable.cpp.i
+src/heap.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/heap.cpp.i
+.PHONY : src/heap.cpp.i
 
-src/hashtable.s: src/hashtable.cpp.s
-.PHONY : src/hashtable.s
+src/heap.s: src/heap.cpp.s
+.PHONY : src/heap.s
 
 # target to generate assembly for a file
-src/hashtable.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/hashtable.cpp.s
-.PHONY : src/hashtable.cpp.s
+src/heap.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/heap.cpp.s
+.PHONY : src/heap.cpp.s
 
-test/test_array.o: test/test_array.cpp.o
-.PHONY : test/test_array.o
+src/table.o: src/table.cpp.o
+.PHONY : src/table.o
 
 # target to build an object file
-test/test_array.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/test/test_array.cpp.o
-.PHONY : test/test_array.cpp.o
+src/table.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/table.cpp.o
+.PHONY : src/table.cpp.o
 
-test/test_array.i: test/test_array.cpp.i
-.PHONY : test/test_array.i
+src/table.i: src/table.cpp.i
+.PHONY : src/table.i
 
 # target to preprocess a source file
-test/test_array.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/test/test_array.cpp.i
-.PHONY : test/test_array.cpp.i
+src/table.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/table.cpp.i
+.PHONY : src/table.cpp.i
 
-test/test_array.s: test/test_array.cpp.s
-.PHONY : test/test_array.s
+src/table.s: src/table.cpp.s
+.PHONY : src/table.s
 
 # target to generate assembly for a file
-test/test_array.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/test/test_array.cpp.s
-.PHONY : test/test_array.cpp.s
+src/table.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_structures.dir/build.make CMakeFiles/task_structures.dir/src/table.cpp.s
+.PHONY : src/table.cpp.s
+
+tests/test_array.o: tests/test_array.cpp.o
+.PHONY : tests/test_array.o
+
+# target to build an object file
+tests/test_array.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/tests/test_array.cpp.o
+.PHONY : tests/test_array.cpp.o
+
+tests/test_array.i: tests/test_array.cpp.i
+.PHONY : tests/test_array.i
+
+# target to preprocess a source file
+tests/test_array.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/tests/test_array.cpp.i
+.PHONY : tests/test_array.cpp.i
+
+tests/test_array.s: tests/test_array.cpp.s
+.PHONY : tests/test_array.s
+
+# target to generate assembly for a file
+tests/test_array.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/tests/test_array.cpp.s
+.PHONY : tests/test_array.cpp.s
+
+tests/test_hashtable.o: tests/test_hashtable.cpp.o
+.PHONY : tests/test_hashtable.o
+
+# target to build an object file
+tests/test_hashtable.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/tests/test_hashtable.cpp.o
+.PHONY : tests/test_hashtable.cpp.o
+
+tests/test_hashtable.i: tests/test_hashtable.cpp.i
+.PHONY : tests/test_hashtable.i
+
+# target to preprocess a source file
+tests/test_hashtable.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/tests/test_hashtable.cpp.i
+.PHONY : tests/test_hashtable.cpp.i
+
+tests/test_hashtable.s: tests/test_hashtable.cpp.s
+.PHONY : tests/test_hashtable.s
+
+# target to generate assembly for a file
+tests/test_hashtable.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hashtable.dir/build.make CMakeFiles/test_hashtable.dir/tests/test_hashtable.cpp.s
+.PHONY : tests/test_hashtable.cpp.s
+
+tests/test_heap.o: tests/test_heap.cpp.o
+.PHONY : tests/test_heap.o
+
+# target to build an object file
+tests/test_heap.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/tests/test_heap.cpp.o
+.PHONY : tests/test_heap.cpp.o
+
+tests/test_heap.i: tests/test_heap.cpp.i
+.PHONY : tests/test_heap.i
+
+# target to preprocess a source file
+tests/test_heap.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/tests/test_heap.cpp.i
+.PHONY : tests/test_heap.cpp.i
+
+tests/test_heap.s: tests/test_heap.cpp.s
+.PHONY : tests/test_heap.s
+
+# target to generate assembly for a file
+tests/test_heap.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_heap.dir/build.make CMakeFiles/test_heap.dir/tests/test_heap.cpp.s
+.PHONY : tests/test_heap.cpp.s
 
 # Help Target
 help:
@@ -340,15 +438,26 @@ help:
 	@echo "... gtest_main"
 	@echo "... task_structures"
 	@echo "... test_array"
+	@echo "... test_hashtable"
+	@echo "... test_heap"
 	@echo "... src/dinarray.o"
 	@echo "... src/dinarray.i"
 	@echo "... src/dinarray.s"
-	@echo "... src/hashtable.o"
-	@echo "... src/hashtable.i"
-	@echo "... src/hashtable.s"
-	@echo "... test/test_array.o"
-	@echo "... test/test_array.i"
-	@echo "... test/test_array.s"
+	@echo "... src/heap.o"
+	@echo "... src/heap.i"
+	@echo "... src/heap.s"
+	@echo "... src/table.o"
+	@echo "... src/table.i"
+	@echo "... src/table.s"
+	@echo "... tests/test_array.o"
+	@echo "... tests/test_array.i"
+	@echo "... tests/test_array.s"
+	@echo "... tests/test_hashtable.o"
+	@echo "... tests/test_hashtable.i"
+	@echo "... tests/test_hashtable.s"
+	@echo "... tests/test_heap.o"
+	@echo "... tests/test_heap.i"
+	@echo "... tests/test_heap.s"
 .PHONY : help
 
 

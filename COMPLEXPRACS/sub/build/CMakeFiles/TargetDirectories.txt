@@ -1,5 +1,7 @@
 /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles/task_structures.dir
 /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles/test_array.dir
+/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles/test_hashtable.dir
+/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles/test_heap.dir
 /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles/test.dir
 /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles/edit_cache.dir
 /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/CMakeFiles/rebuild_cache.dir

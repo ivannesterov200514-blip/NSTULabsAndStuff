@@ -4,5 +4,7 @@
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
+include("/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap[1]_include.cmake")
+include("/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_hashtable[1]_include.cmake")
 include("/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_array[1]_include.cmake")
 subdirs("_deps/googletest-build")

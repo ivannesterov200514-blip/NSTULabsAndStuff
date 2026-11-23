@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/src -isystem /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest/include -isystem /home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/_deps/googletest-src/googletest
 
-CXX_FLAGS = 
+CXX_FLAGS = -std=gnu++17
 
