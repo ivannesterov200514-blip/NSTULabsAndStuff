@@ -169,9 +169,7 @@ BOOST_AUTO_TEST_CASE(print_shows_only_non_empty_buckets) {
     ChainTable t;
     t.ct_put("apple", "red");
     string out = capture_output([&] { t.ct_print(); });
-    BOOST_CHECK_EQUAL(out,
-                      "Хеш-таблица (цепочки):\n"
-                      "[29] apple=red -> nullptr\n");
+    BOOST_CHECK_EQUAL(out,"Хеш-таблица (цепочки):\n""[29] apple=red -> nullptr\n");
 }
 
 BOOST_AUTO_TEST_CASE(random_operations_match_unordered_map) {
@@ -339,10 +337,7 @@ BOOST_AUTO_TEST_CASE(print_shows_second_table_after_kick) {
     t.cu_put("a", "1");
     t.cu_put("k15", "2");   
     string out = capture_output([&] { t.cu_print(); });
-    BOOST_CHECK_EQUAL(out,
-                      "Хеш-таблица (кукушка):\n"
-                      "T1[9] k15=2\n"
-                      "T2[2] a=1\n");
+    BOOST_CHECK_EQUAL(out, "Хеш-таблица (кукушка):\n""T1[9] k15=2\n""T2[2] a=1\n");
 }
 
 BOOST_AUTO_TEST_CASE(random_operations_match_unordered_map) {
