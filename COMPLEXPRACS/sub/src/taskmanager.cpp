@@ -93,15 +93,15 @@ void TaskManager::completeTask(uint64_t id) {
 
 void TaskManager::failTask(uint64_t id, const string& error) {
     Task* task = getTask(id);
-
     if (task->status != "running") {
         throw logic_error("Задача не выполняется");
     }
-
     string now = get_current_time();
+    string newError = error;
+
+    task->updated_at.swap(now);
+    task->error.swap(newError);
     task->status = "failed";
-    task->updated_at = now;
-    task->error = error;
 }
 
 void TaskManager::cancelTask(uint64_t id) {
