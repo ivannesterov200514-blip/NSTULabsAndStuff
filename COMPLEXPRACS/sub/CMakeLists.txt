@@ -28,6 +28,10 @@ add_library(
 
 target_include_directories(task_structures PUBLIC src)
 
+add_executable(taskctl src/main.cpp)
+
+target_link_libraries(taskctl PRIVATE task_structures)
+
 add_executable(test_array tests/test_array.cpp)
 
 target_link_libraries(

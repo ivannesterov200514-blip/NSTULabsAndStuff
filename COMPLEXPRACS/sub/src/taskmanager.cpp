@@ -58,8 +58,11 @@ uint64_t TaskManager::createTask(const string& type, const string& payload, unsi
 }
 
 Task* TaskManager::getTask(uint64_t id) {
-    int idx = table.hash_search(id)->index;
-    return tasks.arr_search(idx);
+    HashNode* node = table.hash_search(id);
+    if (node == nullptr) {
+        throw out_of_range("Задача с таким ID не найдена");
+    }
+    return tasks.arr_search(node->index);
 }
 
 Task* TaskManager::startNextTask() {
