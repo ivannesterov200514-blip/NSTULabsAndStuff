@@ -1,5 +1,0 @@
-if(EXISTS "/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap[1]_tests.cmake")
-  include("/home/nesterov/Desktop/codes/NSTULabsAndStuff/COMPLEXPRACS/sub/build/test_heap[1]_tests.cmake")
-else()
-  add_test(test_heap_NOT_BUILT test_heap_NOT_BUILT)
-endif()
