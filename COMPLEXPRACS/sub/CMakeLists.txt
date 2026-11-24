@@ -67,6 +67,9 @@ target_link_libraries(test_taskmanager
     GTest::gtest_main
 )
 
+add_executable(benchmark benchmark.cpp)
+target_link_libraries(benchmark PRIVATE task_structures)
+
 gtest_discover_tests(test_taskmanager)
 gtest_discover_tests(test_heap)
 gtest_discover_tests(test_hashtable)
