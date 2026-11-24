@@ -24,28 +24,74 @@ Command parseCommand(const string& command) {
     return Command::Unknown;
 }
 
+
+string escapeJson(const string& value) {
+    string result;
+    const char* hex = "0123456789abcdef";
+    for (unsigned char c : value) {
+        if (c == '"') result += "\\\"";
+        else if (c == '\\') result += "\\\\";
+        else if (c == '\n') result += "\\n";
+        else if (c == '\r') result += "\\r";
+        else if (c == '\t') result += "\\t";
+        else if (c == '\b') result += "\\b";
+        else if (c == '\f') result += "\\f";
+        else if (c < 32) {
+            result += "\\u00";
+            result += hex[c / 16];
+            result += hex[c % 16];
+        }
+        else result += static_cast<char>(c);
+    }
+    return result;
+}
+
+void printTaskJson(const Task& task) {
+    cout << "{\"id\": " << task.id << ", \"type\": \"" << escapeJson(task.type) << "\", \"payload\": \"" << escapeJson(task.payload)
+         << "\", \"priority\": " << task.priority << ", \"status\": \"" << escapeJson(task.status)
+         << "\", \"created_at\": \"" << escapeJson(task.created_at) << "\", \"updated_at\": \"" << escapeJson(task.updated_at)
+         << "\", \"error\": \"" << escapeJson(task.error) << "\"}";
+}
+
 int main(int argc, char* argv[]) {
-    if (argc < 4 || string(argv[1]) != "--data") {
-        cout << "Использование: taskctl --data <path> <command> <args>" << endl;
-        return 1;
-    }
-
-    string path = argv[2];
-    Command command = parseCommand(argv[3]);
-
-    if (command == Command::Unknown) {
-        cout << "Неизвестная команда" << endl;
-        return 1;
-    }
+    string format = "text";
 
     try {
+        if (argc >= 3 && string(argv[argc - 2]) == "--format") {
+            format = argv[argc - 1];
+            if (format != "text" && format != "json") {
+                throw invalid_argument("Неизвестный формат вывода");
+            }
+            argc -= 2;
+        }
+
+        if (argc < 4 || string(argv[1]) != "--data") {
+            throw invalid_argument("Использование: taskctl --data <path> <command> <args> [--format text|json]");
+        }
+
+        string path = argv[2];
+        Command command = parseCommand(argv[3]);
+
+        if (command == Command::Unknown) {
+            throw invalid_argument("Неизвестная команда");
+        }
+
         TaskManager manager;
         manager.loadFromFile(path);
 
         switch (command) {
-            case Command::Help:
-                cout << "Доступные команды:\n   create, get, list, start-next, complete, fail, cancel, stats" << endl;
+            case Command::Help: {
+                if (argc != 4) {
+                    throw invalid_argument("Команда: taskctl --data <path> help");
+                }
+                if (format == "json") {
+                    cout << "{\"commands\": [\"create\", \"get\", \"list\", \"start-next\", \"complete\", \"fail\", \"cancel\", \"stats\", \"help\"]}" << endl;
+                }
+                else {
+                    cout << "Доступные команды:\n   create, get, list, start-next, complete, fail, cancel, stats" << endl;
+                }
                 break;
+            }
 
             case Command::Create: {
                 string type, priorityText, payload;
@@ -89,7 +135,12 @@ int main(int argc, char* argv[]) {
 
                 uint64_t id = manager.createTask(type, payload, static_cast<unsigned int>(priority));
                 manager.saveToFile(path);
-                cout << "Задача создана. ID: " << id << endl;
+                if (format == "json") {
+                    cout << "{\"id\": " << id << ", \"status\": \"queued\"}" << endl;
+                }
+                else {
+                    cout << "Задача создана. ID: " << id << endl;
+                }
                 break;
             }
 
@@ -112,10 +163,16 @@ int main(int argc, char* argv[]) {
                 }
 
                 Task* task = manager.getTask(id);
-                cout << "ID: " << task->id << "\nType: " << task->type << "\nPayload: " << task->payload
-                     << "\nPriority: " << task->priority << "\nStatus: " << task->status
-                     << "\nCreated At: " << task->created_at << "\nUpdated At: " << task->updated_at
-                     << "\nError: " << task->error << endl;
+                if (format == "json") {
+                    printTaskJson(*task);
+                    cout << endl;
+                }
+                else {
+                    cout << "ID: " << task->id << "\nType: " << task->type << "\nPayload: " << task->payload
+                         << "\nPriority: " << task->priority << "\nStatus: " << task->status
+                         << "\nCreated At: " << task->created_at << "\nUpdated At: " << task->updated_at
+                         << "\nError: " << task->error << endl;
+                }
                 break;
             }
 
@@ -134,14 +191,26 @@ int main(int argc, char* argv[]) {
                 Arr result;
                 manager.listTasks(result, status);
 
-                if (result.arr_getsz() == 0) {
-                    cout << "Задачи не найдены" << endl;
+                if (format == "json") {
+                    cout << "[";
+                    for (int i = 0; i < result.arr_getsz(); i++) {
+                        if (i > 0) cout << ",";
+                        cout << "\n    ";
+                        Task* task = result.arr_search(i);
+                        printTaskJson(*task);
+                    }
+                    if (result.arr_getsz() > 0) cout << "\n";
+                    cout << "]" << endl;
                 }
-                
-                for (int i = 0; i < result.arr_getsz(); i++) {
-                    Task* task = result.arr_search(i);
-                    cout << "[ID: " << task->id << "] " << "[Type: " << task->type << "] "
-                    << "[Priority: " << task->priority << "] " << "[Status: " << task->status << "]" << endl;
+                else {
+                    if (result.arr_getsz() == 0) {
+                        cout << "Задачи не найдены" << endl;
+                    }
+                    for (int i = 0; i < result.arr_getsz(); i++) {
+                        Task* task = result.arr_search(i);
+                        cout << "[ID: " << task->id << "] " << "[Type: " << task->type << "] "
+                             << "[Priority: " << task->priority << "] " << "[Status: " << task->status << "]" << endl;
+                    }
                 }
                 break;
             }
@@ -153,8 +222,14 @@ int main(int argc, char* argv[]) {
 
                 Task* task = manager.startNextTask();
                 manager.saveToFile(path);
-                cout << "Задача запущена: [ID: " << task->id << "] " << "[Type: " << task->type << "] "
-                    << "[Priority: " << task->priority << "] " << "[Status: " << task->status << "]" << endl;
+                if (format == "json") {
+                    printTaskJson(*task);
+                    cout << endl;
+                }
+                else {
+                    cout << "Задача запущена: [ID: " << task->id << "] " << "[Type: " << task->type << "] "
+                         << "[Priority: " << task->priority << "] " << "[Status: " << task->status << "]" << endl;
+                }
                 break;
             }
 
@@ -177,7 +252,12 @@ int main(int argc, char* argv[]) {
 
                 manager.completeTask(id);
                 manager.saveToFile(path);
-                cout << "Задача " << id << " успешно завершена!" << endl;
+                if (format == "json") {
+                    cout << "{\"id\": " << id << ", \"status\": \"completed\"}" << endl;
+                }
+                else {
+                    cout << "Задача " << id << " успешно завершена!" << endl;
+                }
                 break;
             }
 
@@ -205,7 +285,12 @@ int main(int argc, char* argv[]) {
 
                 manager.failTask(id, error);
                 manager.saveToFile(path);
-                cout << "Задача " << id << " завершена с ошибкой: " << error << endl;
+                if (format == "json") {
+                    cout << "{\"id\": " << id << ", \"status\": \"failed\", \"error\": \"" << escapeJson(error) << "\"}" << endl;
+                }
+                else {
+                    cout << "Задача " << id << " завершена с ошибкой: " << error << endl;
+                }
                 break;
             }
 
@@ -228,16 +313,31 @@ int main(int argc, char* argv[]) {
 
                 manager.cancelTask(id);
                 manager.saveToFile(path);
-                cout << "Задача " << id << " отменена" << endl;
+                if (format == "json") {
+                    cout << "{\"id\": " << id << ", \"status\": \"cancelled\"}" << endl;
+                }
+                else {
+                    cout << "Задача " << id << " отменена" << endl;
+                }
                 break;
             }
 
             case Command::Stats: {
                 TaskStats statistics = manager.getStats();
-                cout << "[Статистика]\n    Total: " << statistics.total << "\n    Running: " << statistics.running
-                     << "\n    Queued: " << statistics.queued << "\n    Queue size: " << statistics.queue_size
-                     << "\n    Completed: " << statistics.completed << "\n    Cancelled: " << statistics.cancelled
-                     << "\n    Failed: " << statistics.failed << "\n    Max priority: " << statistics.max_priority << endl;
+
+                if (format == "json") {
+                    cout << "{\n    \"total\": " << statistics.total << ",\n    \"running\": " << statistics.running
+                        << ",\n    \"queued\": " << statistics.queued << ",\n    \"completed\": " << statistics.completed
+                        << ",\n    \"cancelled\": " << statistics.cancelled << ",\n    \"failed\": " << statistics.failed
+                        << ",\n    \"queue_size\": " << statistics.queue_size
+                        << ",\n    \"max_priority\": " << statistics.max_priority << "\n}" << endl;
+                } else {
+                    cout << "[Статистика]\n    Total: " << statistics.total << "\n    Running: " << statistics.running
+                     << "\n    Queued: " << statistics.queued << "\n    Completed: " 
+                     << statistics.completed << "\n    Cancelled: " << statistics.cancelled
+                     << "\n    Failed: " << statistics.failed << "\n    Queue size: " << statistics.queue_size
+                     << "\n    Max priority: " << statistics.max_priority << endl;
+                }
                 break;
             }
             
@@ -246,7 +346,12 @@ int main(int argc, char* argv[]) {
         }
     }
     catch (const exception& e) {
-        cerr << "Ошибка: " << e.what() << endl;
+        if (format == "json") {
+            cout << "{\"error\": \"" << escapeJson(e.what()) << "\"}" << endl;
+        }
+        else {
+            cerr << "Ошибка: " << e.what() << endl;
+        }
         return 1;
     }
 
