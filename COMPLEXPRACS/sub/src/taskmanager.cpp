@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <utility>
 #include <nlohmann/json.hpp>
+#include <climits>
 
 TaskManager::TaskManager() {
     next_id = 1;
@@ -344,9 +345,109 @@ void TaskManager::saveJsonToFile(const string& path) {
     filesystem::rename(path + ".tmp", path);
 }
 
-void TaskManager::loadJsonFromFile(const string& path) {
 
+
+void TaskManager::loadJsonFromFile(const string& path) {
+    if (!filesystem::exists(path)) return;
+    ifstream file(path, ios::binary);
+    if (!file.is_open()) {
+        throw runtime_error("Не удалось открыть JSON-файл");
+    }
+    nlohmann::json data;
+    file >> data;
+
+    if (!data.is_object()) {
+        throw runtime_error("Некорректный JSON-файл");
+    }
+
+    if (!data.contains("version") || !data["version"].is_string() ||
+        data["version"] != "TASKS_JSON_V1") {
+        throw runtime_error("Неверная версия JSON-файла");
+    }
+
+    if (!data.contains("next_id") || !data["next_id"].is_number_unsigned() ||
+        !data.contains("next_order") || !data["next_order"].is_number_unsigned() ||
+        !data.contains("tasks") || !data["tasks"].is_array()) {
+        throw runtime_error("Некорректная структура JSON-файла");
+    }
+    uint64_t fileNextId = data["next_id"].get<uint64_t>();
+    uint64_t fileNextOrder = data["next_order"].get<uint64_t>();
+    const auto& savedTasks = data["tasks"];
+
+    if (savedTasks.size() >= static_cast<size_t>(INT_MAX)) {
+        throw runtime_error("Слишком много задач в JSON-файле");
+    }
+    TaskManager loaded;
+
+    for (size_t i = 0; i < savedTasks.size(); i++) {
+        const auto& item = savedTasks[i];
+        if (!item.is_object()) {
+            throw runtime_error("Некорректная запись задачи");
+        }
+
+        if (!item.contains("id") || !item.contains("type") ||
+            !item.contains("payload") || !item.contains("priority") ||
+            !item.contains("status") || !item.contains("created_at") ||
+            !item.contains("updated_at") || !item.contains("error")) {
+            throw runtime_error("Отсутствуют поля задачи");
+        }
+
+        if (!item["id"].is_number_unsigned() ||
+            !item["priority"].is_number_unsigned() ||
+            !item["type"].is_string() ||
+            !item["payload"].is_string() ||
+            !item["status"].is_string() ||
+            !item["created_at"].is_string() ||
+            !item["updated_at"].is_string() ||
+            !item["error"].is_string()) {
+            throw runtime_error("Некорректные типы полей задачи");
+        }
+
+        Task task{};
+        task.id = item["id"].get<uint64_t>();
+
+        uint64_t priority = item["priority"].get<uint64_t>();
+        if (priority > 100) {
+            throw runtime_error("Некорректный приоритет задачи");
+        }
+        task.priority = static_cast<unsigned int>(priority);
+        task.type = item["type"].get<string>();
+        task.payload = item["payload"].get<string>();
+        task.status = item["status"].get<string>();
+        task.created_at = item["created_at"].get<string>();
+        task.updated_at = item["updated_at"].get<string>();
+        task.error = item["error"].get<string>();
+
+        if (task.id != static_cast<uint64_t>(i) + 1) {
+            throw runtime_error("Некорректный порядок ID задач");
+        }
+
+        if (task.status != "queued" && task.status != "running" &&
+            task.status != "completed" && task.status != "failed" &&
+            task.status != "cancelled") {
+            throw runtime_error("Некорректный статус задачи");
+        }
+        loaded.tasks.arr_insert_tail(&task);
+        int idx = loaded.tasks.arr_getsz() - 1;
+        loaded.table.hash_insert(task.id, idx);
+
+        if (task.status == "queued") {
+            HeapNode node{task.id, task.priority, static_cast<uint64_t>(i)};
+            loaded.heap.heap_push(&node);
+        }
+    }
+    if (fileNextId != static_cast<uint64_t>(savedTasks.size()) + 1) {
+        throw runtime_error("Некорректный следующий ID");
+    }
+
+    if (fileNextOrder != static_cast<uint64_t>(savedTasks.size())) {
+        throw runtime_error("Некорректный порядок создания задач");
+    }
+    loaded.next_id = fileNextId;
+    loaded.next_order = fileNextOrder;
+    swap(loaded);
 }
+
 
 void TaskManager::swap(TaskManager& other) noexcept {
     tasks.swap(other.tasks);
