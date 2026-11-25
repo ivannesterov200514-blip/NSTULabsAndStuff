@@ -281,3 +281,11 @@ void TaskManager::swap(TaskManager& other) noexcept {
     std::swap(next_id, other.next_id);
     std::swap(next_order, other.next_order);
 }
+
+int TaskManager::getHashResizeCount() {
+    return table.hash_get_resize_count();
+}
+
+double TaskManager::getHashMaxLoadFactor() {
+    return table.hash_get_max_load_factor();
+}

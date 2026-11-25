@@ -34,4 +34,6 @@ public:
     void saveToFile(const string& path);
     void loadFromFile(const string& path);
     void swap(TaskManager& other) noexcept;
+    int getHashResizeCount();
+    double getHashMaxLoadFactor();
 };
