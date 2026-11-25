@@ -155,7 +155,7 @@ void TaskManager::listTasks(Arr& result, const string& status) {
     }
 }
 
-void TaskManager::saveToFile(const string& path) {
+void TaskManager::saveTextToFile(const string& path) {
     ofstream file(path + ".tmp", ios::binary);
     
     if (!file.is_open()) {
@@ -189,7 +189,7 @@ void TaskManager::saveToFile(const string& path) {
     filesystem::rename(path + ".tmp", path);
 }
 
-void TaskManager::loadFromFile(const string& path) {
+void TaskManager::loadTextFromFile(const string& path) {
     if (!filesystem::exists(path)) return;
     ifstream file(path, ios::binary);
     if (!file.is_open()) {
