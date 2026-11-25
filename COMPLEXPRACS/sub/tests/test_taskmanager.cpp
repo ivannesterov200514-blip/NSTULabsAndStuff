@@ -166,8 +166,7 @@ TEST(TaskManagerTest, CorruptedFile) {
 
     {
         ofstream file(path);
-
-        file << "TASKS_V1\n";
+        file << "TASKS_TXT\n";
         file << "3 2\n";
         file << "2\n";
         file << "1 80 \"calculate\" \"2 + 2\" queued \"2026-11-23 14:30:00\" \"2026-11-23 14:30:00\" \"\"\n";
@@ -249,7 +248,7 @@ TEST(StorageTest, CorruptedJson) {
 
     {
         ofstream file(path);
-        file << "{\"version\":\"TASKS_JSON_V1\",\"tasks\":[";
+        file << "{\"version\":\"TASKS_JSON\",\"tasks\":[";
     }
 
     TaskManager manager;
@@ -276,7 +275,7 @@ TEST(StorageTest, TextSaveAndLoad) {
     ifstream file(path);
     string version;
     file >> version;
-    EXPECT_EQ(version, "TASKS_V1");
+    EXPECT_EQ(version, "TASKS_TXT");
     file.close();
 
     TaskManager loaded;

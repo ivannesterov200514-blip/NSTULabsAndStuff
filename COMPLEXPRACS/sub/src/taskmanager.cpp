@@ -229,7 +229,7 @@ void TaskManager::loadTextFromFile(const string& path) {
     string version;
     file >> version;
 
-    if (!file || version != "TASKS_V1") {
+    if (!file || version != "TASKS_TXT") {
         throw runtime_error("Неверная версия или повреждённый файл");
     }
     uint64_t fileNextId;
@@ -359,7 +359,7 @@ void TaskManager::loadJsonFromFile(const string& path) {
     }
 
     if (!data.contains("version") || !data["version"].is_string() ||
-        data["version"] != "TASKS_JSON_V1") {
+        data["version"] != "TASKS_JSON") {
         throw runtime_error("Неверная версия JSON-файла");
     }
 
