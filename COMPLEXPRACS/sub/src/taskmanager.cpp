@@ -164,7 +164,7 @@ void TaskManager::saveToFile(const string& path) {
         saveTextToFile(path);
     }
     else if (ext == ".json") {
-        throw runtime_error("JSON-сохранение пока не реализовано");
+        saveJsonToFile(path);
     }
     else {
         throw invalid_argument("Неподдерживаемое расширение файла");
@@ -178,7 +178,7 @@ void TaskManager::loadFromFile(const string& path) {
         loadTextFromFile(path);
     }
     else if (ext == ".json") {
-        throw runtime_error("JSON-загрузка пока не реализована");
+        loadJsonFromFile(path);
     }
     else {
         throw invalid_argument("Неподдерживаемое расширение файла");
