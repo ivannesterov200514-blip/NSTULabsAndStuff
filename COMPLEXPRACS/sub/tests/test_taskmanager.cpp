@@ -163,7 +163,6 @@ TEST(TaskManagerTest, StatsAndIndexAfterChanges) {
 
 TEST(TaskManagerTest, CorruptedFile) {
     const string path = "test_corrupted.dat";
-
     {
         ofstream file(path);
         file << "TASKS_TXT\n";
