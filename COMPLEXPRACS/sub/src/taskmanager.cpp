@@ -345,8 +345,6 @@ void TaskManager::saveJsonToFile(const string& path) {
     filesystem::rename(path + ".tmp", path);
 }
 
-
-
 void TaskManager::loadJsonFromFile(const string& path) {
     if (!filesystem::exists(path)) return;
     ifstream file(path, ios::binary);
