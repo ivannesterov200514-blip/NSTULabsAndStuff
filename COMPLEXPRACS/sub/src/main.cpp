@@ -49,14 +49,6 @@ int main(int argc, char* argv[]) {
     string format = "text";
 
     try {
-        if (argc >= 3 && string(argv[argc - 2]) == "--format") {
-            format = argv[argc - 1];
-            if (format != "text" && format != "json") {
-                throw invalid_argument("Неизвестный формат вывода");
-            }
-            argc -= 2;
-        }
-
         if (argc < 4 || string(argv[1]) != "--data") {
             throw invalid_argument("Использование: taskctl --data <path> <command> <args>");
         }
@@ -76,12 +68,7 @@ int main(int argc, char* argv[]) {
                 if (argc != 4) {
                     throw invalid_argument("Команда: taskctl --data <path> help");
                 }
-                if (format == "json") {
-                    cout << "{\"commands\": [\"create\", \"get\", \"list\", \"start-next\", \"complete\", \"fail\", \"cancel\", \"stats\", \"help\"]}" << endl;
-                }
-                else {
-                    cout << "Доступные команды:\n   create, get, list, start-next, complete, fail, cancel, stats" << endl;
-                }
+                cout << "Доступные команды:\n   create, get, list, start-next, complete, fail, cancel, stats" << endl;
                 break;
             }
 
