@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <filesystem>
 #include <utility>
+#include <nlohmann/json.hpp>
 
 TaskManager::TaskManager() {
     next_id = 1;
@@ -155,13 +156,41 @@ void TaskManager::listTasks(Arr& result, const string& status) {
     }
 }
 
+void TaskManager::saveToFile(const string& path) {
+    string ext = filesystem::path(path).extension().string();
+
+    if (ext == ".dat" || ext == ".txt") {
+        saveTextToFile(path);
+    }
+    else if (ext == ".json") {
+        throw runtime_error("JSON-сохранение пока не реализовано");
+    }
+    else {
+        throw invalid_argument("Неподдерживаемое расширение файла");
+    }
+}
+
+void TaskManager::loadFromFile(const string& path) {
+    string ext = filesystem::path(path).extension().string();
+
+    if (ext == ".dat" || ext == ".txt") {
+        loadTextFromFile(path);
+    }
+    else if (ext == ".json") {
+        throw runtime_error("JSON-загрузка пока не реализована");
+    }
+    else {
+        throw invalid_argument("Неподдерживаемое расширение файла");
+    }
+}
+
 void TaskManager::saveTextToFile(const string& path) {
     ofstream file(path + ".tmp", ios::binary);
     
     if (!file.is_open()) {
         throw runtime_error("Не удалось открыть файл");
     }
-    file << "TASKS_V1\n";
+    file << "TASKS_TXT\n";
     file << next_id << " " << next_order << "\n";
     file << tasks.arr_getsz() << "\n";
 
@@ -272,6 +301,51 @@ void TaskManager::loadTextFromFile(const string& path) {
     loaded.next_id = fileNextId;
     loaded.next_order = fileNextOrder;
     swap(loaded);
+}
+
+
+void TaskManager::saveJsonToFile(const string& path) {
+    nlohmann::json data;
+    data["version"] = "TASKS_JSON";
+    data["next_id"] = next_id;
+    data["next_order"] = next_order;
+    data["tasks"] = nlohmann::json::array();
+
+    for (int i = 0; i < tasks.arr_getsz(); i++) {
+        Task* task = tasks.arr_search(i);
+        nlohmann::json item;
+        item["id"] = task->id;
+        item["type"] = task->type;
+        item["payload"] = task->payload;
+        item["priority"] = task->priority;
+        item["status"] = task->status;
+        item["created_at"] = task->created_at;
+        item["updated_at"] = task->updated_at;
+        item["error"] = task->error;
+        data["tasks"].push_back(item);
+    }
+
+    ofstream file(path + ".tmp", ios::binary);
+    
+    if (!file.is_open()) {
+        throw runtime_error("Не удалось открыть JSON-файл");
+    }
+    file << data.dump(4) << "\n";
+    file.flush();
+
+    if (!file) {
+        throw runtime_error("Ошибка записи JSON-файла");
+    }
+    file.close();
+
+    if (!file) {
+        throw runtime_error("Ошибка закрытия JSON-файла");
+    }
+    filesystem::rename(path + ".tmp", path);
+}
+
+void TaskManager::loadJsonFromFile(const string& path) {
+
 }
 
 void TaskManager::swap(TaskManager& other) noexcept {

@@ -27,6 +27,7 @@ add_library(
 )
 
 target_include_directories(task_structures PUBLIC src)
+target_link_libraries(task_structures PUBLIC nlohmann_json::nlohmann_json)
 
 add_executable(taskctl src/main.cpp)
 
@@ -74,3 +75,11 @@ gtest_discover_tests(test_taskmanager)
 gtest_discover_tests(test_heap)
 gtest_discover_tests(test_hashtable)
 gtest_discover_tests(test_array)
+
+FetchContent_Declare(
+    nlohmann_json
+    URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+
+FetchContent_MakeAvailable(nlohmann_json)

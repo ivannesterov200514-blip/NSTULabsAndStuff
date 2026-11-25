@@ -32,6 +32,9 @@ public:
     void listTasks(Arr& result, const string& status = "");
     TaskStats getStats();
     
+    void saveToFile(const string& path);
+    void loadFromFile(const string& path);
+
     void saveTextToFile(const string& path);
     void loadTextFromFile(const string& path);
     void saveJsonToFile(const string& path);
