@@ -310,6 +310,7 @@ fn expected_args(command: &str) -> Option<(usize, bool)> {
         "HSET" => (4, true),
         "HGET" => (3, false),
         "HDEL" => (3, true),
+        "HSTATS" => (1, false),
         "GENEALOGY" => (0, false),
         "LFUCREATE" => (3, true),
         "LFUSET" => (4, true),
@@ -422,6 +423,12 @@ fn run(db: &mut Db, command: &str, tokens: &[String]) {
             };
             if kind != 0 && !removed {
                 println!("Ошибка: Ключ не найден");
+            }
+        }
+
+        "HSTATS" => {
+            if !hashtable::hash_analysis() {
+                std::process::exit(1);
             }
         }
 

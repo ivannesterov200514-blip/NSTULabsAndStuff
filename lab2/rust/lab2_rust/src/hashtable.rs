@@ -55,11 +55,18 @@ impl ChainTable {
     }
 
     pub fn get(&self, key: &str) -> Option<&str> {
+        self.get_counted(key, &mut 0)
+    }
+
+    fn get_counted(&self, key: &str, comparisons: &mut u64) -> Option<&str> {
         let index = hash1(key, self.capacity());
-        self.buckets[index]
-            .iter()
-            .find(|(stored_key, _)| stored_key.as_str() == key)
-            .map(|(_, value)| value.as_str())
+        for (stored_key, value) in &self.buckets[index] {
+            *comparisons += 1;
+            if stored_key.as_str() == key {
+                return Some(value.as_str());
+            }
+        }
+        None
     }
 
     pub fn remove(&mut self, key: &str) -> bool {
@@ -225,16 +232,22 @@ impl CuckooTable {
     }
 
     pub fn get(&self, key: &str) -> Option<&str> {
+        self.get_counted(key, &mut 0)
+    }
+
+    fn get_counted(&self, key: &str, comparisons: &mut u64) -> Option<&str> {
         if key.is_empty() {
             return None;
         }
         let index1 = hash1(key, self.capacity());
+        *comparisons += 1;
         if let Some((stored_key, value)) = &self.t1[index1] {
             if stored_key.as_str() == key {
                 return Some(value);
             }
         }
         let index2 = hash2(key, self.capacity());
+        *comparisons += 1;
         if let Some((stored_key, value)) = &self.t2[index2] {
             if stored_key.as_str() == key {
                 return Some(value);
@@ -387,6 +400,71 @@ pub fn genealogy(tokens: &[String]) -> bool {
             sorted_children.sort();
             for child in sorted_children.into_iter().rev() {
                 stack.push((child, depth + 1));
+            }
+        }
+    }
+    true
+}
+
+// Эмпирический анализ хеш-таблиц
+pub fn hash_analysis() -> bool {
+    use std::time::Instant;
+    for n in [100usize, 1000, 10000] {
+        let keys: Vec<String> = (0..n).map(|i| format!("key{}", i)).collect();
+        let mut chain = ChainTable::new(102);
+        let mut cuckoo = CuckooTable::new(51);
+        println!("\nN = {}", n);
+        for method in 0..2 {
+            let mut comparisons = 0u64;
+            let start = Instant::now();
+            for key in &keys {
+                if method == 0 {
+                    chain.put(key.clone(), key.clone());
+                } else {
+                    cuckoo.put(key.clone(), key.clone());
+                }
+            }
+            let insert = start.elapsed().as_secs_f64() * 1_000_000.0;
+            let start = Instant::now();
+            for key in &keys {
+                let value = if method == 0 {
+                    chain.get_counted(key, &mut comparisons)
+                } else {
+                    cuckoo.get_counted(key, &mut comparisons)
+                };
+                if value != Some(key.as_str()) {
+                    return false;
+                }
+            }
+            let search = start.elapsed().as_secs_f64() * 1_000_000.0;
+            let capacity = if method == 0 { chain.capacity() } else { 2 * cuckoo.capacity() };
+            let mut occupied = 0;
+            let mut max_length = 0;
+            if method == 0 {
+                for bucket in &chain.buckets {
+                    if !bucket.is_empty() { occupied += 1; }
+                    max_length = max_length.max(bucket.len());
+                }
+            }
+            let start = Instant::now();
+            for key in &keys {
+                let removed = if method == 0 { chain.remove(key) } else { cuckoo.remove(key) };
+                if !removed { return false; }
+            }
+            let removal = start.elapsed().as_secs_f64() * 1_000_000.0;
+            if (if method == 0 { chain.size } else { cuckoo.size }) != 0 { return false; }
+            println!("{}", if method == 0 { "CHAIN" } else { "CUCKOO" });
+            println!("Insert (us): {:.4}; avg: {:.4}", insert, insert / n as f64);
+            println!("Search (us): {:.4}; avg: {:.4}", search, search / n as f64);
+            println!("Remove (us): {:.4}; avg: {:.4}", removal, removal / n as f64);
+            println!("Capacity: {}", capacity);
+            println!("Comparisons: {}; avg: {:.4}", comparisons, comparisons as f64 / n as f64);
+            if method == 0 {
+                println!("Collisions: {}", n - occupied);
+                println!("Max chain: {}", max_length);
+            } else {
+                println!("Kicks: {}", cuckoo.kicks);
+                println!("Grows: {}", cuckoo.grows);
             }
         }
     }

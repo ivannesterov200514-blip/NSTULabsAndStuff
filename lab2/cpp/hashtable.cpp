@@ -1,6 +1,8 @@
 #include "hashtable.h"
 #include <algorithm>
 #include <sstream>
+#include <chrono>
+#include <iomanip>
 
 int hash1 (string key, int m) {
     long long h = 0;
@@ -30,8 +32,9 @@ void ct_put (ChainTable* t, string key, string value) {
     t->sz++;
 }
 
-bool ct_get (ChainTable* t, string key, string& value) {
+bool ct_get (ChainTable* t, string key, string& value, uint64_t* comparisons) {
     for (KVNode* cur = t->buckets[hash1(key, t->cap)]; cur != nullptr; cur = cur->next) {
+        if (comparisons) (*comparisons)++;
         if (cur->key == key) {
             value = cur->value;
             return true;
@@ -130,14 +133,16 @@ void cu_put (CuckooTable* t, string key, string value) {
     cu_insert(t, key, value);
 }
 
-bool cu_get (CuckooTable* t, string key, string& value) {
+bool cu_get (CuckooTable* t, string key, string& value, uint64_t* comparisons) {
     if (key.empty()) return false;
     Slot* a = &t->t1[hash1(key, t->cap)];
+    if (comparisons) (*comparisons)++;
     if (a->key == key) {
         value = a->value;
         return true;
     }
     Slot* b = &t->t2[hash2(key, t->cap)];
+    if (comparisons) (*comparisons)++;
     if (b->key == key) {
         value = b->value;
         return true;
@@ -293,6 +298,67 @@ bool genealogy (const vector<string>& t) {
         for (int k = (int)children.size() - 1; k >= 0; k--) {
             stack_names.push_back(children[k]);
             stack_depth.push_back(depth + 1);
+        }
+    }
+    return true;
+}
+
+// Эмпирический анализ хеш-таблиц
+bool hash_analysis() {
+    using Clock = chrono::steady_clock;
+    cout << fixed << setprecision(4);
+    for (int n : {100, 1000, 10000}) {
+        vector<string> keys;
+        for (int i = 0; i < n; i++) keys.push_back("key" + to_string(i));
+        ChainTable chain(102);
+        CuckooTable cuckoo(51);
+        cout << "\nN = " << n << "\n";
+        for (int method = 0; method < 2; method++) {
+            uint64_t comparisons = 0;
+            string value;
+            auto start = Clock::now();
+            for (const string& key : keys) {
+                if (method == 0) ct_put(&chain, key, key);
+                else cu_put(&cuckoo, key, key);
+            }
+            double insert = chrono::duration<double, micro>(Clock::now() - start).count();
+            start = Clock::now();
+            for (const string& key : keys) {
+                bool found = method == 0 ? ct_get(&chain, key, value, &comparisons)
+                                         : cu_get(&cuckoo, key, value, &comparisons);
+                if (!found || value != key) return false;
+            }
+            double search = chrono::duration<double, micro>(Clock::now() - start).count();
+            int capacity = method == 0 ? chain.cap : 2 * cuckoo.cap;
+            int occupied = 0, max_length = 0;
+            if (method == 0) {
+                for (int i = 0; i < chain.cap; i++) {
+                    int length = 0;
+                    for (KVNode* cur = chain.buckets[i]; cur; cur = cur->next) length++;
+                    if (length > 0) occupied++;
+                    if (length > max_length) max_length = length;
+                }
+            }
+            start = Clock::now();
+            for (const string& key : keys) {
+                bool removed = method == 0 ? ct_remove(&chain, key) : cu_remove(&cuckoo, key);
+                if (!removed) return false;
+            }
+            double removal = chrono::duration<double, micro>(Clock::now() - start).count();
+            if ((method == 0 ? chain.sz : cuckoo.sz) != 0) return false;
+            cout << (method == 0 ? "CHAIN" : "CUCKOO") << "\n";
+            cout << "Insert (мкс): " << insert << "; сред: " << insert / n << "\n";
+            cout << "Search (мкс): " << search << "; сред: " << search / n << "\n";
+            cout << "Remove (мкс): " << removal << "; сред: " << removal / n << "\n";
+            cout << "Capacity: " << capacity << "\n";
+            cout << "Comparisons: " << comparisons << "; сред: " << double(comparisons) / n << "\n";
+            if (method == 0) {
+                cout << "Collisions: " << n - occupied << "\n";
+                cout << "Max chain: " << max_length << "\n";
+            } else {
+                cout << "Kicks: " << cuckoo.kicks << "\n";
+                cout << "Grows: " << cuckoo.grows << "\n";
+            }
         }
     }
     return true;

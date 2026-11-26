@@ -37,7 +37,7 @@ struct ChainTable {
 };
 
 void ct_put (ChainTable* t, string key, string value);
-bool ct_get (ChainTable* t, string key, string& value);
+bool ct_get (ChainTable* t, string key, string& value, uint64_t* comparisons = nullptr);
 bool ct_remove (ChainTable* t, string key);
 void ct_print (ChainTable* t);
 
@@ -64,8 +64,10 @@ struct CuckooTable {
 };
 
 void cu_put (CuckooTable* t, string key, string value);
-bool cu_get (CuckooTable* t, string key, string& value);
+bool cu_get (CuckooTable* t, string key, string& value, uint64_t* comparisons = nullptr);
 bool cu_remove (CuckooTable* t, string key);
 void cu_print (CuckooTable* t);
 
 bool genealogy (const vector<string>& t);
+
+bool hash_analysis();

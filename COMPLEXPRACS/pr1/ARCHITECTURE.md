@@ -126,7 +126,6 @@ TASKS_TXT
 
 ```json
 {
-    "version": "TASKS_JSON",
     "next_id": 2,
     "next_order": 1,
     "tasks": [
@@ -141,6 +140,7 @@ TASKS_TXT
             "error": ""
         }
     ]
+    "version": "TASKS_JSON"
 }
 ```
 

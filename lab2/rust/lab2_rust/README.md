@@ -42,6 +42,7 @@ cargo run --release -- --file file.data --query "PRINT myset"
 | `HSET name key value` | Добавить или заменить пару ключ-значение |
 | `HGET name key` | Получить значение по ключу |
 | `HDEL name key` | Удалить ключ |
+| `HSTATS` | Сравнить хеш-таблицы на 100, 1000 и 10000 ключах |
 | `GENEALOGY N child parent ...` | Построить генеалогическое дерево и вывести число потомков |
 | `LFUCREATE name capacity` | Создать LFU-кэш |
 | `LFUSET name key value` | Добавить значение в кэш |

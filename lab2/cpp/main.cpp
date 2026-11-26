@@ -2,8 +2,8 @@
 #include "zmeika.h"
 #include "hashtable.h"
 #include "lfu.h"
-#include "t1.h"
-#include "t3.h"
+#include "asteroids.h"
+#include "set.h"
 
 #include <fstream>
 #include <sstream>
@@ -220,7 +220,7 @@ enum class Cmd {
     Print,
     SetCreate, SetAdd, SetDel, SetAt,
     TCreate, TInsert, TSnake,
-    HCreate, HSet, HGet, HDel,
+    HCreate, HSet, HGet, HDel, HStats,
     Genealogy,
     LfuCreate, LfuSet, LfuGet,
     Asteroids,
@@ -251,6 +251,7 @@ static const CmdInfo* find_cmd(const string& name) {
         {"HSET", {Cmd::HSet, 4, true}},
         {"HGET", {Cmd::HGet, 3, false}},
         {"HDEL", {Cmd::HDel, 3, true}},
+        {"HSTATS", {Cmd::HStats, 1, false}},
 
         {"GENEALOGY", {Cmd::Genealogy, 0, false}},
 
@@ -348,6 +349,11 @@ static void run(Db& db, Cmd cmd, const vector<string>& t) {
             if (kind != 0 && !ok) cout << "Ошибка: Ключ не найден\n";
             break;
         }
+
+        case Cmd::HStats: {
+            hash_analysis();
+            break;
+        }           
 
         case Cmd::Genealogy:
             genealogy(t);
