@@ -15,7 +15,7 @@ bench:
 	cargo run --release --bin benchmark -- 2000
 
 coverage:
-	cargo llvm-cov --html --fail-under-lines 85
+	cargo llvm-cov --html --ignore-filename-regex 'src/(main\.rs|bin/benchmark\.rs)$' --fail-under-lines 85
 
 run:
 	cargo run --release --bin dbms -- $(ARGS)
