@@ -95,13 +95,13 @@ impl Db {
         match self.containers.get(name) {
             None => {
                 println!("Ошибка: Контейнер {} не найден", name);
-                0
+                '\0'
             }
             Some(Container::Chain(_)) => 'C',
             Some(Container::Cuckoo(_)) => 'K',
             Some(_) => {
                 println!("Ошибка: {} не является хеш-таблицей", name);
-                0
+                '\0'
             }
         }
     }
@@ -407,7 +407,7 @@ fn run(db: &mut Db, command: &str, tokens: &[String]) {
                 ('K', Some(Container::Cuckoo(table))) => table.get(&tokens[2]),
                 _ => None,
             };
-            if kind != 0 {
+            if kind != '\0' {
                 match value {
                     Some(value) => println!("{}", value),
                     None => println!("Ошибка: Ключ не найден"),
@@ -421,7 +421,7 @@ fn run(db: &mut Db, command: &str, tokens: &[String]) {
                 ('K', Some(Container::Cuckoo(table))) => table.remove(&tokens[2]),
                 _ => false,
             };
-            if kind != 0 && !removed {
+            if kind != '\0' && !removed {
                 println!("Ошибка: Ключ не найден");
             }
         }
