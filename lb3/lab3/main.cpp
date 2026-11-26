@@ -5,7 +5,7 @@
 #include "ulist.h"
 #include "avltree.h"
 #include "hashtable.h"
-#include "binary_storage.h"
+#include "file_storage.h"
 
 #include <fstream>
 #include <iomanip>
@@ -88,15 +88,15 @@ static bool to_key(const string& s, int& x) {
     return ok;
 }
 
-static vector<BinaryRecord> collect_records(Db& db) {
-    vector<BinaryRecord> result;
+static vector<FileRecord> collect_records(Db& db) {
+    vector<FileRecord> result;
     for (auto& p : db.arrs) {
-        BinaryRecord r{'M', p.first, {}};
+        FileRecord r{'M', p.first, {}};
         for (int i = 0; i < p.second->arr_getsz(); ++i) r.values.push_back(p.second->arr_search(i));
         result.push_back(r);
     }
     for (auto& p : db.uls) {
-        BinaryRecord r{'F', p.first, {}};
+        FileRecord r{'F', p.first, {}};
         for (auto& kv : p.second->ul_get_pairs()) r.values.push_back(kv.first);
         result.push_back(r);
     }
@@ -104,12 +104,12 @@ static vector<BinaryRecord> collect_records(Db& db) {
     for (auto& p : db.sts) result.push_back({'S', p.first, p.second->st_items()});
     for (auto& p : db.qs) result.push_back({'Q', p.first, p.second->q_items()});
     for (auto& p : db.trs) {
-        BinaryRecord r{'T', p.first, {}};
+        FileRecord r{'T', p.first, {}};
         for (int v : p.second->t_items()) r.values.push_back(to_string(v));
         result.push_back(r);
     }
     for (auto& p : db.cts) {
-        BinaryRecord r{'C', p.first, {}};
+        FileRecord r{'C', p.first, {}};
         for (auto& kv : p.second->ct_get_all()) {
             r.values.push_back(kv.first);
             r.values.push_back(kv.second);
@@ -117,7 +117,7 @@ static vector<BinaryRecord> collect_records(Db& db) {
         result.push_back(r);
     }
     for (auto& p : db.cus) {
-        BinaryRecord r{'K', p.first, {}};
+        FileRecord r{'K', p.first, {}};
         for (auto& kv : p.second->cu_get_all()) {
             r.values.push_back(kv.first);
             r.values.push_back(kv.second);
@@ -127,62 +127,10 @@ static vector<BinaryRecord> collect_records(Db& db) {
     return result;
 }
 
-static bool is_binary_file(const string& path) {
-    return path.size() >= 4 && path.compare(path.size() - 4, 4, ".bin") == 0;
-}
-
-static void save_db(Db& db, const string& file) {
-    if (is_binary_file(file)) {
-        if (!write_binary_records(file, collect_records(db)))
-            cout << "Ошибка: Не удалось записать бинарный файл " << file << "\n";
-        return;
-    }
-    ofstream out(file);
-    if (!out) {
-        cout << "Ошибка: Не удалось записать файл " << file << "\n";
-        return;
-    }
-    for (auto& p : db.arrs) {
-        out << "M " << p.first;
-        int n = p.second->arr_getsz();
-        for (int i = 0; i < n; ++i) out << " " << p.second->arr_search(i);
-        out << "\n";
-    }
-    for (auto& p : db.uls) {
-        out << "F " << p.first;
-        for (auto& kv : p.second->ul_get_pairs()) out << " " << kv.first;
-        out << "\n";
-    }
-    for (auto& p : db.dls) {
-        out << "L " << p.first;
-        for (auto& v : p.second->dl_items()) out << " " << v;
-        out << "\n";
-    }
-    for (auto& p : db.sts) {
-        out << "S " << p.first;
-        for (auto& v : p.second->st_items()) out << " " << v;   
-        out << "\n";
-    }
-    for (auto& p : db.qs) {
-        out << "Q " << p.first;
-        for (auto& v : p.second->q_items()) out << " " << v;
-        out << "\n";
-    }
-    for (auto& p : db.trs) {
-        out << "T " << p.first;
-        for (int k : p.second->t_items()) out << " " << k;      
-        out << "\n";
-    }
-    for (auto& p : db.cts) {
-        out << "C " << p.first;
-        for (auto& kv : p.second->ct_get_all()) out << " " << kv.first << " " << kv.second;
-        out << "\n";
-    }
-    for (auto& p : db.cus) {
-        out << "K " << p.first;
-        for (auto& kv : p.second->cu_get_all()) out << " " << kv.first << " " << kv.second;
-        out << "\n";
-    }
+static bool save_db(Db& db, const string& file) {
+    if (save_records_to_file(file, collect_records(db))) return true;
+    cout << "Ошибка: Не удалось сохранить файл " << file << "\n";
+    return false;
 }
 
 static void load_record(Db& db, const string& type, const string& name,
@@ -237,30 +185,16 @@ static void load_record(Db& db, const string& type, const string& name,
  }
 
 static bool load_db(Db& db, const string& file) {
-    if (is_binary_file(file)) {
-        ifstream probe(file, ios::binary);
-        if (!probe) return true;  
-        probe.close();
-        vector<BinaryRecord> records;
-        if (!read_binary_records(file, records)) {
-            cout << "Ошибка: Повреждённый или неподдерживаемый бинарный файл " << file << "\n";
-            return false;
-        }
-        for (const auto& r : records)
-            load_record(db, string(1, r.type), r.name, r.values);
-        return true;
+    ifstream check(file, ios::binary);
+    if (!check) return true;
+    check.close();
+    vector<FileRecord> records;
+    if (!load_records_from_file(file, records)) {
+        cout << "Ошибка: Не удалось прочитать файл " << file << "\n";
+        return false;
     }
-    ifstream in(file);
-    if (!in) return true;
-    string line;
-    while (getline(in, line)) {
-        istringstream ss(line);
-        string type, name, tok;
-        if (!(ss >> type >> name)) continue;
-        vector<string> vals;
-        while (ss >> tok) vals.push_back(tok);
-        load_record(db, type, name, vals);
-    }
+    for (const FileRecord& record : records)
+        load_record(db, string(1, record.type), record.name, record.values);
     return true;
 }
 
@@ -688,7 +622,7 @@ int main(int argc, char* argv[]) {
     if (!load_db(db, file)) return 1;
     run(db, info->cmd, t);
 
-    if (info->changes) save_db(db, file);
+    if (info->changes && !save_db(db, file)) return 1;
 
     return 0;
 }

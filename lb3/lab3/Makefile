@@ -1,9 +1,9 @@
 CXX ?= g++
 CXXFLAGS ?= -std=c++17 -Wall -Wextra -Wpedantic
-SRC = main.cpp array.cpp ulist.cpp dlist.cpp stack.cpp queue.cpp avltree.cpp hashtable.cpp binary_storage.cpp
+SRC = main.cpp array.cpp ulist.cpp dlist.cpp stack.cpp queue.cpp avltree.cpp hashtable.cpp file_storage.cpp
 LIBSRC = array.cpp ulist.cpp dlist.cpp stack.cpp queue.cpp avltree.cpp hashtable.cpp
 
-.PHONY: all clean benchmark lint test coverage
+.PHONY: all clean benchmark lint test coverage check-storage
 all: dbms
 
 dbms: $(SRC) $(wildcard *.h)
@@ -14,6 +14,9 @@ benchmark_cpp: bench/benchmark.cpp $(LIBSRC) $(wildcard *.h)
 
 benchmark: benchmark_cpp
 	./benchmark_cpp 2000
+
+check-storage:
+	sh scripts/check_storage.sh
 
 test:
 	cmake -S . -B build -DBUILD_UNIT_TESTS=ON

@@ -25,7 +25,7 @@ if(ENABLE_COVERAGE)
     target_link_options(structs PUBLIC --coverage)
 endif()
 
-add_executable(dbms main.cpp binary_storage.cpp)
+add_executable(dbms main.cpp file_storage.cpp)
 target_link_libraries(dbms PRIVATE structs)
 
 add_executable(benchmark_cpp bench/benchmark.cpp)
@@ -66,4 +66,4 @@ target_include_directories(test_catch2 PRIVATE tests)
 target_link_libraries(test_catch2 PRIVATE structs Catch2::Catch2WithMain)
 add_test(NAME catch2 COMMAND test_catch2)
 
-endif() 
+endif()

@@ -5,3 +5,4 @@ pub mod hashtable;
 pub mod queue;
 pub mod stack;
 pub mod ulist;
+pub mod storage;

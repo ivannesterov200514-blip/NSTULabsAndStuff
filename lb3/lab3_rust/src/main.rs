@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 use std::env;
-use std::fs;
+use std::io::ErrorKind;
 use std::process;
 
 use lab3_rust::array::Arr;
@@ -10,6 +10,7 @@ use lab3_rust::hashtable::{ChainTable, CuckooTable};
 use lab3_rust::queue::Queue;
 use lab3_rust::stack::Stack;
 use lab3_rust::ulist::UList;
+use lab3_rust::storage::{Record, load_records, save_records};
 
 #[derive(Default)]
 struct Db {
@@ -80,143 +81,159 @@ fn to_key(s: &str) -> Option<i32> {
     r
 }
 
-fn push_line(out: &mut String, ty: char, name: &str, vals: &[String]) {
-    out.push(ty);
-    out.push(' ');
-    out.push_str(name);
-    for v in vals {
-        out.push(' ');
-        out.push_str(v);
-    }
-    out.push('\n');
-}
-
 fn flatten_pairs(pairs: Vec<(String, String)>) -> Vec<String> {
-    let mut res = Vec::with_capacity(pairs.len() * 2);
-    for (k, v) in pairs {
-        res.push(k);
-        res.push(v);
+    let mut result = Vec::new();
+    for (key, value) in pairs {
+        result.push(key);
+        result.push(value);
     }
-    res
+    result
 }
 
-fn save_db(db: &Db, file: &str) {
-    let mut out = String::new();
+fn collect_records(db: &Db) -> Vec<Record> {
+    let mut records = Vec::new();
     for (name, a) in &db.arrs {
-        push_line(&mut out, 'M', name, &a.items());
+        records.push(Record { kind: 'M', name: name.clone(), values: a.items() });
     }
     for (name, l) in &db.uls {
-        let keys: Vec<String> = l.get_pairs().into_iter().map(|p| p.0).collect();
-        push_line(&mut out, 'F', name, &keys);
+        let values = l.get_pairs().into_iter().map(|p| p.0).collect();
+        records.push(Record { kind: 'F', name: name.clone(), values });
     }
     for (name, l) in &db.dls {
-        push_line(&mut out, 'L', name, &l.items());
+        records.push(Record { kind: 'L', name: name.clone(), values: l.items() });
     }
-    for (name, s) in &db.sts {
-        push_line(&mut out, 'S', name, &s.items()); 
+    for (name, a) in &db.sts {
+        records.push(Record { kind: 'S', name: name.clone(), values: a.items() });
     }
-    for (name, q) in &db.qs {
-        push_line(&mut out, 'Q', name, &q.items());
+    for (name, a) in &db.qs {
+        records.push(Record { kind: 'Q', name: name.clone(), values: a.items() });
     }
-    for (name, t) in &db.trs {
-        let keys: Vec<String> = t.items().iter().map(|k| k.to_string()).collect();
-        push_line(&mut out, 'T', name, &keys); 
+    for (name, a) in &db.trs {
+        let values = a.items().iter().map(|v| v.to_string()).collect();
+        records.push(Record { kind: 'T', name: name.clone(), values });
     }
-    for (name, h) in &db.cts {
-        push_line(&mut out, 'C', name, &flatten_pairs(h.get_all()));
+    for (name, a) in &db.cts {
+        records.push(Record { kind: 'C', name: name.clone(), values: flatten_pairs(a.get_all()) });
     }
-    for (name, h) in &db.cus {
-        push_line(&mut out, 'K', name, &flatten_pairs(h.get_all()));
+    for (name, a) in &db.cus {
+        records.push(Record { kind: 'K', name: name.clone(), values: flatten_pairs(a.get_all()) });
     }
-    if fs::write(file, out).is_err() {
-        println!("Ошибка: Не удалось записать файл {}", file);
+    records
+}
+
+fn save_db(db: &Db, file: &str) -> bool {
+    match save_records(file, &collect_records(db)) {
+        Ok(()) => true,
+        Err(e) => {
+            println!("Ошибка: Не удалось сохранить файл {}: {}", file, e);
+            false
+        }
     }
 }
 
-fn load_db(db: &mut Db, file: &str) {
-    let text = match fs::read_to_string(file) {
-        Ok(t) => t,
-        Err(_) => return,
+fn load_db(db: &mut Db, file: &str) -> bool {
+    let records = match load_records(file) {
+        Ok(records) => records,
+        Err(e) if e.kind() == ErrorKind::NotFound => return true,
+        Err(e) => {
+            println!("Ошибка: Не удалось прочитать файл {}: {}", file, e);
+            return false;
+        }
     };
-    for line in text.lines() {
-        let mut it = line.split_whitespace();
-        let (ty, name) = match (it.next(), it.next()) {
-            (Some(a), Some(b)) => (a, b),
-            _ => continue,
-        };
-        let vals: Vec<&str> = it.collect();
-
-        match ty {
-            "M" => {
+    for record in records {
+        let name = record.name.as_str();
+        let values: Vec<&str> = record.values.iter().map(String::as_str).collect();
+        match record.kind {
+            'M' => {
                 if let Some(a) = goc!(db, arrs, name, 'M', Arr::default) {
-                    for v in &vals {
-                        a.insert_tail(v.to_string());
+                    for value in &values { a.insert_tail(value.to_string()); }
+                }
+            }
+            'F' => {
+                if let Some(a) = goc!(db, uls, name, 'F', UList::default) {
+                    for value in &values { a.insert_tail(value.to_string()); }
+                }
+            }
+            'L' => {
+                if let Some(a) = goc!(db, dls, name, 'L', DList::default) {
+                    for value in &values { a.insert_tail(value.to_string()); }
+                }
+            }
+            'S' => {
+                if let Some(a) = goc!(db, sts, name, 'S', Stack::default) {
+                    for value in values.iter().rev() { a.push(value.to_string()); }
+                }
+            }
+            'Q' => {
+                if let Some(a) = goc!(db, qs, name, 'Q', Queue::default) {
+                    for value in &values { a.push(value.to_string()); }
+                }
+            }
+            'T' => {
+                if let Some(a) = goc!(db, trs, name, 'T', AVLTree::default) {
+                    for value in &values {
+                        if let Some(key) = to_key(value) { a.insert(key); }
                     }
                 }
             }
-            "F" => {
-                if let Some(l) = goc!(db, uls, name, 'F', UList::default) {
-                    for v in &vals {
-                        l.insert_tail(v.to_string());
-                    }
+            'C' => {
+                if values.len() % 2 != 0 {
+                    println!("Ошибка: Некорректная запись хеш-таблицы {}", name);
+                    return false;
+                }
+                if let Some(a) = goc!(db, cts, name, 'C', ChainTable::default) {
+                    for pair in values.chunks(2) { a.put(pair[0].to_string(), pair[1].to_string()); }
                 }
             }
-            "L" => {
-                if let Some(l) = goc!(db, dls, name, 'L', DList::default) {
-                    for v in &vals {
-                        l.insert_tail(v.to_string());
-                    }
+            'K' => {
+                if values.len() % 2 != 0 {
+                    println!("Ошибка: Некорректная запись хеш-таблицы {}", name);
+                    return false;
+                }
+                if let Some(a) = goc!(db, cus, name, 'K', CuckooTable::default) {
+                    for pair in values.chunks(2) { a.put(pair[0].to_string(), pair[1].to_string()); }
                 }
             }
-            "S" => {
-                if let Some(s) = goc!(db, sts, name, 'S', Stack::default) {
-
-                    for v in vals.iter().rev() {
-                        s.push(v.to_string());
-                    }
-                }
+            other => {
+                println!("Ошибка: Неизвестный тип структуры в файле: {}", other);
+                return false;
             }
-            "Q" => {
-                if let Some(q) = goc!(db, qs, name, 'Q', Queue::default) {
-                    for v in &vals {
-                        q.push(v.to_string());
-                    }
-                }
-            }
-            "T" => {
-                if let Some(t) = goc!(db, trs, name, 'T', AVLTree::default) {
-                    for v in &vals {
-                        if let Some(k) = to_key(v) {
-                            t.insert(k);
-                        }
-                    }
-                }
-            }
-            "C" => {
-                if let Some(h) = goc!(db, cts, name, 'C', ChainTable::default) {
-                    if vals.len() % 2 != 0 {
-                        println!("Ошибка: Некорректная запись хеш-таблицы {} в файле", name);
-                        continue;
-                    }
-                    for p in vals.chunks(2) {
-                        h.put(p[0].to_string(), p[1].to_string());
-                    }
-                }
-            }
-            "K" => {
-                if let Some(h) = goc!(db, cus, name, 'K', CuckooTable::default) {
-                    if vals.len() % 2 != 0 {
-                        println!("Ошибка: Некорректная запись хеш-таблицы {} в файле", name);
-                        continue;
-                    }
-                    for p in vals.chunks(2) {
-                        h.put(p[0].to_string(), p[1].to_string());
-                    }
-                }
-            }
-            other => println!("Ошибка: Неизвестный тип структуры в файле: {}", other),
         }
     }
+    true
+}
+
+fn parse_query(query: &str) -> Option<Vec<String>> {
+    let mut words = Vec::new();
+    let mut word = String::new();
+    let mut quoted = false;
+    let mut escaped = false;
+    let mut started = false;
+    for ch in query.chars() {
+        if escaped {
+            word.push(ch);
+            escaped = false;
+        } else if ch == '\\' && quoted {
+            escaped = true;
+        } else if ch == '"' {
+            quoted = !quoted;
+            started = true;
+        } else if ch.is_whitespace() && !quoted {
+            if started {
+                words.push(std::mem::take(&mut word));
+                started = false;
+            }
+        } else {
+            word.push(ch);
+            started = true;
+        }
+    }
+    if quoted || escaped {
+        println!("Ошибка: Незакрытые кавычки в запросе");
+        return None;
+    }
+    if started { words.push(word); }
+    Some(words)
 }
 
 fn print_any(db: &Db, name: &str) {
@@ -573,11 +590,14 @@ fn main() {
         }
     }
     if file.is_empty() || query.is_empty() {
-        println!("Использование: dbms --file file.data --query 'КОМАНДА имя [аргументы]'");
+        println!("Использование: dbms --file file.data|file.bin --query 'КОМАНДА имя [аргументы]'");
         process::exit(1);
     }
 
-    let mut t: Vec<String> = query.split_whitespace().map(String::from).collect();
+    let mut t = match parse_query(&query) {
+        Some(words) => words,
+        None => process::exit(1),
+    };
     if t.is_empty() {
         println!("Ошибка: Пустой запрос");
         process::exit(1);
@@ -597,10 +617,14 @@ fn main() {
     }
 
     let mut db = Db::default();
-    load_db(&mut db, &file);
+    if !load_db(&mut db, &file) {
+        process::exit(1);
+    }
     run(&mut db, &t);
 
     if changes {
-        save_db(&db, &file);
+        if !save_db(&db, &file) {
+            process::exit(1);
+        }
     }
 }
